@@ -1,0 +1,19 @@
+<form action="http://attempto.ifi.uzh.ch/service/owl_verbalizer/owl_to_ace" method="post">
+
+
+<textarea name="xml" title="OWL ontology in XML syntax" rows="15" cols="70">
+<Ontology xmlns="http://www.w3.org/2002/07/owl#" xml:base="http://www.w3.org/2002/07/owl#" ontologyIRI="http://attempto.ifi.uzh.ch/ontologies/owlswrl/test">
+<SubClassOf>
+<Class IRI="http://attempto.ifi.uzh.ch/ontologies/owlswrl/test#man"/>
+<Class IRI="http://attempto.ifi.uzh.ch/ontologies/owlswrl/test#mortal"/>
+</SubClassOf>
+<ClassAssertion>
+<Class IRI="http://attempto.ifi.uzh.ch/ontologies/owlswrl/test#man"/>
+<NamedIndividual IRI="http://attempto.ifi.uzh.ch/ontologies/owlswrl/test#Socrates"/>
+</ClassAssertion>
+</Ontology>
+</textarea>
+<input type="hidden" name="format" value="ace"/>
+<br/>
+<input type="submit" value="OWL-to-ACE"/>
+</form>

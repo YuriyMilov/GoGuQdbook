@@ -1,0 +1,13 @@
+If X marries Y then Y marries X.
+
+Every man is something that marries exactly 1 woman, and that is Bill or that is Erick. Everything that marries exactly 1 woman, and that is Bill or that is Erick is a man.
+
+Every woman is something that marries exactly 1 man, and that is Alice or that is Kate. Everything that marries exactly 1 man, and that is Alice or that is Kate is a woman.
+
+Alice is a woman.
+
+Kate is a woman.
+
+Erick is a man.
+
+Bill is a man.

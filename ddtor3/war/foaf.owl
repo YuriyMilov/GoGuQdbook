@@ -1,0 +1,706 @@
+<?xml version="1.0"?>
+<Ontology xmlns="http://www.w3.org/2002/07/owl#"
+     xml:base="http://www.w3.org/2002/07/owl#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace">
+    <Prefix name="fish" IRI="http://test.feofan.com/fish.owl#"/>
+    <Prefix name="foaf" IRI="http://xmlns.com/foaf/0.1/"/>
+    <Prefix name="con" IRI="http://www.w3.org/2000/10/swap/pim/contact#"/>
+    <Prefix name="owl11xml" IRI="http://www.w3.org/2006/12/owl11-xml#"/>
+    <Prefix name="xsp" IRI="http://www.owl-ontologies.com/2005/08/07/xsp.owl#"/>
+    <Prefix name="rdf" IRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+    <Prefix name="swrl" IRI="http://www.w3.org/2003/11/swrl#"/>
+    <Prefix name="cc" IRI="http://creativecommons.org/ns#"/>
+    <Prefix name="owl11" IRI="http://www.w3.org/2006/12/owl11#"/>
+    <Prefix name="xsd" IRI="http://www.w3.org/2001/XMLSchema#"/>
+    <Prefix name="owl" IRI="http://www.w3.org/2002/07/owl#"/>
+    <Prefix name="swrlb" IRI="http://www.w3.org/2003/11/swrlb#"/>
+    <Prefix name="protege" IRI="http://protege.stanford.edu/plugins/owl/protege#"/>
+    <Prefix name="s" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
+    <Prefix name="" IRI="http://www.w3.org/2002/07/owl#"/>
+    <Prefix name="pizza" IRI="http://www.co-ode.org/ontologies/pizza/pizza.owl#"/>
+    <Prefix name="dc" IRI="http://purl.org/dc/elements/1.1/"/>
+    <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
+    <Prefix name="geo" IRI="http://www.w3.org/2003/01/geo/wgs84_pos#"/>
+    <ClassAssertion>
+        <Class abbreviatedIRI="foaf:Person"/>
+        <NamedIndividual IRI="http://dbpedia.org/resource/John_Gage"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class abbreviatedIRI="foaf:Person"/>
+        <NamedIndividual IRI="http://dbpedia.org/resource/John_Klensin"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class abbreviatedIRI="foaf:Person"/>
+        <NamedIndividual IRI="http://dbpedia.org/resource/John_Markoff"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class abbreviatedIRI="foaf:Person"/>
+        <NamedIndividual IRI="http://dbpedia.org/resource/John_Seely_Brown"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class abbreviatedIRI="foaf:Person"/>
+        <NamedIndividual IRI="http://dbpedia.org/resource/Tim_Bray"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class abbreviatedIRI="foaf:Person"/>
+        <NamedIndividual IRI="http://dig.csail.mit.edu/2007/wiki/people/RobertHoffmann#RMH"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class abbreviatedIRI="foaf:PersonalProfileDocument"/>
+        <NamedIndividual IRI="http://dig.csail.mit.edu/2008/webdav/timbl/foaf.rdf"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class abbreviatedIRI="foaf:Person"/>
+        <NamedIndividual IRI="http://dig.csail.mit.edu/2008/webdav/timbl/foaf.rdf#cm"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class abbreviatedIRI="foaf:Person"/>
+        <NamedIndividual IRI="http://dig.csail.mit.edu/2008/webdav/timbl/foaf.rdf#dj"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class abbreviatedIRI="foaf:Person"/>
+        <NamedIndividual IRI="http://dig.csail.mit.edu/2008/webdav/timbl/foaf.rdf#edd"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class abbreviatedIRI="foaf:Person"/>
+        <NamedIndividual IRI="http://dig.csail.mit.edu/2008/webdav/timbl/foaf.rdf#libby"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class abbreviatedIRI="foaf:Person"/>
+        <NamedIndividual IRI="http://inamidst.com/sbp/foaf#Sean"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class abbreviatedIRI="foaf:Person"/>
+        <NamedIndividual IRI="http://myopenlink.net/dataspace/person/kidehen#this"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class abbreviatedIRI="foaf:Person"/>
+        <NamedIndividual IRI="http://norman.walsh.name/knows/who#norman-walsh"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class abbreviatedIRI="foaf:Person"/>
+        <NamedIndividual IRI="http://people.csail.mit.edu/lkagal/foaf#me"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class abbreviatedIRI="foaf:Person"/>
+        <NamedIndividual IRI="http://people.w3.org/simon/foaf#i"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class abbreviatedIRI="foaf:Person"/>
+        <NamedIndividual IRI="http://qdos.com/people/tom.xrdf#me"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class abbreviatedIRI="foaf:Person"/>
+        <NamedIndividual IRI="http://rit.mellon.org/Members/ihf/foaf.rdf#me"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class abbreviatedIRI="foaf:Person"/>
+        <NamedIndividual IRI="http://www.aaronsw.com/about.xrdf#aaronsw"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class abbreviatedIRI="foaf:Person"/>
+        <NamedIndividual IRI="http://www.dajobe.org/foaf.rdf#i"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class abbreviatedIRI="foaf:Person"/>
+        <NamedIndividual IRI="http://www.isi.edu/~gil/foaf.rdf#me"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class abbreviatedIRI="foaf:Person"/>
+        <NamedIndividual IRI="http://www.w3.org/People/Berners-Lee/card#amy"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class abbreviatedIRI="foaf:Person"/>
+        <NamedIndividual IRI="http://www.w3.org/People/Connolly/#me"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class abbreviatedIRI="foaf:Person"/>
+        <NamedIndividual IRI="http://www.w3.org/People/EM/contact#me"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class abbreviatedIRI="foaf:Person"/>
+        <NamedIndividual IRI="http://www.w3.org/People/djweitzner/foaf#DJW"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class abbreviatedIRI="foaf:Person"/>
+        <AnonymousIndividual nodeID="_:#genid1"/>
+    </ClassAssertion>
+    <SameIndividual>
+        <NamedIndividual IRI="http://danbri.org/foaf.rdf#danbri"/>
+        <NamedIndividual IRI="http://my.opera.com/danbri/xml/foaf#me"/>
+    </SameIndividual>
+    <SameIndividual>
+        <NamedIndividual IRI="http://dbpedia.org/resource/John_Seely_Brown"/>
+        <NamedIndividual IRI="http://www4.wiwiss.fu-berlin.de/bookmashup/persons/John+Seely+Brown"/>
+    </SameIndividual>
+    <SameIndividual>
+        <NamedIndividual IRI="http://dig.csail.mit.edu/2008/webdav/timbl/foaf.rdf#libby"/>
+        <NamedIndividual IRI="http://swordfish.rdfweb.org/people/libby/rdfweb/webwho.xrdf#me"/>
+    </SameIndividual>
+    <SameIndividual>
+        <NamedIndividual IRI="http://my.opera.com/danbri/xml/foaf#me"/>
+        <NamedIndividual IRI="http://www4.wiwiss.fu-berlin.de/dblp/resource/person/336851"/>
+    </SameIndividual>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="foaf:img"/>
+        <IRI>http://dbpedia.org/resource/John_Gage</IRI>
+        <IRI>http://upload.wikimedia.org/wikipedia/commons/d/de/John_Gage.jpg</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="foaf:homepage"/>
+        <IRI>http://dbpedia.org/resource/John_Seely_Brown</IRI>
+        <IRI>http://www.johnseelybrown.com/</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="foaf:img"/>
+        <IRI>http://dbpedia.org/resource/John_Seely_Brown</IRI>
+        <IRI>http://transliteracies.english.ucsb.edu/images/participants/t/brown-john-seely-2.jpg</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="foaf:maker"/>
+        <IRI>http://dig.csail.mit.edu/2007/01/camp/data#course</IRI>
+        <IRI>http://www.w3.org/People/Berners-Lee/card#i</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="cc:license"/>
+        <IRI>http://dig.csail.mit.edu/2008/webdav/timbl/foaf.rdf</IRI>
+        <IRI>http://creativecommons.org/licenses/by-nc/3.0/</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="foaf:maker"/>
+        <IRI>http://dig.csail.mit.edu/2008/webdav/timbl/foaf.rdf</IRI>
+        <IRI>http://www.w3.org/People/Berners-Lee/card#i</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="foaf:primaryTopic"/>
+        <IRI>http://dig.csail.mit.edu/2008/webdav/timbl/foaf.rdf</IRI>
+        <IRI>http://www.w3.org/People/Berners-Lee/card#i</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:seeAlso"/>
+        <IRI>http://dig.csail.mit.edu/2008/webdav/timbl/foaf.rdf#cm</IRI>
+        <IRI>http://www.koalie.net/foaf.rdf</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:seeAlso"/>
+        <IRI>http://dig.csail.mit.edu/2008/webdav/timbl/foaf.rdf#dj</IRI>
+        <IRI>http://www.grorg.org/dean/foaf.rdf</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="foaf:homepage"/>
+        <IRI>http://dig.csail.mit.edu/2008/webdav/timbl/foaf.rdf#dj</IRI>
+        <IRI>http://www.grorg.org/dean/</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="foaf:mbox"/>
+        <IRI>http://dig.csail.mit.edu/2008/webdav/timbl/foaf.rdf#dj</IRI>
+        <IRI>mailto:dean@w3.org</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="foaf:mbox"/>
+        <IRI>http://dig.csail.mit.edu/2008/webdav/timbl/foaf.rdf#dj</IRI>
+        <IRI>mailto:dino@grorg.org</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:seeAlso"/>
+        <IRI>http://dig.csail.mit.edu/2008/webdav/timbl/foaf.rdf#edd</IRI>
+        <IRI>http://heddley.com/edd/foaf.rdf</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="foaf:homepage"/>
+        <IRI>http://dig.csail.mit.edu/2008/webdav/timbl/foaf.rdf#edd</IRI>
+        <IRI>http://heddley.com/edd/</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="foaf:mbox"/>
+        <IRI>http://dig.csail.mit.edu/2008/webdav/timbl/foaf.rdf#edd</IRI>
+        <IRI>mailto:edd@usefulinc.com</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="foaf:mbox"/>
+        <IRI>http://dig.csail.mit.edu/2008/webdav/timbl/foaf.rdf#edd</IRI>
+        <IRI>mailto:edd@xml.com</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="foaf:mbox"/>
+        <IRI>http://dig.csail.mit.edu/2008/webdav/timbl/foaf.rdf#edd</IRI>
+        <IRI>mailto:edd@xmlhack.com</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="foaf:img"/>
+        <IRI>http://dig.csail.mit.edu/2008/webdav/timbl/foaf.rdf#libby</IRI>
+        <IRI>http://swordfish.rdfweb.org/~libby/libby.jpg</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="foaf:mbox"/>
+        <IRI>http://dig.csail.mit.edu/2008/webdav/timbl/foaf.rdf#libby</IRI>
+        <IRI>mailto:libby.miller@bristol.ac.uk</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="foaf:organization"/>
+        <IRI>http://dig.csail.mit.edu/2008/webdav/timbl/foaf.rdf#ss</IRI>
+        <IRI>http://dbpedia.org/resource/Eli_Lilly_and_Company</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:seeAlso"/>
+        <IRI>http://dig.csail.mit.edu/breadcrumbs/blog/4</IRI>
+        <IRI>http://dig.csail.mit.edu/breadcrumbs/blog/feed/4</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="foaf:maker"/>
+        <IRI>http://dig.csail.mit.edu/breadcrumbs/blog/4</IRI>
+        <IRI>http://www.w3.org/People/Berners-Lee/card#i</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="foaf:member"/>
+        <IRI>http://dig.csail.mit.edu/data#DIG</IRI>
+        <IRI>http://www.w3.org/People/Berners-Lee/card#i</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:seeAlso"/>
+        <IRI>http://my.opera.com/danbri/xml/foaf#me</IRI>
+        <IRI>http://danbri.livejournal.com/data/foaf</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="foaf:mailbox"/>
+        <IRI>http://people.csail.mit.edu/lkagal/foaf#me</IRI>
+        <IRI>mailto:lalana@csail.mit.edu</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="foaf:homepage"/>
+        <IRI>http://rit.mellon.org/Members/ihf/foaf.rdf#me</IRI>
+        <IRI>http://www.mellon.org/about_foundation/staff/program-area-staff/irafuchs</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="foaf:img"/>
+        <IRI>http://rit.mellon.org/Members/ihf/foaf.rdf#me</IRI>
+        <IRI>http://www.sun.com/products-n-solutions/edu/images/jelc/fuchs.jpg</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="con:participant"/>
+        <IRI>http://wiki.ontoworld.org/index.php/_IRW2006</IRI>
+        <IRI>http://www.w3.org/People/Berners-Lee/card#i</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:seeAlso"/>
+        <IRI>http://www.aaronsw.com/about.xrdf#aaronsw</IRI>
+        <IRI>http://www.aaronsw.com/about.xrdf</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="foaf:mbox"/>
+        <IRI>http://www.aaronsw.com/about.xrdf#aaronsw</IRI>
+        <IRI>mailto:me@aaronsw.com</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="foaf:mailbox"/>
+        <IRI>http://www.dajobe.org/foaf.rdf#i</IRI>
+        <IRI>mailto:dave@dajobe.org</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>http://www.ecs.soton.ac.uk/~dt2/dlstuff/www2006_data#panel-panelk01</IRI>
+        <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">The Next Wave of the Web (Plenary Panel)</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="con:participant"/>
+        <IRI>http://www.ecs.soton.ac.uk/~dt2/dlstuff/www2006_data#panel-panelk01</IRI>
+        <IRI>http://www.w3.org/People/Berners-Lee/card#i</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>http://www.w3.org/People/Berners-Lee/card#amy</IRI>
+        <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Amy van der Hiel</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:seeAlso"/>
+        <IRI>http://www.w3.org/People/Berners-Lee/card#amy</IRI>
+        <IRI>http://people.w3.org/amy/foaf.rdf</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="foaf:mbox"/>
+        <IRI>http://www.w3.org/People/Berners-Lee/card#amy</IRI>
+        <IRI>mailto:amy@w3.org</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="foaf:img"/>
+        <IRI>http://www.w3.org/People/Berners-Lee/card#i</IRI>
+        <IRI>http://www.w3.org/Press/Stock/Berners-Lee/2001-europaeum-eighth.jpg</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="foaf:knows"/>
+        <IRI>http://www.w3.org/People/Berners-Lee/card#i</IRI>
+        <IRI>http://bblfish.net/people/henry/card#me</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="foaf:knows"/>
+        <IRI>http://www.w3.org/People/Berners-Lee/card#i</IRI>
+        <IRI>http://danbri.org/foaf#danbri</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="foaf:knows"/>
+        <IRI>http://www.w3.org/People/Berners-Lee/card#i</IRI>
+        <IRI>http://dbpedia.org/resource/John_Gage</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="foaf:knows"/>
+        <IRI>http://www.w3.org/People/Berners-Lee/card#i</IRI>
+        <IRI>http://dbpedia.org/resource/John_Klensin</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="foaf:knows"/>
+        <IRI>http://www.w3.org/People/Berners-Lee/card#i</IRI>
+        <IRI>http://dbpedia.org/resource/John_Markoff</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="foaf:knows"/>
+        <IRI>http://www.w3.org/People/Berners-Lee/card#i</IRI>
+        <IRI>http://dbpedia.org/resource/John_Seely_Brown</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="foaf:knows"/>
+        <IRI>http://www.w3.org/People/Berners-Lee/card#i</IRI>
+        <IRI>http://dbpedia.org/resource/Tim_Bray</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="foaf:knows"/>
+        <IRI>http://www.w3.org/People/Berners-Lee/card#i</IRI>
+        <IRI>http://dig.csail.mit.edu/2007/wiki/people/JoeLambda#JL</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="foaf:knows"/>
+        <IRI>http://www.w3.org/People/Berners-Lee/card#i</IRI>
+        <IRI>http://dig.csail.mit.edu/2007/wiki/people/RobertHoffmann#RMH</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="foaf:knows"/>
+        <IRI>http://www.w3.org/People/Berners-Lee/card#i</IRI>
+        <IRI>http://dig.csail.mit.edu/2008/webdav/timbl/foaf.rdf#cm</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="foaf:knows"/>
+        <IRI>http://www.w3.org/People/Berners-Lee/card#i</IRI>
+        <IRI>http://dig.csail.mit.edu/2008/webdav/timbl/foaf.rdf#edd</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="foaf:knows"/>
+        <IRI>http://www.w3.org/People/Berners-Lee/card#i</IRI>
+        <IRI>http://dig.csail.mit.edu/2008/webdav/timbl/foaf.rdf#libby</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="foaf:knows"/>
+        <IRI>http://www.w3.org/People/Berners-Lee/card#i</IRI>
+        <IRI>http://dig.csail.mit.edu/2008/webdav/timbl/foaf.rdf#ss</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="foaf:knows"/>
+        <IRI>http://www.w3.org/People/Berners-Lee/card#i</IRI>
+        <IRI>http://dig.csail.mit.edu/People/RRS</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="foaf:knows"/>
+        <IRI>http://www.w3.org/People/Berners-Lee/card#i</IRI>
+        <IRI>http://dig.csail.mit.edu/People/yosi#YES</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="foaf:knows"/>
+        <IRI>http://www.w3.org/People/Berners-Lee/card#i</IRI>
+        <IRI>http://eikeon.com/foaf.rdf#eikeon</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="foaf:knows"/>
+        <IRI>http://www.w3.org/People/Berners-Lee/card#i</IRI>
+        <IRI>http://heddley.com/edd/foaf.rdf#edd</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="foaf:knows"/>
+        <IRI>http://www.w3.org/People/Berners-Lee/card#i</IRI>
+        <IRI>http://hometown.aol.com/chbussler/foaf/chbussler.foaf#me</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="foaf:knows"/>
+        <IRI>http://www.w3.org/People/Berners-Lee/card#i</IRI>
+        <IRI>http://id.ecs.soton.ac.uk/person/1269</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="foaf:knows"/>
+        <IRI>http://www.w3.org/People/Berners-Lee/card#i</IRI>
+        <IRI>http://id.ecs.soton.ac.uk/person/1650</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="foaf:knows"/>
+        <IRI>http://www.w3.org/People/Berners-Lee/card#i</IRI>
+        <IRI>http://id.ecs.soton.ac.uk/person/2686</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="foaf:knows"/>
+        <IRI>http://www.w3.org/People/Berners-Lee/card#i</IRI>
+        <IRI>http://id.ecs.soton.ac.uk/person/60</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="foaf:knows"/>
+        <IRI>http://www.w3.org/People/Berners-Lee/card#i</IRI>
+        <IRI>http://inamidst.com/sbp/foaf#Sean</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="foaf:knows"/>
+        <IRI>http://www.w3.org/People/Berners-Lee/card#i</IRI>
+        <IRI>http://my.opera.com/chaals/xml/foaf#me</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="foaf:knows"/>
+        <IRI>http://www.w3.org/People/Berners-Lee/card#i</IRI>
+        <IRI>http://my.opera.com/howcome/xml/foaf#howcome</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="foaf:knows"/>
+        <IRI>http://www.w3.org/People/Berners-Lee/card#i</IRI>
+        <IRI>http://myopenlink.net/dataspace/person/kidehen#this</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="foaf:knows"/>
+        <IRI>http://www.w3.org/People/Berners-Lee/card#i</IRI>
+        <IRI>http://norman.walsh.name/knows/who#norman-walsh</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="foaf:knows"/>
+        <IRI>http://www.w3.org/People/Berners-Lee/card#i</IRI>
+        <IRI>http://people.apache.org/~oshani/foaf.rdf#me</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="foaf:knows"/>
+        <IRI>http://www.w3.org/People/Berners-Lee/card#i</IRI>
+        <IRI>http://people.csail.mit.edu/crowell/foaf.rdf#crowell</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="foaf:knows"/>
+        <IRI>http://www.w3.org/People/Berners-Lee/card#i</IRI>
+        <IRI>http://people.csail.mit.edu/lkagal/foaf#me</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="foaf:knows"/>
+        <IRI>http://www.w3.org/People/Berners-Lee/card#i</IRI>
+        <IRI>http://people.csail.mit.edu/psz/foaf.rdf#me</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="foaf:knows"/>
+        <IRI>http://www.w3.org/People/Berners-Lee/card#i</IRI>
+        <IRI>http://people.csail.mit.edu/ryanlee/about#ryanlee</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="foaf:knows"/>
+        <IRI>http://www.w3.org/People/Berners-Lee/card#i</IRI>
+        <IRI>http://people.w3.org/simon/foaf#i</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="foaf:knows"/>
+        <IRI>http://www.w3.org/People/Berners-Lee/card#i</IRI>
+        <IRI>http://presbrey.mit.edu/foaf.rdf#presbrey</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="foaf:knows"/>
+        <IRI>http://www.w3.org/People/Berners-Lee/card#i</IRI>
+        <IRI>http://qdos.com/people/tom.xrdf#me</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="foaf:knows"/>
+        <IRI>http://www.w3.org/People/Berners-Lee/card#i</IRI>
+        <IRI>http://research.microsoft.com/~henrikn/foaf.xml#me</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="foaf:knows"/>
+        <IRI>http://www.w3.org/People/Berners-Lee/card#i</IRI>
+        <IRI>http://rit.mellon.org/Members/ihf/foaf.rdf#me</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="foaf:knows"/>
+        <IRI>http://www.w3.org/People/Berners-Lee/card#i</IRI>
+        <IRI>http://teole.jfouffa.org/People/Teole/card.rdf#me</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="foaf:knows"/>
+        <IRI>http://www.w3.org/People/Berners-Lee/card#i</IRI>
+        <IRI>http://users.ecs.soton.ac.uk/mc/mcfoaf.rdf#me</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="foaf:knows"/>
+        <IRI>http://www.w3.org/People/Berners-Lee/card#i</IRI>
+        <IRI>http://web.mit.edu/ruthdhan/www/foaf.rdf#ruthdhan</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="foaf:knows"/>
+        <IRI>http://www.w3.org/People/Berners-Lee/card#i</IRI>
+        <IRI>http://web.mit.edu/shinnyih/foaf.rdf#</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="foaf:knows"/>
+        <IRI>http://www.w3.org/People/Berners-Lee/card#i</IRI>
+        <IRI>http://www.aaronsw.com/about.xrdf#aaronsw</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="foaf:knows"/>
+        <IRI>http://www.w3.org/People/Berners-Lee/card#i</IRI>
+        <IRI>http://www.cambridgesemantics.com/people/about/lee</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="foaf:knows"/>
+        <IRI>http://www.w3.org/People/Berners-Lee/card#i</IRI>
+        <IRI>http://www.cs.umd.edu/~hendler/2003/foaf.rdf#jhendler</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="foaf:knows"/>
+        <IRI>http://www.w3.org/People/Berners-Lee/card#i</IRI>
+        <IRI>http://www.dajobe.org/foaf.rdf#i</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="foaf:knows"/>
+        <IRI>http://www.w3.org/People/Berners-Lee/card#i</IRI>
+        <IRI>http://www.isi.edu/~gil/foaf.rdf#me</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="foaf:knows"/>
+        <IRI>http://www.w3.org/People/Berners-Lee/card#i</IRI>
+        <IRI>http://www.ivan-herman.net/foaf.rdf#me</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="foaf:knows"/>
+        <IRI>http://www.w3.org/People/Berners-Lee/card#i</IRI>
+        <IRI>http://www.kjetil.kjernsmo.net/foaf#me</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="foaf:knows"/>
+        <IRI>http://www.w3.org/People/Berners-Lee/card#i</IRI>
+        <IRI>http://www.lassila.org/ora.rdf#me</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="foaf:knows"/>
+        <IRI>http://www.w3.org/People/Berners-Lee/card#i</IRI>
+        <IRI>http://www.mindswap.org/2004/owl/mindswappers#Bijan.Parsia</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="foaf:knows"/>
+        <IRI>http://www.w3.org/People/Berners-Lee/card#i</IRI>
+        <IRI>http://www.mindswap.org/2004/owl/mindswappers#Jennifer.Golbeck</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="foaf:knows"/>
+        <IRI>http://www.w3.org/People/Berners-Lee/card#i</IRI>
+        <IRI>http://www.w3.org/People/Berners-Lee/card#amy</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="foaf:knows"/>
+        <IRI>http://www.w3.org/People/Berners-Lee/card#i</IRI>
+        <IRI>http://www.w3.org/People/Connolly/#me</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="foaf:knows"/>
+        <IRI>http://www.w3.org/People/Berners-Lee/card#i</IRI>
+        <IRI>http://www.w3.org/People/EM/contact#me</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="foaf:knows"/>
+        <IRI>http://www.w3.org/People/Berners-Lee/card#i</IRI>
+        <IRI>http://www.w3.org/People/Jacobs/contact.rdf#IanJacobs</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="foaf:knows"/>
+        <IRI>http://www.w3.org/People/Berners-Lee/card#i</IRI>
+        <IRI>http://www.w3.org/People/djweitzner/foaf#DJW</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="foaf:knows"/>
+        <IRI>http://www.w3.org/People/Berners-Lee/card#i</IRI>
+        <IRI>http://www.w3.org/People/karl/karl-foaf.xrdf#me</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="foaf:knows"/>
+        <IRI>http://www.w3.org/People/Berners-Lee/card#i</IRI>
+        <AnonymousIndividual nodeID="_:#genid1"/>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:seeAlso"/>
+        <IRI>http://www.w3.org/People/Connolly/#me</IRI>
+        <IRI>http://www.w3.org/People/Connolly/home-smart.rdf</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="foaf:mbox"/>
+        <IRI>http://www.w3.org/People/Connolly/#me</IRI>
+        <IRI>mailto:connolly@w3.org</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:seeAlso"/>
+        <IRI>http://www.w3.org/People/EM/contact#me</IRI>
+        <IRI>http://www.w3.org/People/EM/contact</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="foaf:homepage"/>
+        <IRI>http://www.w3.org/People/EM/contact#me</IRI>
+        <IRI>http://purl.org/net/eric/</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="foaf:img"/>
+        <IRI>http://www.w3.org/People/EM/contact#me</IRI>
+        <IRI>http://www.ilrt.bristol.ac.uk/people/cmdjb/events/dc7/orig/eric.png</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="foaf:img"/>
+        <IRI>http://www.w3.org/People/EM/contact#me</IRI>
+        <IRI>http://www.oclc.org/~emiller/capture.jpg</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="foaf:mbox"/>
+        <IRI>http://www.w3.org/People/EM/contact#me</IRI>
+        <IRI>mailto:em@w3.org</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:seeAlso"/>
+        <IRI>http://www.w3.org/People/karl/karl-foaf.xrdf#me</IRI>
+        <IRI>http://www.w3.org/People/karl/karl-foaf.xrdf</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="foaf:mbox"/>
+        <IRI>http://www.w3.org/People/karl/karl-foaf.xrdf#me</IRI>
+        <IRI>mailto:karl@w3.org</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>http://www.w3.org/data#W3C</IRI>
+        <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">W3C</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:seeAlso"/>
+        <IRI>http://www.w3.org/data#W3C</IRI>
+        <IRI>http://dig.csail.mit.edu/2008/2002/01/tr-automation/tr.rdf</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="con:publicHomePage"/>
+        <IRI>http://www.w3.org/data#W3C</IRI>
+        <IRI>http://www.w3.org/</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="foaf:homepage"/>
+        <IRI>http://www.w3.org/data#W3C</IRI>
+        <IRI>http://dig.csail.mit.edu/2008/</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="foaf:logo"/>
+        <IRI>http://www.w3.org/data#W3C</IRI>
+        <IRI>http://dig.csail.mit.edu/2008/Icons/w3c_home</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="dc:creator"/>
+        <IRI>http://www4.wiwiss.fu-berlin.de/booksMeshup/books/006251587X</IRI>
+        <IRI>http://www.w3.org/People/Berners-Lee/card#i</IRI>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:seeAlso"/>
+        <AnonymousIndividual nodeID="_:#genid1"/>
+        <IRI>http://dannyayers.com/me.rdf</IRI>
+    </AnnotationAssertion>
+</Ontology>
+
+
+
+<!-- Generated by the OWL API (version 3.2.1.1753) http://owlapi.sourceforge.net -->

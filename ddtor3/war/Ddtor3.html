@@ -1,0 +1,61 @@
+
+<html>
+<head>
+</head>
+<body bgcolor="#eeeeee">
+
+    
+ 
+ <form action="owl" method="get">
+ (Semantic Web) tag address: <input size = 70" name="url"  value="https://plus.google.com/u/0/113924356604221727803/posts/QSMjmm4rTjh"/>
+
+ <br />
+ 
+ <input type="submit" value="Get OWL">	
+ </form>
+	&nbsp;
+	<br/>&nbsp;<a href="1.htm">ACE to OWL</a> &nbsp;&nbsp;&nbsp;
+	<a href="2.htm">OWL to ACE</a>  &nbsp;&nbsp;&nbsp;
+	<a href="3.htm">ACE to OWL and back to ACE </a> 
+<br/><br/>
+	<form action="ddf" method="post">
+<input name="text" size = 80" value="http://www.ddtor.com/marriage.owl"/>
+<input type="hidden" name="qq" value="2"/>
+ <br />
+ <input type="submit" value="OWL->ACE">	
+ </form>
+
+Query http://www.ddtor.com/marriage.owl 
+
+<form action="ddp" method="post">
+<input name="sparql" size = 80" value="SELECT ?Who  WHERE {?Who :marry :Alice}"/>
+<input type="hidden" name="qq" value="2"/>
+ <br />
+ <input type="submit" value="SPARQL">	
+ </form>
+  <br />
+ Growing ontology:<br /><br />	
+ 
+ <a href="http://www.ddtor.com/OntologyC.txt">Ontology stem</a><br/>
+ <a href="http://ontolog.cim3.net/cgi-bin/wiki.pl?YuriyMilov">Ontology branch 1</a><br/>
+ <a href="http://www.feofan.com/primer.htm">Ontology branch 2</a>
+ 
+  <br /> <br /> <br />
+ 
+ OWL from ACE - enrter point from Ontology branch 1:    
+ 
+ <form action="owl" method="get">
+<input size = 80" name="url" value="http://ontolog.cim3.net/cgi-bin/wiki.pl?YuriyMilov"/>
+
+ <br />
+ <input type="submit" value="Get OWL">	
+ </form>
+ <br />	
+ OWL from ACE - enrter point from Ontology branch 2:    
+ 
+ <form action="owl" method="get">
+<input size = 80" name="url" value="http://www.feofan.com/primer.htm"/>
+
+ <br />
+ <input type="submit" value="Get OWL">	
+ </form>

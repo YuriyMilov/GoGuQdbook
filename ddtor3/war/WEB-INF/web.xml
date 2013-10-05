@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.5" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee                http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+
+  <!-- Servlets -->
+  
+    
+   <servlet>
+    <servlet-name>ddp</servlet-name>
+    <servlet-class>dd.ddp</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>ddp</servlet-name>
+    <url-pattern>/ddp</url-pattern>
+  </servlet-mapping>
+
+  
+  
+    <servlet>
+    <servlet-name>post</servlet-name>
+    <servlet-class>dd.post</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>post</servlet-name>
+    <url-pattern>/post</url-pattern>
+  </servlet-mapping>
+  
+    
+    <servlet>
+    <servlet-name>qqq</servlet-name>
+    <servlet-class>dd.qqq</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>qqq</servlet-name>
+    <url-pattern>/qqq</url-pattern>
+  </servlet-mapping>
+  
+  
+  
+  <servlet>
+    <servlet-name>greetServlet</servlet-name>
+    <servlet-class>dd.server.GreetingServiceImpl</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>greetServlet</servlet-name>
+    <url-pattern>/ddtor3/greet</url-pattern>
+  </servlet-mapping>  
+  
+  <servlet>
+    <servlet-name>ddf</servlet-name>
+    <servlet-class>dd.ddf</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>ddf</servlet-name>
+    <url-pattern>/ddf</url-pattern>
+  </servlet-mapping>
+  
+ 
+  
+  <servlet>
+    <servlet-name>qqw</servlet-name>
+    <servlet-class>dd.qqw</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>qqw</servlet-name>
+    <url-pattern>/qqw</url-pattern>
+  </servlet-mapping>
+  
+  
+  <servlet>
+    <servlet-name>qqr</servlet-name>
+    <servlet-class>dd.qqr</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>qqr</servlet-name>
+    <url-pattern>/qqr</url-pattern>
+  </servlet-mapping>
+    
+  <servlet>
+    <servlet-name>bre</servlet-name>
+    <servlet-class>dd.bre</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>bre</servlet-name>
+    <url-pattern>/bre</url-pattern>
+  </servlet-mapping>
+  
+    <servlet>
+    <servlet-name>bre2</servlet-name>
+    <servlet-class>dd.bre2</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>bre2</servlet-name>
+    <url-pattern>/bre2</url-pattern>
+  </servlet-mapping>
+  
+      <servlet>
+    <servlet-name>owl</servlet-name>
+    <servlet-class>dd.owl</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>owl</servlet-name>
+    <url-pattern>/owl</url-pattern>
+  </servlet-mapping>
+  
+  
+  <!-- Default page to serve -->
+  <welcome-file-list>
+    <welcome-file>Ddtor3.html</welcome-file>
+  </welcome-file-list>
+
+  <servlet>
+    <servlet-name>SystemServiceServlet</servlet-name>
+    <servlet-class>com.google.api.server.spi.SystemServiceServlet</servlet-class>
+    <init-param>
+      <param-name>services</param-name>
+      <param-value/>
+    </init-param>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>SystemServiceServlet</servlet-name>
+    <url-pattern>/_ah/spi/*</url-pattern>
+  </servlet-mapping>
+
+</web-app>
