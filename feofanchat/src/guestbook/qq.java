@@ -9,8 +9,10 @@ import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLClassAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLInverseObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 
@@ -81,12 +83,17 @@ public class qq extends HttpServlet implements EntryPoint {
 		if (req.getQueryString() == null)
 			stq.init(req, resp);
 		else {
-			if(req.getParameter("test")!=null)
+			String s2=req.getParameter("test");
+			if(s2!=null)
 			{
 			if(req.getParameter("test").contains("forum"))
 					s=форум(sh);
 			if(req.getParameter("test").contains("kar"))
-					s=кря(sh);
+				s=кря(sh);
+
+			if(req.getParameter("test").contains("totkto"))
+				s=totkto(sh);
+
 			stat.page(req, resp, s);
 			return;
 			}
@@ -95,7 +102,47 @@ public class qq extends HttpServlet implements EntryPoint {
 				doPost(req, resp);
 		}
 	}
+	public static String totkto(String ш){
+		
+		String s="Тот, кто играет_на Баян, тот живет_рядом_с тот, кто выращивает Розы.";
+		String[] ss=null;
+		int i = 0;
+		if(s.toLowerCase().indexOf("тот, кто")!=s.toLowerCase().lastIndexOf("тот, кто"))
+		{
+			ss=s.split("тот, кто");
+			
+			for(String s2:ss)
+			{
+				s2=ss[i++];				
+			}			
+		}
+		
+		stat.owl_file = "rff?83.owl";
+		Owl2Model qw = new Owl2Model(ш + "/" + stat.owl_file);
+				
 
+		
+		OWLClassAxiom аксиома_о_кто_играет_на_Баяне = 
+				qw.factory.getOWLEquivalentClassesAxiom(qw.getOwlClass("играет_на_Баяне"),qw.factory.getOWLObjectSomeValuesFrom(qw.getProperty("живет_рядом_с"), qw.getOwlClass("выращивает_Розы")));
+		qw.manager.addAxiom(qw.ontology, аксиома_о_кто_играет_на_Баяне);	
+
+		
+		
+		OWLEquivalentClassesAxiom аксиома_о_Незнайкe = 
+				qw.factory.getOWLEquivalentClassesAxiom(qw.getOwlClass("выращивает_Розы"), qw.factory.getOWLObjectOneOf(qw.getIndividual("Незнайка")));
+		qw.manager.addAxiom(qw.ontology, аксиома_о_Незнайкe);	
+		
+		
+		
+		OWLEquivalentClassesAxiom аксиома_о_Пончикe = 
+				qw.factory.getOWLEquivalentClassesAxiom(qw.getOwlClass("играет_на_Баяне"), qw.factory.getOWLObjectOneOf(qw.getIndividual("Пончик")));
+			qw.manager.addAxiom(qw.ontology, аксиома_о_Пончикe);	
+
+		
+		stat.sowl = qw.sowl();
+			return "<a href=/owl > OWL </a>";
+				
+	}
 	
 	public static String кря(String ш){
 
@@ -184,6 +231,24 @@ public class qq extends HttpServlet implements EntryPoint {
 	qw.manager.addAxiom(qw.ontology, qw.factory.getOWLSubClassOfAxiom(пятый_справа,очередь));
 	qw.manager.addAxiom(qw.ontology, qw.factory.getOWLSubClassOfAxiom(предпоследний,очередь));
 
+	
+	OWLIndividual Красный_дом = qw.getIndividual("Красный_дом");
+	OWLObjectProperty живут_в = qw.getProperty("живут_в");
+	
+	OWLClass кто_выращивают_Розы = qw.getOwlClass("кто_выращивают_Розы");
+	OWLClassExpression живут_в_Красный_дом = qw.factory.getOWLObjectHasValue(живут_в, Красный_дом);
+	
+	OWLClassAxiom кто_выращивают_Розы_живут_в_Красный_дом = qw.factory.getOWLEquivalentClassesAxiom(кто_выращивают_Розы,живут_в_Красный_дом);
+	qw.manager.addAxiom(qw.ontology, кто_выращивают_Розы_живут_в_Красный_дом);		
+
+	
+	OWLClass кто_играет_на_Баяне = qw.getOwlClass("кто_играет_на_Баяне");
+	OWLClassExpression о_кто_играет_на_Баяне = qw.factory.getOWLObjectSomeValuesFrom(справа, кто_выращивают_Розы);
+	OWLClassAxiom аксиома_о_кто_играет_на_Баяне = qw.factory.getOWLEquivalentClassesAxiom(кто_играет_на_Баяне,о_кто_играет_на_Баяне);
+	qw.manager.addAxiom(qw.ontology, аксиома_о_кто_играет_на_Баяне);	
+
+	qw.hasClass(qw.getIndividual("Незнайка"), qw.getOwlClass("кто_выращивают_Розы"));
+	
 		stat.sowl = qw.sowl();
 		
 			return "<a href=/owl > OWL </a>";

@@ -2,55 +2,24 @@ package guestbook;
 
 import static org.semanticweb.owlapi.vocab.OWLFacet.MAX_EXCLUSIVE;
 import static org.semanticweb.owlapi.vocab.OWLFacet.MIN_INCLUSIVE;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.PrintWriter;
 import java.io.StringReader;
-import java.io.UnsupportedEncodingException;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLEncoder;
-import java.nio.channels.Channels;
-import java.nio.charset.Charset;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Properties;
 import java.util.Set;
-import java.util.TimeZone;
-
-import javax.activation.DataHandler;
-import javax.activation.DataSource;
-import javax.mail.BodyPart;
 import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Multipart;
 import javax.mail.Session;
 import javax.mail.Transport;
-import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeMultipart;
 import javax.mail.internet.MimeUtility;
-import javax.mail.util.ByteArrayDataSource;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.jsoup.Jsoup;
 import org.mindswap.pellet.jena.PelletReasonerFactory;
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLClassAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataProperty;
@@ -69,24 +38,7 @@ import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
 import org.semanticweb.owlapi.model.OWLObjectOneOf;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
-
-import para.st;
-
 import com.clarkparsia.pellet.sparqldl.jena.SparqlDLExecutionFactory;
-import com.google.appengine.api.blobstore.BlobInfo;
-import com.google.appengine.api.blobstore.BlobInfoFactory;
-import com.google.appengine.api.blobstore.BlobKey;
-import com.google.appengine.api.datastore.DatastoreService;
-import com.google.appengine.api.datastore.DatastoreServiceFactory;
-import com.google.appengine.api.datastore.Entity;
-import com.google.appengine.api.datastore.FetchOptions;
-import com.google.appengine.api.datastore.PreparedQuery;
-import com.google.appengine.api.datastore.Query.FilterOperator;
-import com.google.appengine.api.files.AppEngineFile;
-import com.google.appengine.api.files.FileService;
-import com.google.appengine.api.files.FileServiceFactory;
-import com.google.appengine.api.files.FileWriteChannel;
-import com.google.gwt.core.client.EntryPoint;
 import com.hp.hpl.jena.ontology.OntModel;
 import com.hp.hpl.jena.query.Query;
 import com.hp.hpl.jena.query.QueryFactory;
@@ -801,7 +753,89 @@ public class stq {
 		} else
 			s = "не знаю :-( ";
 
-		s = s + ".";
+		// s = s + ".";
+		return s;
+	}
+
+	public static String get_ans2(String sh, String s) {
+
+		s = s.replace("?", "");
+		String[] ss = s.split("[ ]+");
+		int i = ss.length;
+		String s3 = "";
+
+		boolean bb = ss[0].toLowerCase().equals("кто")
+				|| ss[0].toLowerCase().equals("что")
+				|| ss[0].toLowerCase().equals("где")
+				|| ss[0].toLowerCase().equals("когда")
+				|| ss[0].toLowerCase().equals("кого");
+
+		if (bb) {
+
+			// ///////////////////////////////////////////
+			//
+			// вопрос из 3-х слов - "Кто выращивает Розы?"
+			//
+			// ///////////////////////////////////////////
+
+			if (i == 3) {
+
+				OntModel mm = ModelFactory
+						.createOntologyModel(PelletReasonerFactory.THE_SPEC);
+				StringReader reader = new StringReader(stat.sowl);
+				mm.read(reader, "");
+				s = stat.sowl;
+
+				String[] ssss = {
+						// "SELECT ?кто  WHERE {?кто a qq:" + ss[1] + "}",
+						"SELECT ?кто  WHERE {qq:" + ss[1] + "_" + ss[2]
+								+ " rdf:type ?кто}",
+						"SELECT ?кто  WHERE {?кто rdf:type qq:" + ss[1] + "_"
+								+ ss[2] + "}" };
+
+				for (String str : ssss) {
+
+					s = stat.get_prefix(sh) + str;
+
+					Query qq = QueryFactory.create(s);
+					s = stat.sowl;
+					s = "";
+					ResultSet r = null;
+					try {
+						r = SparqlDLExecutionFactory.create(qq, mm)
+								.execSelect();
+						while (r.hasNext()) {
+							s = r.next().toString();
+							if (!s3.contains(s))
+								s3 = s3 + s;
+						}
+					} catch (Exception er) {
+						s = er.toString();
+					}
+					s3 = s3 + s;
+				}
+				s = s3;
+				if (s.indexOf("#") > 0) {
+					s = s.substring(s.indexOf("#") + 1);
+
+					s = s.replaceAll("[<>]", "").replace("[", "");
+
+					ss = s.split("[#]");
+					s = "";
+					s3 = ",";
+					for (String sd : ss) {
+						if (sd.indexOf(")") > 0) {
+							s = sd.substring(0, sd.indexOf(")")).trim();
+							if (!s3.contains(s))
+								s3 = s3 + ", " + s;
+
+						}
+						s = s3.replace(",,", "");
+					}
+				} else
+					s = "не знаю :-( ";
+			}
+		}
 		return s;
 	}
 
@@ -925,7 +959,13 @@ public class stq {
 					|| ss[0].toLowerCase().equals("когда")
 					|| ss[0].toLowerCase().equals("кого");
 			if (bb) {
+				String san2 = s;
 				s = get_ans1(sh, s);
+				san2 = get_ans2(sh, san2);
+				if (s.contains("не знаю :-(") && san2.contains("не знаю :-("))
+					s = "не знаю :-( ";
+				else if (s.contains("не знаю :-("))
+					s = san2;
 			} else {
 				s = "Не понял вопрос. См. описание КРЯ";
 			}
@@ -934,11 +974,11 @@ public class stq {
 	}
 
 	public static String sparql(String sh, String s) {
-		
-		s=Jsoup.parse(s).text().replaceAll("[ ]+", " ").trim();
-		
+
+		s = Jsoup.parse(s).text().replaceAll("[ ]+", " ").trim();
+
 		stat.sh = sh;
-		//String s55 = s;
+		// String s55 = s;
 
 		add_sr(stat.sr, sh);
 		int i = s.toLowerCase().indexOf("вопрос(");
@@ -1008,7 +1048,7 @@ public class stq {
 				s = s + sd + "\r\n";
 		}
 		s = s.replace("[Root]", "\r\n").replace(" -] ", "");
-		//s = s.substring(0, s.length() - 4);
+		// s = s.substring(0, s.length() - 4);
 		return "\r\n" + s;
 	}
 
@@ -1020,50 +1060,48 @@ public class stq {
 		return true;
 	}
 
+	@SuppressWarnings("unused")
 	public static String srowl(String s, String sh, String sf) {
-	
-		//s=Jsoup.parse(s).text().replaceAll("[ ]+", " ").trim();
-		
+
+		// s=Jsoup.parse(s).text().replaceAll("[ ]+", " ").trim();
+
 		boolean bb = true;
 		stat.owl_file = "rff?83.owl";
 		Owl2Model qw = new Owl2Model(sh + "/" + stat.owl_file);
 
-		
-//////////////////////////////////////////////////
-//////////////////////////////////////////////////
-		
-		
-	if(s.contains("test"))			
-		{
-		//qw.test2();
-		
-		
-		OWLClass clsA = qw.getOwlClass("A");
-		OWLClass clsB = qw.getOwlClass("B");
-		OWLClass clsC = qw.getOwlClass("C");
-		OWLClassExpression desc1 = qw.factory.getOWLObjectUnionOf(clsA, clsB);
- 		OWLClassAxiom аксиома1 = qw.factory.getOWLEquivalentClassesAxiom(clsC,desc1);		
- 		qw.manager.addAxiom(qw.ontology, аксиома1);		
- 		
-		
-		OWLClass clsD = qw.getOwlClass("D");
-		OWLObjectPropertyExpression has = qw.getProperty("has");
-		OWLIndividual ind =qw.getIndividual("Индивид");
-		OWLClassExpression desc2 = qw.factory.getOWLObjectHasValue(has, ind);
-		OWLClassAxiom аксиома2 = qw.factory.getOWLEquivalentClassesAxiom(clsD,desc2);
-		
- 		qw.manager.addAxiom(qw.ontology, аксиома2);		
-		
-		stat.sowl = qw.sowl();
-		if(stat.sowl.length()>0)
-			return "ok";				
+		// ////////////////////////////////////////////////
+		// ////////////////////////////////////////////////
+
+		if (s.contains("test")) {
+			// qw.test2();
+
+			OWLClass clsA = qw.getOwlClass("A");
+			OWLClass clsB = qw.getOwlClass("B");
+			OWLClass clsC = qw.getOwlClass("C");
+			OWLClassExpression desc1 = qw.factory.getOWLObjectUnionOf(clsA,
+					clsB);
+			OWLClassAxiom аксиома1 = qw.factory.getOWLEquivalentClassesAxiom(
+					clsC, desc1);
+			qw.manager.addAxiom(qw.ontology, аксиома1);
+
+			OWLClass clsD = qw.getOwlClass("D");
+			OWLObjectPropertyExpression has = qw.getProperty("has");
+			OWLIndividual ind = qw.getIndividual("Индивид");
+			OWLClassExpression desc2 = qw.factory
+					.getOWLObjectHasValue(has, ind);
+			OWLClassAxiom аксиома2 = qw.factory.getOWLEquivalentClassesAxiom(
+					clsD, desc2);
+
+			qw.manager.addAxiom(qw.ontology, аксиома2);
+
+			stat.sowl = qw.sowl();
+			if (stat.sowl.length() > 0)
+				return "ok";
 		}
-	
-//////////////////////////////////////////////////
-//////////////////////////////////////////////////
-	
-		
-		
+
+		// ////////////////////////////////////////////////
+		// ////////////////////////////////////////////////
+
 		// s = stat.prep_all(s);
 		// s = stat.prepare_83(s);
 		s = pripare(s);
@@ -1080,45 +1118,82 @@ public class stq {
 			// переделка входного текста под нрорму кря
 			//
 			// //////////////////////////////////////////////////////
-			
+
 			bb = true;
 			String[] ss1 = s2.split("[ ]");
+			String sd = "";
+			if (s2.toLowerCase().indexOf("тот, кто") == 0) {
 
-			if (s2.toLowerCase().indexOf("если") == 0){
-				
-				String s22=ss1[2];
-				String s77=ss1[6];				
-				if(s22.equals(s77))
-				{
+				sd = ss1[2].trim();
+				OWLObjectProperty живут_в = qw.getProperty(sd);
 
-					///////////////            симметрия 
+				sd = ss1[3].replace(",", "").trim();
+				OWLIndividual Красный_дом = qw.getIndividual(sd);
 
-					
-					
-					bb=true;
+				sd = ss1[5].trim() + "_" + ss1[6].trim();
+				OWLClass выращивают_Р = qw.getOwlClass(sd);
+
+				OWLClassExpression живут_в_Красный_дом = qw.factory
+						.getOWLObjectHasValue(живут_в, Красный_дом);
+
+				OWLClassAxiom кто_выращивают_Розы_живут_в_Красный_дом = qw.factory
+						.getOWLEquivalentClassesAxiom(выращивают_Р,
+								живут_в_Красный_дом);
+				qw.manager.addAxiom(qw.ontology,
+						кто_выращивают_Розы_живут_в_Красный_дом);
+
+				bb = false;
+
+			}
+
+			/*
+			 * if (s2.toLowerCase().indexOf("тот, кто") == 0) { OWLIndividual
+			 * Красный_дом = qw.getIndividual("Красный_дом"); OWLObjectProperty
+			 * живут_в = qw.getProperty("живут_в");
+			 * 
+			 * OWLClass выращивают_Р = qw.getOwlClass("выращивают_Р");
+			 * OWLClassExpression живут_в_Красный_дом = qw.factory
+			 * .getOWLObjectHasValue(живут_в, Красный_дом);
+			 * 
+			 * OWLClassAxiom кто_выращивают_Розы_живут_в_Красный_дом =
+			 * qw.factory .getOWLEquivalentClassesAxiom(выращивают_Р,
+			 * живут_в_Красный_дом); qw.manager.addAxiom(qw.ontology,
+			 * кто_выращивают_Розы_живут_в_Красный_дом);
+			 * 
+			 * bb = false;
+			 * 
+			 * }
+			 */
+
+			if (s2.toLowerCase().indexOf("если") == 0) {
+
+				String s22 = ss1[2];
+				String s77 = ss1[6];
+				if (s22.equals(s77)) {
+
+					// ///////////// симметрия
+
+					bb = true;
 					s2 = ss1[2] + "/сим";
 				}
-				
-				else
-				{
-					
-					///////////////            инверсия 
-					
-					
+
+				else {
+
+					// ///////////// инверсия
+
 					OWLObjectProperty слева = qw.getProperty(s22);
-					OWLObjectProperty справа = qw.getProperty(s77);					
-					OWLInverseObjectPropertiesAxiom axiom =qw.factory.getOWLInverseObjectPropertiesAxiom(слева, справа);
+					OWLObjectProperty справа = qw.getProperty(s77);
+					OWLInverseObjectPropertiesAxiom axiom = qw.factory
+							.getOWLInverseObjectPropertiesAxiom(слева, справа);
 					qw.manager.addAxiom(qw.ontology, axiom);
-					
-					
+
 				}
 			}
-			
 
 			if (s2.contains("только")) {
 				s2 = s2.substring(s2.indexOf("только") + 7);
-				s2=s2.replace("&", ", ");
-				
+				s2 = s2.replace("&", ", ");
+
 				String[] ss5 = s2.split("[,]");
 
 				Set<OWLIndividual> inds = new HashSet<OWLIndividual>();
@@ -1137,9 +1212,7 @@ public class stq {
 			if (bb)
 				s = s + s2 + ". ";
 		}
-		
-		
-		
+
 		// /////////////////////////////////
 		//
 		// 2-й проход (обработка нормализованного КРЯ без ограничителей)
@@ -1153,8 +1226,6 @@ public class stq {
 				s3 = s3.trim().replaceAll("[ ]+", " ");
 				String[] ss2 = s3.split("[ ]+");
 
-
-				
 				// ///////////// 2 //////////////////
 
 				if (ss2.length == 2) {
@@ -1251,7 +1322,6 @@ public class stq {
 
 						if (ss2[1].indexOf("/сим") > -1)
 							qw.isSymmetric(любит);
-						
 
 						OWLIndividual малыш = qw.getIndividual(ss2[0]);
 						OWLIndividual малышка = qw.getIndividual(ss2[2]);
@@ -1318,21 +1388,20 @@ public class stq {
 					}
 
 				}
-				// /////////////    1 слово -  ПОСЛЕДНИЙ ШТРИХ     //////////////////
+				// ///////////// 1 слово - ПОСЛЕДНИЙ ШТРИХ //////////////////
 
 				if (ss2.length == 1) {
 
 					if (ss2[0].contains("/сим")) {
-						ss2[0]=ss2[0].replace("/сим", "");
+						ss2[0] = ss2[0].replace("/сим", "");
 						OWLObjectProperty любит = qw.getProperty(ss2[0]);
-							qw.isSymmetric(любит);
+						qw.isSymmetric(любит);
 					}
 				}
-				
-				
-				s=s+"";
+
+				s = s + "";
 			}
-	
+
 		stat.sowl = qw.sowl();
 
 		return "ok";
