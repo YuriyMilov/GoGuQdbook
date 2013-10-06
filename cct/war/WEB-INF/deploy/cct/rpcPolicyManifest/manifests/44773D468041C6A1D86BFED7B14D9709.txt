@@ -1,0 +1,2 @@
+serviceClass: cct.client.GreetingService
+path: BB5B33F0265FDE015F31215D88D86E96.gwt.rpc

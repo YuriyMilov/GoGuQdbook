@@ -1,0 +1,3 @@
+# Module cct
+# RPC service class, partial path of RPC policy file
+cct.client.GreetingService, BB5B33F0265FDE015F31215D88D86E96.gwt.rpc
