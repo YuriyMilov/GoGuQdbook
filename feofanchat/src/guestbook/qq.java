@@ -1,20 +1,26 @@
 package guestbook;
 
 import java.io.IOException;
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLClassAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLInverseObjectPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
+import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
 
 import com.google.gwt.core.client.EntryPoint;
 
@@ -89,6 +95,8 @@ public class qq extends HttpServlet implements EntryPoint {
 				s=ййочередь(sh);			
 			if(req.getParameter("test").contains("totkto"))
 				s=stq.totkto(sh);
+			if(req.getParameter("test").contains("test2"))
+				s=test2(sh,"");
 			stat.page(req, resp, s);
 			}
 		else
@@ -366,7 +374,37 @@ public class qq extends HttpServlet implements EntryPoint {
 				
 			return "тест форум - полёт нормальный - см. письмо на форуме";
 	}
+	public static String test1( String ш, String s)
+	{
+		s = "слева_от или справа_от значит рядом_с.";
+		
+				stat.owl_file = "rff?83.owl";
+				Owl2Model qw = new Owl2Model(ш + "/" + stat.owl_file);		
+				
+				
+		OWLObjectProperty слева_от = qw.getProperty("слева_от");
+		OWLObjectProperty справа_от = qw.getProperty("справа_от");
+		OWLObjectProperty рядом = qw.getProperty("рядом");
+		OWLInverseObjectPropertiesAxiom axiom1 = qw.factory
+				.getOWLInverseObjectPropertiesAxiom(слева_от, справа_от);
+		qw.manager.addAxiom(qw.ontology, axiom1);
+
+		 OWLSubObjectPropertyOfAxiom axiom2 = qw.factory.getOWLSubObjectPropertyOfAxiom(слева_от, рядом);
+		qw.manager.addAxiom(qw.ontology, axiom2);
+		 OWLSubObjectPropertyOfAxiom axiom3 = qw.factory.getOWLSubObjectPropertyOfAxiom(справа_от,рядом);
+		qw.manager.addAxiom(qw.ontology, axiom3);
+
+		
+				stat.sowl = qw.sowl();	
+			return "<a href=/owl > OWL </a>";
+	}
 	
+	public static String test2(String sh,String s) {
+		
+		s="Тот, кто пьет Молоко, тот живет_в первый_дом.Торопыжка малыш. Торопыжка пьет Молоко. малыш живет_в 1 первый_дом. малыш пьет 1 напиток. Молоко это напиток. первый_дом это Зеленый_дом. Кто живет_в Зеленый_дом?";
+		s="Тот, кто играет_на Валторна, тот живёт_в тот, кто где_живёт тот, кто выращивает Кувшинки. ";
+		return stq.srowl(s, sh, "");
+	}
 	
 	public void onModuleLoad() {
 	}

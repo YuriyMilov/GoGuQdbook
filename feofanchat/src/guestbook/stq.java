@@ -40,6 +40,8 @@ import org.semanticweb.owlapi.model.OWLObjectOneOf;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
+import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
+
 import com.clarkparsia.pellet.sparqldl.jena.SparqlDLExecutionFactory;
 import com.hp.hpl.jena.ontology.OntModel;
 import com.hp.hpl.jena.query.Query;
@@ -1215,14 +1217,14 @@ public class stq {
 
 					else
 
-					if (bim(ss2[0]) && !bim(ss2[1])) {
-						qw.hasClass(qw.getIndividual(ss2[0]),
-								qw.getOwlClass(ss2[1]));
+					if (!bim(ss2[0]) && bim(ss2[1])) {
+						//qw.hasClass(qw.getIndividual(ss2[0]),qw.getOwlClass(ss2[1]));
+						stq.Незнайка_малыш(qw, ss2[1], ss2[0]);
 					}
 
 					if (bim(ss2[0]) && !bim(ss2[1])) {
 
-						qq1ipec(qw, ss2[0], ss2[1]);
+						stq.Незнайка_малыш(qw, ss2[0], ss2[1]);
 
 						// Set<OWLIndividual> inds = new
 						// HashSet<OWLIndividual>();
@@ -1289,7 +1291,7 @@ public class stq {
 							qw.isSymmetric(любит);
 
 						qqipiec_ii(qw, ss2[0], ss2[1].replace(sfx, ""), ss2[2]);
-						qq1ipec(qw, ss2[0], ss2[1].replace(sfx, "") + "_"
+						stq.Незнайка_малыш(qw, ss2[0], ss2[1].replace(sfx, "") + "_"
 								+ ss2[2]);
 
 						// OWLIndividual малыш = qw.getIndividual(ss2[0]);
@@ -1298,17 +1300,23 @@ public class stq {
 
 					} else
 
-					if (!bim(ss2[0]) && !bim(ss2[2])) {
+						if (!bim(ss2[0]) && !bim(ss2[2])) {
 
-						OWLObjectProperty любит = qw.getProperty(ss2[1]
-								.replace(sfx, ""));
+							OWLObjectProperty любит = qw.getProperty(ss2[1]
+									.replace(sfx, ""));
 
-						if (ss2[1].indexOf("/сим") > -1)
-							qw.isSymmetric(любит);
+							if (ss2[1].indexOf("/сим") > -1)
+								qw.isSymmetric(любит);
 
-						qw.assertDomainAndRange(любит, qw.getOwlClass(ss2[0]),
-								qw.getOwlClass(ss2[2]));
-					}
+							qw.assertDomainAndRange(любит, qw.getOwlClass(ss2[0]),
+									qw.getOwlClass(ss2[2]));
+						}
+						else
+
+							if (bim(ss2[0]) && !bim(ss2[2])) {
+
+								stq.Незнайка_живет_дома(qw, ss2[0], ss2[1], ss2[2]);
+							}
 				}
 
 				else
@@ -1368,21 +1376,72 @@ public class stq {
 					}
 				}
 
+				
+				if (ss2.length == 6) {
+
+					if (ss2[2].equals("или"))
+
+						// **************       добавка    РЯДОМ_С        **************
+						
+					{
+					OWLObjectProperty слева_от = qw.getProperty(ss2[1]);
+					OWLObjectProperty справа_от = qw.getProperty(ss2[3]);
+					OWLObjectProperty рядом = qw.getProperty(ss2[5]);
+					OWLInverseObjectPropertiesAxiom axiom1 = qw.factory
+							.getOWLInverseObjectPropertiesAxiom(слева_от, справа_от);
+					qw.manager.addAxiom(qw.ontology, axiom1);
+
+					 OWLSubObjectPropertyOfAxiom axiom2 = qw.factory.getOWLSubObjectPropertyOfAxiom(слева_от, рядом);
+					qw.manager.addAxiom(qw.ontology, axiom2);
+					 OWLSubObjectPropertyOfAxiom axiom3 = qw.factory.getOWLSubObjectPropertyOfAxiom(справа_от,рядом);
+					qw.manager.addAxiom(qw.ontology, axiom3);
+					
+					}
+					
+				}
+				
+				
 				s = s + "";
 			}
 
+		
+
+		
+		
 		stat.sowl = qw.sowl();
 
-		return "ok";
+		return "<a href=/owl > OWL </a>";
 	}
 
-	public static void qq1ipec(Owl2Model qw, String Незнайка,
-			String играет_на_Трубе) {
-		OWLEquivalentClassesAxiom аксиома_о_Пончикe1 = qw.factory
+	public static void Незнайка_малыш(Owl2Model qw, String Незнайка,
+			String малыш) {
+		OWLEquivalentClassesAxiom аксиома_о_Незнайке = qw.factory
 				.getOWLEquivalentClassesAxiom(
-						qw.getOwlClass(играет_на_Трубе),
+						qw.getOwlClass(малыш),
 						qw.factory.getOWLObjectOneOf(qw.getIndividual(Незнайка)));
-		qw.manager.addAxiom(qw.ontology, аксиома_о_Пончикe1);
+		qw.manager.addAxiom(qw.ontology, аксиома_о_Незнайке);
+
+	}
+	
+	public static void Незнайка_живет_дома(Owl2Model qw, String Незнайка,
+			String живет, String дома) {
+		
+		qw.getIndividual(Незнайка);
+		
+		OWLEquivalentClassesAxiom аксиома_о_Незнайке1 = qw.factory
+				.getOWLEquivalentClassesAxiom(qw.getOwlClass(живет+"_"+дома),
+						qw.factory.getOWLObjectOneOf(
+								qw.getIndividual(Незнайка)));
+		qw.manager.addAxiom(qw.ontology, аксиома_о_Незнайке1);
+		
+		OWLEquivalentClassesAxiom аксиома_о_Незнайке2 = qw.factory
+				.getOWLEquivalentClassesAxiom(
+						qw.getOwlClass(живет+"_"+дома),
+						qw.factory.getOWLObjectSomeValuesFrom(
+								qw.getProperty(живет),
+								qw.getOwlClass(дома)));
+		
+		qw.manager.addAxiom(qw.ontology, аксиома_о_Незнайке2);
 
 	}
 
@@ -1447,7 +1506,7 @@ public class stq {
 					ss[3] + "_" + ss[4].replace(".", ""));
 
 		}
-		qq1ipec(qw, "Пончик", "играет_на_Баяне");
+		stq.Незнайка_малыш(qw, "Пончик", "играет_на_Баяне");
 		qqipiec_ii(qw, "Незнайка", "живет_справа_от", "Пончик");
 		qqipiec_cc(qw, "Незнайка", "живет_справа_от", "Пончик");
 		stat.sowl = qw.sowl();
