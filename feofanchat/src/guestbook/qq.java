@@ -28,10 +28,7 @@ public class qq extends HttpServlet implements EntryPoint {
 				+ req.getServerPort() + req.getContextPath();
 		stat.sh = sh;
 		
-		String s = req.getParameter("p2").trim();	
-		
-
- 
+		String s = req.getParameter("p2").trim();	 
 		if (s == null) {
 			stq.init(req, resp);
 			return;
@@ -79,88 +76,76 @@ public class qq extends HttpServlet implements EntryPoint {
 				.getQueryString();
 		
 		stat.sh = sh;
-		
+				
 		if (req.getQueryString() == null)
 			stq.init(req, resp);
 		else {
 			String s2=req.getParameter("test");
 			if(s2!=null)
 			{
-			if(req.getParameter("test").contains("forum"))
-					s=форум(sh);
-			if(req.getParameter("test").contains("kar"))
-				s=кря(sh);
-
+			if(req.getParameter("test").contains("mail"))
+				s=stq.форум(sh);
+			if(req.getParameter("test").contains("chain"))
+				s=ййочередь(sh);			
 			if(req.getParameter("test").contains("totkto"))
-				s=totkto(sh);
-
+				s=stq.totkto(sh);
 			stat.page(req, resp, s);
-			return;
 			}
 		else
 			if (s.indexOf("p2=") > -1)
 				doPost(req, resp);
 		}
 	}
-	public static String totkto(String ш){
-		
-		String s="Тот, кто играет_на Баян, тот живет_рядом_с тот, кто выращивает Розы.";
-		String[] ss=null;
-		int i = 0;
-		if(s.toLowerCase().indexOf("тот, кто")!=s.toLowerCase().lastIndexOf("тот, кто"))
-		{
-			ss=s.split("тот, кто");
-			
-			for(String s2:ss)
-			{
-				s2=ss[i++];				
-			}			
-		}
-		
+	public static String ййочередь2(String ш){
+
 		stat.owl_file = "rff?83.owl";
 		Owl2Model qw = new Owl2Model(ш + "/" + stat.owl_file);
-				
+		String sd = "", s2="";
+		
+		String[] ss1 = s2.split("[ ]");
 
-		
-		OWLClassAxiom аксиома_о_кто_играет_на_Баяне = 
-				qw.factory.getOWLEquivalentClassesAxiom(qw.getOwlClass("играет_на_Баяне"),qw.factory.getOWLObjectSomeValuesFrom(qw.getProperty("живет_рядом_с"), qw.getOwlClass("выращивает_Розы")));
-		qw.manager.addAxiom(qw.ontology, аксиома_о_кто_играет_на_Баяне);	
+		sd = ss1[2].trim();
+		OWLObjectProperty живёт_в = qw.getProperty(sd);
 
-		
-		
-		OWLEquivalentClassesAxiom аксиома_о_Незнайкe = 
-				qw.factory.getOWLEquivalentClassesAxiom(qw.getOwlClass("выращивает_Розы"), qw.factory.getOWLObjectOneOf(qw.getIndividual("Незнайка")));
-		qw.manager.addAxiom(qw.ontology, аксиома_о_Незнайкe);	
-		
-		
-		
-		OWLEquivalentClassesAxiom аксиома_о_Пончикe = 
-				qw.factory.getOWLEquivalentClassesAxiom(qw.getOwlClass("играет_на_Баяне"), qw.factory.getOWLObjectOneOf(qw.getIndividual("Пончик")));
-			qw.manager.addAxiom(qw.ontology, аксиома_о_Пончикe);	
+		sd = ss1[3].replace(",", "").trim();
+		OWLIndividual Красный_дом = qw.getIndividual(sd);
 
+		sd = ss1[5].trim() + "_" + ss1[6].trim();
+		OWLClass выращивает_Розы = qw.getOwlClass(sd);
+
+		OWLClassExpression живут_в_Красный_дом = qw.factory
+				.getOWLObjectHasValue(живёт_в, Красный_дом);
+
+		OWLClassAxiom тот_кто_выращивает_Розы_живёт_в_Красный_дом = qw.factory
+				.getOWLEquivalentClassesAxiom(выращивает_Розы,
+						живут_в_Красный_дом);
+		qw.manager.addAxiom(qw.ontology,
+				тот_кто_выращивает_Розы_живёт_в_Красный_дом);
 		
+
 		stat.sowl = qw.sowl();
-			return "<a href=/owl > OWL </a>";
-				
+			
+				return "<a href=/owl > OWL </a>";
+		
 	}
-	
-	public static String кря(String ш){
+
+	public static String ййочередь(String ш){
 
 		stat.owl_file = "rff?83.owl";
 		Owl2Model qw = new Owl2Model(ш + "/" + stat.owl_file);
 
 
 
-		OWLIndividual Пер =qw.getIndividual("Перв");
-		OWLIndividual А = qw.getIndividual("А");
-		OWLIndividual Б = qw.getIndividual("Б");
-		OWLIndividual В = qw.getIndividual("В");
-		OWLIndividual Г = qw.getIndividual("Г");
-		OWLIndividual Д = qw.getIndividual("Д");
-		OWLIndividual Пос =qw.getIndividual("Пос");		
+		OWLIndividual Пер =qw.getIndividual("Первый_дом");
+		OWLIndividual А = qw.getIndividual("Второй_дом");
+		OWLIndividual Б = qw.getIndividual("Третий_дом");
+		OWLIndividual В = qw.getIndividual("Четвертый_дом");
+		OWLIndividual Г = qw.getIndividual("Пятый_дом");
+		OWLIndividual Д = qw.getIndividual("Шестой_дом");
+		OWLIndividual Пос =qw.getIndividual("Седьмой_дом");		
 		
-		OWLObjectPropertyExpression слева = qw.getProperty("слева");
-		OWLObjectPropertyExpression справа = qw.getProperty("справа");
+		OWLObjectPropertyExpression слева = qw.getProperty("справа_от");
+		OWLObjectPropertyExpression справа = qw.getProperty("слева_от");
 		OWLInverseObjectPropertiesAxiom аксиома_инверсного_отношения =qw.factory.getOWLInverseObjectPropertiesAxiom(слева, справа);
 		qw.manager.addAxiom(qw.ontology, аксиома_инверсного_отношения);
 
@@ -219,6 +204,120 @@ public class qq extends HttpServlet implements EntryPoint {
 		
 
 		OWLClassExpression или = qw.factory.getOWLObjectUnionOf(второй, предпоследний);
+		OWLClass второй_или_предпоследний = qw.getOwlClass("перед_крайними");		
+ 		OWLClassAxiom аксиома1 = qw.factory.getOWLEquivalentClassesAxiom(второй_или_предпоследний,или);		
+ 		qw.manager.addAxiom(qw.ontology, аксиома1);		
+ 	
+
+ 		
+	OWLClass очередь = qw.getOwlClass("очередь");
+	qw.manager.addAxiom(qw.ontology, qw.factory.getOWLSubClassOfAxiom(второй_или_предпоследний,очередь));
+	qw.manager.addAxiom(qw.ontology, qw.factory.getOWLSubClassOfAxiom(второй,очередь));
+	qw.manager.addAxiom(qw.ontology, qw.factory.getOWLSubClassOfAxiom(пятый_справа,очередь));
+	qw.manager.addAxiom(qw.ontology, qw.factory.getOWLSubClassOfAxiom(предпоследний,очередь));
+
+	
+//	String s1="Тот, кто справа_от Четвертый_дом, тот Пятый_дом. Тот, кто справа_от Четвертый_дом, тот Третий_дом.Тот, кто справа_от Третий_дом, тот Второй_дом.Тот, кто справа_от Второй_дом, тот Третий_дом.Тот, кто справа_от Первый_дом, тот Второй_дом. ";
+//	
+//	s1="";
+//	String[] sss=s1.split("[.]");
+//	for (String s:sss)
+//	{
+//		if(s.toLowerCase().indexOf("тот, кто")!=s.toLowerCase().lastIndexOf("тот, кто"))
+//		{
+//		s=s.replace(",", "").replace("Тот", "").replace("тот", "").replace("кто", "").replaceAll("[ ]+", " ").trim();
+//		String[] ss=s.split("[ ]");
+//		stq.qqcpcec(qw,ss[0]+"_"+ss[1],ss[2],ss[3]+"_"+ss[4].replace(".", ""));
+//
+//	}
+//	}
+	
+	
+		
+	//stq.qq1ipec(qw,"Пончик","играет_на_Баяне");
+	//stq.qqipiec_ii(qw,"Незнайка","справа_от","Пончик");
+	
+	
+	stat.sowl = qw.sowl();
+		
+			return "<a href=/owl > OWL </a>";
+		}
+	
+	public static String ййочередь3(String ш){
+
+		stat.owl_file = "rff?83.owl";
+		Owl2Model qw = new Owl2Model(ш + "/" + stat.owl_file);
+
+
+
+		OWLIndividual Пер =qw.getIndividual("Первый_дом");
+		OWLIndividual А = qw.getIndividual("Второй_дом");
+		OWLIndividual Б = qw.getIndividual("Третий_дом");
+		OWLIndividual В = qw.getIndividual("Четвертый_дом");
+		OWLIndividual Г = qw.getIndividual("Пятый_дом");
+		OWLIndividual Д = qw.getIndividual("Шестой_дом");
+		OWLIndividual Пос =qw.getIndividual("Седьмой_дом");		
+		
+		OWLObjectPropertyExpression слева = qw.getProperty("справа_от");
+		OWLObjectPropertyExpression справа = qw.getProperty("слева_от");
+		OWLInverseObjectPropertiesAxiom аксиома_инверсного_отношения =qw.factory.getOWLInverseObjectPropertiesAxiom(слева, справа);
+		qw.manager.addAxiom(qw.ontology, аксиома_инверсного_отношения);
+
+	
+	OWLObjectPropertyAssertionAxiom аксиома_для_А = qw.factory.getOWLObjectPropertyAssertionAxiom(справа, А, Б);
+	qw.manager.addAxiom(qw.ontology, аксиома_для_А);		
+
+	
+	OWLObjectPropertyAssertionAxiom аксиома_для_Пер = qw.factory.getOWLObjectPropertyAssertionAxiom(справа, Пер, А);
+	qw.manager.addAxiom(qw.ontology, аксиома_для_Пер);		
+
+		OWLObjectPropertyAssertionAxiom аксиома_для_Б = qw.factory.getOWLObjectPropertyAssertionAxiom(справа, Б, В);
+		qw.manager.addAxiom(qw.ontology, аксиома_для_Б);		
+	
+		OWLObjectPropertyAssertionAxiom аксиома_для_В = qw.factory.getOWLObjectPropertyAssertionAxiom(справа, В, Г);
+		qw.manager.addAxiom(qw.ontology, аксиома_для_В);		
+	
+		OWLObjectPropertyAssertionAxiom аксиома_для_Г = qw.factory.getOWLObjectPropertyAssertionAxiom(справа, Г, Д);
+		qw.manager.addAxiom(qw.ontology, аксиома_для_Г);		
+	
+		OWLObjectPropertyAssertionAxiom аксиома_для_Д = qw.factory.getOWLObjectPropertyAssertionAxiom(справа, Д, Пос);
+		qw.manager.addAxiom(qw.ontology, аксиома_для_Д);		
+	
+		
+		OWLClass последний = qw.getOwlClass("Последний_дом");
+		
+		OWLClassAssertionAxiom аксиома_о_последнем = qw.factory.getOWLClassAssertionAxiom(последний, Пос);
+		qw.manager.addAxiom(qw.ontology, аксиома_о_последнем);	
+	
+		OWLClass предпоследний = qw.getOwlClass("Предпоследний_дом");
+		OWLClassExpression имеет_последний_справа = qw.factory.getOWLObjectSomeValuesFrom(справа, последний);
+		OWLClassAxiom аксиома2 = qw.factory.getOWLEquivalentClassesAxiom(предпоследний,имеет_последний_справа);
+		qw.manager.addAxiom(qw.ontology, аксиома2);		
+		
+		
+	
+		OWLClass пятый_справа = qw.getOwlClass("Пятый_дом_справа");
+		
+		OWLClassExpression второй_справа = qw.factory.getOWLObjectSomeValuesFrom(справа, имеет_последний_справа);
+		OWLClassExpression третий_справа = qw.factory.getOWLObjectSomeValuesFrom(справа, второй_справа);
+		OWLClassExpression четвертый_справа = qw.factory.getOWLObjectSomeValuesFrom(справа, третий_справа);
+		OWLClassAxiom аксиома_о_пятом_справа = qw.factory.getOWLEquivalentClassesAxiom(пятый_справа,четвертый_справа);
+		qw.manager.addAxiom(qw.ontology, аксиома_о_пятом_справа);	
+
+		
+		OWLClass первый = qw.getOwlClass("Первый_дом");
+		OWLClassAssertionAxiom аксиома_о_первом = qw.factory.getOWLClassAssertionAxiom(первый, Пер);
+		qw.manager.addAxiom(qw.ontology, аксиома_о_первом);	
+
+
+
+		OWLClass второй = qw.getOwlClass("Второй_дом");
+		OWLClassExpression о_втором = qw.factory.getOWLObjectSomeValuesFrom(слева, первый);
+		OWLClassAxiom аксиома_о_втором = qw.factory.getOWLEquivalentClassesAxiom(второй,о_втором);
+		qw.manager.addAxiom(qw.ontology, аксиома_о_втором);	
+		
+
+		OWLClassExpression или = qw.factory.getOWLObjectUnionOf(второй, предпоследний);
 		OWLClass второй_или_предпоследний = qw.getOwlClass("второй_или_предпоследний");		
  		OWLClassAxiom аксиома1 = qw.factory.getOWLEquivalentClassesAxiom(второй_или_предпоследний,или);		
  		qw.manager.addAxiom(qw.ontology, аксиома1);		
@@ -232,32 +331,36 @@ public class qq extends HttpServlet implements EntryPoint {
 	qw.manager.addAxiom(qw.ontology, qw.factory.getOWLSubClassOfAxiom(предпоследний,очередь));
 
 	
-	OWLIndividual Красный_дом = qw.getIndividual("Красный_дом");
-	OWLObjectProperty живут_в = qw.getProperty("живут_в");
+//	String s1="Тот, кто справа_от Четвертый_дом, тот Пятый_дом. Тот, кто справа_от Четвертый_дом, тот Третий_дом.Тот, кто справа_от Третий_дом, тот Второй_дом.Тот, кто справа_от Второй_дом, тот Третий_дом.Тот, кто справа_от Первый_дом, тот Второй_дом. ";
+//	
+//	s1="";
+//	String[] sss=s1.split("[.]");
+//	for (String s:sss)
+//	{
+//		if(s.toLowerCase().indexOf("тот, кто")!=s.toLowerCase().lastIndexOf("тот, кто"))
+//		{
+//		s=s.replace(",", "").replace("Тот", "").replace("тот", "").replace("кто", "").replaceAll("[ ]+", " ").trim();
+//		String[] ss=s.split("[ ]");
+//		stq.qqcpcec(qw,ss[0]+"_"+ss[1],ss[2],ss[3]+"_"+ss[4].replace(".", ""));
+//
+//	}
+//	}
 	
-	OWLClass кто_выращивают_Розы = qw.getOwlClass("кто_выращивают_Розы");
-	OWLClassExpression живут_в_Красный_дом = qw.factory.getOWLObjectHasValue(живут_в, Красный_дом);
 	
-	OWLClassAxiom кто_выращивают_Розы_живут_в_Красный_дом = qw.factory.getOWLEquivalentClassesAxiom(кто_выращивают_Розы,живут_в_Красный_дом);
-	qw.manager.addAxiom(qw.ontology, кто_выращивают_Розы_живут_в_Красный_дом);		
-
 	
-	OWLClass кто_играет_на_Баяне = qw.getOwlClass("кто_играет_на_Баяне");
-	OWLClassExpression о_кто_играет_на_Баяне = qw.factory.getOWLObjectSomeValuesFrom(справа, кто_выращивают_Розы);
-	OWLClassAxiom аксиома_о_кто_играет_на_Баяне = qw.factory.getOWLEquivalentClassesAxiom(кто_играет_на_Баяне,о_кто_играет_на_Баяне);
-	qw.manager.addAxiom(qw.ontology, аксиома_о_кто_играет_на_Баяне);	
-
-	qw.hasClass(qw.getIndividual("Незнайка"), qw.getOwlClass("кто_выращивают_Розы"));
 	
-		stat.sowl = qw.sowl();
+	
+	//stq.qq1ipec(qw,"Пончик","играет_на_Баяне");
+	//stq.qqipiec_ii(qw,"Незнайка","справа_от","Пончик");
+	
+	
+	stat.sowl = qw.sowl();
 		
 			return "<a href=/owl > OWL </a>";
 		}
 	public static String форум( String ш)
 	{
 				String ss = "Незнайка и Пончик - малыш. Кнопочка и Синеглазка это малышка. Если x дружитъс y, то y  дружит_с x. малыш  дружитъс 1 малышка. малышка  дружитъс 1 малыш. Пончик  дружитъс Синеглазка. СПРАШКЛ(Незнайка дружитъс ?кем)";
-				//ss="ss=ряд это только А,Б,В,Г. Б > А. В > Б. Г > В. если Б > А, то А < Б. Что < Г?"; 
-				
 				ss = stq.mm_get_otvet(ш, "тест форум", ss, "forum@feofan.com");
 				stq.mail_admins("тест форум", ss);
 				
