@@ -1101,7 +1101,12 @@ public class stq {
 						.replaceAll("[ ]+", " ").trim();
 				String[] ss6 = s2.split("[ ]");
 				if (ss6.length == 3)
-					qqipiec_ii(qw, ss6[2], ss6[0], ss6[1]);
+					if(!bim(ss6[1]) && !bim(ss6[2]) )
+						qqcpcec(qw,ss6[2], ss6[0], ss6[1]);
+					//else if(!bim(ss6[0]) && bim(ss6[2]) )
+					//	stq.Незнайка_живет_дома(qw, ss6[2], ss6[1], ss6[0]);
+					else
+						qqipiec_ii(qw, ss6[2], ss6[0], ss6[1]);
 
 				else if (ss1.length > 4) {
 
@@ -1404,8 +1409,15 @@ public class stq {
 				s = s + "";
 			}
 
-		
+		//Тот, кто играет_на Валторна, тот живёт_в где_живёт тот, кто выращивает Кувшинки. 
+		//Тот, кто выращивает Лютики, тот живёт_в где_живёт тот, кто играет_на Баян. 
 
+		//Валторна(qw,"играет_на_Валторна","живёт_в", "где_живёт", "выращивает", "Кувшинки");
+		//Валторна(qw,"выращивает_Лютики","живёт_в", "где_живёт", "играет_на", "Баян");
+		
+		
+		//Тот, кто пьёт Вода, тот живёт_в рядом_с где_живёт тот, кто играет_на Валторна. 
+		//Вода(qw,"пьёт Вода", "живёт_в","рядом_с","где_живёт","играет_на","Валторна");
 		
 		
 		stat.sowl = qw.sowl();
@@ -1423,6 +1435,26 @@ public class stq {
 
 	}
 	
+	public static void то_что_сзади_от_того_что_сверху_от_того_что_cправа_от_Незнайки(Owl2Model qw,	String справа_от, String сверху_от, String сзади_от, String Незнайка) {
+	OWLClass abcN	 = qw.getOwlClass("тот-кто-сзади-от-того,-кто-сверху-от-того,-кто-cправа-от-Незнайки");
+	
+	OWLClassExpression a = qw.factory.getOWLObjectSomeValuesFrom(qw.getProperty(справа_от), qw.factory.getOWLObjectOneOf(
+			qw.getIndividual(Незнайка)));
+	OWLClassExpression b = qw.factory.getOWLObjectSomeValuesFrom(qw.getProperty(сверху_от), a);
+	OWLClassExpression c = qw.factory.getOWLObjectSomeValuesFrom(qw.getProperty(сзади_от), b);
+	OWLClassAxiom аксиома_abcN = qw.factory.getOWLEquivalentClassesAxiom(abcN,c);
+	qw.manager.addAxiom(qw.ontology, аксиома_abcN);	
+}
+	public static void то_что_слева_от_того_что_снизу_от_Пончики(Owl2Model qw,	String слева_от, String снизу_от, String Пончик) {
+	OWLClass abcN	 = qw.getOwlClass("тот-кто-сзади-от-того,-кто-сверху-от-того,-кто-cправа-от-Незнайки");
+	
+	OWLClassExpression a = qw.factory.getOWLObjectSomeValuesFrom(qw.getProperty(слева_от), qw.factory.getOWLObjectOneOf(
+			qw.getIndividual(Пончик)));
+	OWLClassExpression b = qw.factory.getOWLObjectSomeValuesFrom(qw.getProperty(снизу_от), a);
+	
+	OWLClassAxiom аксиома_abP = qw.factory.getOWLEquivalentClassesAxiom(abcN,b);
+	qw.manager.addAxiom(qw.ontology, аксиома_abP);	
+}
 	public static void Незнайка_живет_дома(Owl2Model qw, String Незнайка,
 			String живет, String дома) {
 		
@@ -1648,4 +1680,46 @@ public class stq {
 		return "тест форум - полёт нормальный - см. письмо на форуме";
 	}
 
+	public static void Валторна(Owl2Model qw, String играет_на_Валторна,String живёт_в,String где_живёт,String выращивает,String Кувшинки) {	
+		OWLClass кто_играет_на_Валторна	 = qw.getOwlClass(играет_на_Валторна);
+		
+		OWLClassExpression a = qw.factory.getOWLObjectSomeValuesFrom(qw.getProperty(выращивает), qw.factory.getOWLObjectOneOf(
+				qw.getIndividual(Кувшинки)));
+		OWLClassExpression b = qw.factory.getOWLObjectSomeValuesFrom(qw.getProperty(где_живёт), a);
+		OWLClassExpression c = qw.factory.getOWLObjectSomeValuesFrom(qw.getProperty(живёт_в), b);
+		
+		OWLClassAxiom аксиома_abcN = qw.factory.getOWLEquivalentClassesAxiom(кто_играет_на_Валторна,c);
+		qw.manager.addAxiom(qw.ontology, аксиома_abcN);	
+	}
+	
+public static void Лютики(Owl2Model qw) {	
+		
+		OWLClass выращивает_Лютики	 = qw.getOwlClass("выращивает_Лютики");
+		
+		OWLClassExpression a = qw.factory.getOWLObjectSomeValuesFrom(qw.getProperty("играет_на"), qw.factory.getOWLObjectOneOf(
+				qw.getIndividual("Баян")));
+		OWLClassExpression b = qw.factory.getOWLObjectSomeValuesFrom(qw.getProperty("где_живёт"), a);
+		OWLClassExpression c = qw.factory.getOWLObjectSomeValuesFrom(qw.getProperty("живёт_в"), b);
+		
+		OWLClassAxiom аксиома_abcN = qw.factory.getOWLEquivalentClassesAxiom(выращивает_Лютики,c);
+		qw.manager.addAxiom(qw.ontology, аксиома_abcN);	
+	}
+	//Тот, кто пьёт Вода, тот живёт_в рядом_с где_живёт тот, кто играет_на Валторна.
+	
+public static void Вода(Owl2Model qw, String пьёт_Вода, String живёт_в, String рядом_с, String где_живёт, String играет_на, String Валторна ) {	
+	
+	OWLClass кто_пьёт_Вода	 = qw.getOwlClass(пьёт_Вода);
+	
+	OWLClassExpression a = qw.factory.getOWLObjectSomeValuesFrom(qw.getProperty(играет_на), qw.factory.getOWLObjectOneOf(
+			qw.getIndividual(Валторна)));
+	OWLClassExpression b = qw.factory.getOWLObjectSomeValuesFrom(qw.getProperty(где_живёт), a);
+	OWLClassExpression c = qw.factory.getOWLObjectSomeValuesFrom(qw.getProperty(рядом_с), b);
+	OWLClassExpression d = qw.factory.getOWLObjectSomeValuesFrom(qw.getProperty(живёт_в), c);
+	
+	OWLClassAxiom аксиома_abcN = qw.factory.getOWLEquivalentClassesAxiom(кто_пьёт_Вода,d);
+	qw.manager.addAxiom(qw.ontology, аксиома_abcN);	
+}
+//Тот, кто пьёт Вода, тот живёт_в рядом_с где_живёт тот, кто играет_на Валторна.
+
+	
 }

@@ -107,7 +107,7 @@ public class stat {
 			" &nbsp; <a href=/forum.htm><button> форум </button></a>" +
 			" &nbsp; <a href=/rubli.htm><button> деньги </button></a>" +
 			" &nbsp; <a href=qq?p2=помощь><button> записки </button></a>"+
-			" &nbsp; <a href=/tests.htm><button> тесты </button></a>" +
+			" &nbsp; <a href=/owl><button> OWL </button></a>" +
 			 "<br.>&nbsp;<br>&nbsp;<br>&nbsp;<br><br>&nbsp;<br>&nbsp;<br><br></html>";
 
 	public static String owl_file = "rff?83.owl";

@@ -399,11 +399,28 @@ public class qq extends HttpServlet implements EntryPoint {
 			return "<a href=/owl > OWL </a>";
 	}
 	
-	public static String test2(String sh,String s) {
+	public static String test2(String ш,String s) {
 		
-		s="Тот, кто пьет Молоко, тот живет_в первый_дом.Торопыжка малыш. Торопыжка пьет Молоко. малыш живет_в 1 первый_дом. малыш пьет 1 напиток. Молоко это напиток. первый_дом это Зеленый_дом. Кто живет_в Зеленый_дом?";
+		stat.owl_file = "rff?83.owl";
+		Owl2Model qw = new Owl2Model(ш + "/" + stat.owl_file);
+
 		s="Тот, кто играет_на Валторна, тот живёт_в тот, кто где_живёт тот, кто выращивает Кувшинки. ";
-		return stq.srowl(s, sh, "");
+		s="играет_на Валторна экв живёт_в где_живёт выращивает Кувшинки. ";
+	
+		
+	OWLClass играет_на_Валторна	 = qw.getOwlClass("играет_на_Валторна");
+	
+	OWLClassExpression a = qw.factory.getOWLObjectSomeValuesFrom(qw.getProperty("выращивает"), qw.factory.getOWLObjectOneOf(
+			qw.getIndividual("Кувшинки")));
+	OWLClassExpression b = qw.factory.getOWLObjectSomeValuesFrom(qw.getProperty("где_живёт"), a);
+	OWLClassExpression c = qw.factory.getOWLObjectSomeValuesFrom(qw.getProperty("живёт_в"), b);
+	
+	OWLClassAxiom аксиома_abcN = qw.factory.getOWLEquivalentClassesAxiom(играет_на_Валторна,c);
+	qw.manager.addAxiom(qw.ontology, аксиома_abcN);	
+
+	
+		stat.sowl = qw.sowl();	
+		return "<a href=/owl > OWL </a>";
 	}
 	
 	public void onModuleLoad() {
