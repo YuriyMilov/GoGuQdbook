@@ -33,14 +33,26 @@ public class qq extends HttpServlet implements EntryPoint {
 		String sh = req.getScheme() + "://" + req.getServerName() + ":"
 				+ req.getServerPort() + req.getContextPath();
 		stat.sh = sh;
-		
-		String s = req.getParameter("p2").trim();	 
-		if (s == null) {
+		String s = req.getParameter("p2").trim();
+		String s2=req.getParameter("test");		
+		if(s2!=null)
+		{
+		if(req.getParameter("test").contains("форум"))
+			s=stq.форум(sh, req.getParameter("p2"));
+		if(req.getParameter("test").contains("chain"))
+			s=ййочередь(sh);			
+		if(req.getParameter("test").contains("totkto"))
+			s=stq.totkto(sh);
+		if(req.getParameter("test").contains("test2"))
+			s=test2(sh,"");
+		stat.page(req, resp, s);
+		return;
+		}
+		else if (s == null) {
 			stq.init(req, resp);
 			return;
 		} else 
-			{
-				
+			{				
 			if (!s.contains("?")) {
 			if (s.indexOf(" ") < 0) {
 				stat.command(s, req, resp);
@@ -85,24 +97,10 @@ public class qq extends HttpServlet implements EntryPoint {
 				
 		if (req.getQueryString() == null)
 			stq.init(req, resp);
-		else {
-			String s2=req.getParameter("test");
-			if(s2!=null)
-			{
-			if(req.getParameter("test").contains("mail"))
-				s=stq.форум(sh);
-			if(req.getParameter("test").contains("chain"))
-				s=ййочередь(sh);			
-			if(req.getParameter("test").contains("totkto"))
-				s=stq.totkto(sh);
-			if(req.getParameter("test").contains("test2"))
-				s=test2(sh,"");
-			stat.page(req, resp, s);
-			}
 		else
 			if (s.indexOf("p2=") > -1)
 				doPost(req, resp);
-		}
+		
 	}
 	public static String ййочередь2(String ш){
 

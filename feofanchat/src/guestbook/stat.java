@@ -95,7 +95,7 @@ public class stat {
 			
 		 	
 			"<form  action=qq method=post>" +
-			"<br><input type=text id=id name=p2 size=100>&nbsp;" +
+			"<br><input type=text id=id name=p2 size=120>&nbsp;" +
 			"<input type=\"submit\" value=\"&nbsp;кляк&nbsp;\"></form>" +
 			//"<br/>" +
 			" &nbsp; <a href=/primer.htm><button> примеры </button></a>" +
@@ -108,6 +108,7 @@ public class stat {
 			" &nbsp; <a href=/rubli.htm><button> деньги </button></a>" +
 			" &nbsp; <a href=qq?p2=помощь><button> записки </button></a>"+
 			" &nbsp; <a href=/owl><button> OWL </button></a>" +
+			" &nbsp; <a href=/Feofanchat.html><button> тест </button></a>" +
 			 "<br.>&nbsp;<br>&nbsp;<br>&nbsp;<br><br>&nbsp;<br>&nbsp;<br><br></html>";
 
 	public static String owl_file = "rff?83.owl";

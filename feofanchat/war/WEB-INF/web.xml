@@ -247,7 +247,7 @@
   
   <!-- Default page to serve -->
   <welcome-file-list>
-    <welcome-file>qq</welcome-file>
+    <welcome-file>Feofanchat.html</welcome-file>
   </welcome-file-list>
 
   <servlet>

@@ -1070,6 +1070,7 @@ public class stq {
 		stat.owl_file = "rff?83.owl";
 		Owl2Model qw = new Owl2Model(sh + "/" + stat.owl_file);
 		s = pripare(s);
+
 		String[] ss = s.split("[.]+");
 		s = "";
 		for (String s2 : ss) {
@@ -1100,14 +1101,24 @@ public class stq {
 						.replace("тот", "").replace("кто", "")
 						.replaceAll("[ ]+", " ").trim();
 				String[] ss6 = s2.split("[ ]");
-				if (ss6.length == 3)
-					if(!bim(ss6[1]) && !bim(ss6[2]) )
-						qqcpcec(qw,ss6[2], ss6[0], ss6[1]);
-					//else if(!bim(ss6[0]) && bim(ss6[2]) )
-					//	stq.Незнайка_живет_дома(qw, ss6[2], ss6[1], ss6[0]);
+				 if (ss6.length == 3)
+					if (!bim(ss6[1]) && !bim(ss6[2]))
+						{qqcpcec(qw, ss6[2], ss6[0], ss6[1]);bb = false;}
+					else if (!bim(ss6[0]) && bim(ss6[2]))
+						{stq.четвертый_имеет_фамилию_Васильев(qw, ss6[2],
+								ss6[1], ss6[0]);
+						bb = false;
+						}
 					else
 						qqipiec_ii(qw, ss6[2], ss6[0], ss6[1]);
 
+					else if(ss6.length == 4 && n(ss6[1]))
+						
+					{	qqcpcec(qw, ss6[3], ss6[0], ss6[2]);
+						s2=ss6[3]+" "+ss6[0]+" "+ss6[1]+" "+ss6[2]+". ";
+						bb = true;
+					}
+				 
 				else if (ss1.length > 4) {
 
 					sd = ss1[2].trim();
@@ -1126,7 +1137,8 @@ public class stq {
 							.getOWLEquivalentClassesAxiom(выращивают_Р,
 									живут_в_Красный_дом);
 					qw.manager.addAxiom(qw.ontology,
-							кто_выращивают_Розы_живут_в_Красный_дом);					
+							кто_выращивают_Розы_живут_в_Красный_дом);
+					bb = false;
 				}
 				bb = false;
 			}
@@ -1223,7 +1235,7 @@ public class stq {
 					else
 
 					if (!bim(ss2[0]) && bim(ss2[1])) {
-						//qw.hasClass(qw.getIndividual(ss2[0]),qw.getOwlClass(ss2[1]));
+						// qw.hasClass(qw.getIndividual(ss2[0]),qw.getOwlClass(ss2[1]));
 						stq.Незнайка_малыш(qw, ss2[1], ss2[0]);
 					}
 
@@ -1263,19 +1275,6 @@ public class stq {
 
 				if (ss2.length == 3) {
 
-					/*
-					 * if (bim(ss2[0]) && bim(ss2[2]) && ss2[1].equals("не")) {
-					 * qw.differentIndividuals(qw.getIndividual(ss2[0]),
-					 * qw.getIndividual(ss2[2])); } else
-					 * 
-					 * 
-					 * if (!bim(ss2[0]) && !bim(ss2[2]) && ss2[1].equals("не"))
-					 * { qw.manager.applyChange(new AddAxiom(qw.ontology,
-					 * qw.factory.getOWLDisjointClassesAxiom(
-					 * qw.getOwlClass(ss2[0]), qw.getOwlClass(ss2[2]))));
-					 * 
-					 * } else
-					 */
 					if (bim(ss2[0]) && n(ss2[2])) {
 
 						OWLDataProperty hasAge = qw.getDataProperty(ss2[1]
@@ -1286,9 +1285,8 @@ public class stq {
 
 						qw.assertFact(hasAge, ind, n);
 
-					} else
-
-					if (bim(ss2[0]) && bim(ss2[2])) {
+					} 					
+					else if (bim(ss2[0]) && bim(ss2[2])) {
 						OWLObjectProperty любит = qw.getProperty(ss2[1]
 								.replace(sfx, ""));
 
@@ -1296,32 +1294,32 @@ public class stq {
 							qw.isSymmetric(любит);
 
 						qqipiec_ii(qw, ss2[0], ss2[1].replace(sfx, ""), ss2[2]);
-						stq.Незнайка_малыш(qw, ss2[0], ss2[1].replace(sfx, "") + "_"
-								+ ss2[2]);
+						stq.Незнайка_малыш(qw, ss2[0], ss2[1].replace(sfx, "")
+								+ "_" + ss2[2]);
 
 						// OWLIndividual малыш = qw.getIndividual(ss2[0]);
 						// OWLIndividual малышка = qw.getIndividual(ss2[2]);
 						// qw.assertFact(любит, малыш, малышка);
 
-					} else
+					}
+					else if (!bim(ss2[0]) && !bim(ss2[2])) {
 
-						if (!bim(ss2[0]) && !bim(ss2[2])) {
+						OWLObjectProperty любит = qw.getProperty(ss2[1]
+								.replace(sfx, ""));
 
-							OWLObjectProperty любит = qw.getProperty(ss2[1]
-									.replace(sfx, ""));
+						if (ss2[1].indexOf("/сим") > -1)
+							qw.isSymmetric(любит);
 
-							if (ss2[1].indexOf("/сим") > -1)
-								qw.isSymmetric(любит);
-
-							qw.assertDomainAndRange(любит, qw.getOwlClass(ss2[0]),
-									qw.getOwlClass(ss2[2]));
-						}
-						else
-
-							if (bim(ss2[0]) && !bim(ss2[2])) {
-
-								stq.Незнайка_живет_дома(qw, ss2[0], ss2[1], ss2[2]);
-							}
+						qw.assertDomainAndRange(любит, qw.getOwlClass(ss2[0]),
+								qw.getOwlClass(ss2[2]));
+					}
+					else if (bim(ss2[0]) && !bim(ss2[2])) {
+						stq.Незнайка_живет_дома(qw, ss2[0], ss2[1], ss2[2]);
+					}
+					else if (!bim(ss2[0]) && bim(ss2[2])) {
+						stq.четвертый_имеет_фамилию_Васильев(qw, ss2[0],
+								ss2[1], ss2[2]);
+					}
 				}
 
 				else
@@ -1381,45 +1379,51 @@ public class stq {
 					}
 				}
 
-				
 				if (ss2.length == 6) {
 
 					if (ss2[2].equals("или"))
 
-						// **************       добавка    РЯДОМ_С        **************
-						
-					{
-					OWLObjectProperty слева_от = qw.getProperty(ss2[1]);
-					OWLObjectProperty справа_от = qw.getProperty(ss2[3]);
-					OWLObjectProperty рядом = qw.getProperty(ss2[5]);
-					OWLInverseObjectPropertiesAxiom axiom1 = qw.factory
-							.getOWLInverseObjectPropertiesAxiom(слева_от, справа_от);
-					qw.manager.addAxiom(qw.ontology, axiom1);
+					// ************** добавка РЯДОМ_С **************
 
-					 OWLSubObjectPropertyOfAxiom axiom2 = qw.factory.getOWLSubObjectPropertyOfAxiom(слева_от, рядом);
-					qw.manager.addAxiom(qw.ontology, axiom2);
-					 OWLSubObjectPropertyOfAxiom axiom3 = qw.factory.getOWLSubObjectPropertyOfAxiom(справа_от,рядом);
-					qw.manager.addAxiom(qw.ontology, axiom3);
-					
+					{
+						OWLObjectProperty слева_от = qw.getProperty(ss2[1]);
+						OWLObjectProperty справа_от = qw.getProperty(ss2[3]);
+						OWLObjectProperty рядом = qw.getProperty(ss2[5]);
+						OWLInverseObjectPropertiesAxiom axiom1 = qw.factory
+								.getOWLInverseObjectPropertiesAxiom(слева_от,
+										справа_от);
+						qw.manager.addAxiom(qw.ontology, axiom1);
+
+						OWLSubObjectPropertyOfAxiom axiom2 = qw.factory
+								.getOWLSubObjectPropertyOfAxiom(слева_от, рядом);
+						qw.manager.addAxiom(qw.ontology, axiom2);
+						OWLSubObjectPropertyOfAxiom axiom3 = qw.factory
+								.getOWLSubObjectPropertyOfAxiom(справа_от,
+										рядом);
+						qw.manager.addAxiom(qw.ontology, axiom3);
+
 					}
-					
+
 				}
-				
-				
+
 				s = s + "";
 			}
 
-		//Тот, кто играет_на Валторна, тот живёт_в где_живёт тот, кто выращивает Кувшинки. 
-		//Тот, кто выращивает Лютики, тот живёт_в где_живёт тот, кто играет_на Баян. 
+		// Тот, кто играет_на Валторна, тот живёт_в где_живёт тот, кто
+		// выращивает Кувшинки.
+		// Тот, кто выращивает Лютики, тот живёт_в где_живёт тот, кто играет_на
+		// Баян.
 
-		//Валторна(qw,"играет_на_Валторна","живёт_в", "где_живёт", "выращивает", "Кувшинки");
-		//Валторна(qw,"выращивает_Лютики","живёт_в", "где_живёт", "играет_на", "Баян");
-		
-		
-		//Тот, кто пьёт Вода, тот живёт_в рядом_с где_живёт тот, кто играет_на Валторна. 
-		//Вода(qw,"пьёт Вода", "живёт_в","рядом_с","где_живёт","играет_на","Валторна");
-		
-		
+		// Валторна(qw,"играет_на_Валторна","живёт_в", "где_живёт",
+		// "выращивает", "Кувшинки");
+		// Валторна(qw,"выращивает_Лютики","живёт_в", "где_живёт", "играет_на",
+		// "Баян");
+
+		// Тот, кто пьёт Вода, тот живёт_в рядом_с где_живёт тот, кто играет_на
+		// Валторна.
+		// Вода(qw,"пьёт Вода",
+		// "живёт_в","рядом_с","где_живёт","играет_на","Валторна");
+
 		stat.sowl = qw.sowl();
 
 		return "<a href=/owl > OWL </a>";
@@ -1428,53 +1432,86 @@ public class stq {
 	public static void Незнайка_малыш(Owl2Model qw, String Незнайка,
 			String малыш) {
 		OWLEquivalentClassesAxiom аксиома_о_Незнайке = qw.factory
-				.getOWLEquivalentClassesAxiom(
-						qw.getOwlClass(малыш),
-						qw.factory.getOWLObjectOneOf(qw.getIndividual(Незнайка)));
+				.getOWLEquivalentClassesAxiom(qw.getOwlClass(малыш), qw.factory
+						.getOWLObjectOneOf(qw.getIndividual(Незнайка)));
 		qw.manager.addAxiom(qw.ontology, аксиома_о_Незнайке);
 
 	}
-	
-	public static void то_что_сзади_от_того_что_сверху_от_того_что_cправа_от_Незнайки(Owl2Model qw,	String справа_от, String сверху_от, String сзади_от, String Незнайка) {
-	OWLClass abcN	 = qw.getOwlClass("тот-кто-сзади-от-того,-кто-сверху-от-того,-кто-cправа-от-Незнайки");
-	
-	OWLClassExpression a = qw.factory.getOWLObjectSomeValuesFrom(qw.getProperty(справа_от), qw.factory.getOWLObjectOneOf(
-			qw.getIndividual(Незнайка)));
-	OWLClassExpression b = qw.factory.getOWLObjectSomeValuesFrom(qw.getProperty(сверху_от), a);
-	OWLClassExpression c = qw.factory.getOWLObjectSomeValuesFrom(qw.getProperty(сзади_от), b);
-	OWLClassAxiom аксиома_abcN = qw.factory.getOWLEquivalentClassesAxiom(abcN,c);
-	qw.manager.addAxiom(qw.ontology, аксиома_abcN);	
-}
-	public static void то_что_слева_от_того_что_снизу_от_Пончики(Owl2Model qw,	String слева_от, String снизу_от, String Пончик) {
-	OWLClass abcN	 = qw.getOwlClass("тот-кто-сзади-от-того,-кто-сверху-от-того,-кто-cправа-от-Незнайки");
-	
-	OWLClassExpression a = qw.factory.getOWLObjectSomeValuesFrom(qw.getProperty(слева_от), qw.factory.getOWLObjectOneOf(
-			qw.getIndividual(Пончик)));
-	OWLClassExpression b = qw.factory.getOWLObjectSomeValuesFrom(qw.getProperty(снизу_от), a);
-	
-	OWLClassAxiom аксиома_abP = qw.factory.getOWLEquivalentClassesAxiom(abcN,b);
-	qw.manager.addAxiom(qw.ontology, аксиома_abP);	
-}
+
+	public static void то_что_сзади_от_того_что_сверху_от_того_что_cправа_от_Незнайки(
+			Owl2Model qw, String справа_от, String сверху_от, String сзади_от,
+			String Незнайка) {
+		OWLClass abcN = qw
+				.getOwlClass("тот-кто-сзади-от-того,-кто-сверху-от-того,-кто-cправа-от-Незнайки");
+
+		OWLClassExpression a = qw.factory.getOWLObjectSomeValuesFrom(
+				qw.getProperty(справа_от),
+				qw.factory.getOWLObjectOneOf(qw.getIndividual(Незнайка)));
+		OWLClassExpression b = qw.factory.getOWLObjectSomeValuesFrom(
+				qw.getProperty(сверху_от), a);
+		OWLClassExpression c = qw.factory.getOWLObjectSomeValuesFrom(
+				qw.getProperty(сзади_от), b);
+		OWLClassAxiom аксиома_abcN = qw.factory.getOWLEquivalentClassesAxiom(
+				abcN, c);
+		qw.manager.addAxiom(qw.ontology, аксиома_abcN);
+	}
+
+	public static void то_что_слева_от_того_что_снизу_от_Пончики(Owl2Model qw,
+			String слева_от, String снизу_от, String Пончик) {
+		OWLClass abcN = qw
+				.getOwlClass("тот-кто-сзади-от-того,-кто-сверху-от-того,-кто-cправа-от-Незнайки");
+
+		OWLClassExpression a = qw.factory.getOWLObjectSomeValuesFrom(
+				qw.getProperty(слева_от),
+				qw.factory.getOWLObjectOneOf(qw.getIndividual(Пончик)));
+		OWLClassExpression b = qw.factory.getOWLObjectSomeValuesFrom(
+				qw.getProperty(снизу_от), a);
+
+		OWLClassAxiom аксиома_abP = qw.factory.getOWLEquivalentClassesAxiom(
+				abcN, b);
+		qw.manager.addAxiom(qw.ontology, аксиома_abP);
+	}
+
 	public static void Незнайка_живет_дома(Owl2Model qw, String Незнайка,
 			String живет, String дома) {
-		
+
 		qw.getIndividual(Незнайка);
-		
+
 		OWLEquivalentClassesAxiom аксиома_о_Незнайке1 = qw.factory
-				.getOWLEquivalentClassesAxiom(qw.getOwlClass(живет+"_"+дома),
-						qw.factory.getOWLObjectOneOf(
-								qw.getIndividual(Незнайка)));
+				.getOWLEquivalentClassesAxiom(qw
+						.getOwlClass(живет + "_" + дома), qw.factory
+						.getOWLObjectOneOf(qw.getIndividual(Незнайка)));
 		qw.manager.addAxiom(qw.ontology, аксиома_о_Незнайке1);
-		
+
 		OWLEquivalentClassesAxiom аксиома_о_Незнайке2 = qw.factory
 				.getOWLEquivalentClassesAxiom(
-						qw.getOwlClass(живет+"_"+дома),
+						qw.getOwlClass(живет + "_" + дома),
 						qw.factory.getOWLObjectSomeValuesFrom(
-								qw.getProperty(живет),
-								qw.getOwlClass(дома)));
-		
+								qw.getProperty(живет), qw.getOwlClass(дома)));
+
 		qw.manager.addAxiom(qw.ontology, аксиома_о_Незнайке2);
 
+	}
+
+	public static void четвертый_имеет_фамилию_Васильев(Owl2Model qw,
+			String четвертый, String имеет_фамилию, String Васильев) {
+
+		qw.getIndividual(Васильев);
+
+		OWLEquivalentClassesAxiom аксиома_о_Незнайке1 = qw.factory
+				.getOWLEquivalentClassesAxiom(qw
+						.getOwlClass(четвертый+"_"+имеет_фамилию), qw.factory
+						.getOWLObjectOneOf(qw.getIndividual(Васильев)));
+		qw.manager.addAxiom(qw.ontology, аксиома_о_Незнайке1);
+
+		OWLEquivalentClassesAxiom аксиома_о_Незнайке2 = qw.factory
+				.getOWLEquivalentClassesAxiom(
+						qw.getOwlClass(четвертый),
+						qw.factory.getOWLObjectSomeValuesFrom(
+								qw.getProperty(имеет_фамилию), qw.factory
+								.getOWLObjectOneOf(qw.getIndividual(Васильев))));
+
+		qw.manager.addAxiom(qw.ontology, аксиома_о_Незнайке2);
 	}
 
 	public static void qq2ipec(Owl2Model qw, String Незнайка, String Пончик,
@@ -1672,54 +1709,430 @@ public class stq {
 		return "<a href=/owl > OWL </a>";
 	}
 
-	public static String форум(String ш) {
-		String ss = "Незнайка и Пончик - малыш. Кнопочка и Синеглазка это малышка. Если x дружитъс y, то y  дружит_с x. малыш  дружитъс 1 малышка. малышка  дружитъс 1 малыш. Пончик  дружитъс Синеглазка. СПРАШКЛ(Незнайка дружитъс ?кем)";
-		ss = stq.mm_get_otvet(ш, "тест форум", ss, "forum@feofan.com");
+	public static String форум(String ш,String ss) {
+//		String ss = "малыш это только Незнайка и Пончик." +
+//				"малышка только Кнопочка и Синеглазка. " +
+//				"Если малыш дружит_с малышка, то малышка  дружит_с малыш. " +
+//				"малыш дружит_с 1 малышка. малышка дружит_с 1 малыш. " +
+//				"Пончик  дружит_с Синеглазка. " +
+//				"кто дружит_с Незнайка?";
+		ss = stq.mm_get_otvet(ш, "тест форум", ss.trim(), "forum@feofan.com");
 		stq.mail_admins("тест форум", ss);
 
-		return "тест форум - полёт нормальный - см. письмо на форуме";
+		return ss+"\r\n тест форум - полёт нормальный - см. письмо на форуме";
 	}
 
-	public static void Валторна(Owl2Model qw, String играет_на_Валторна,String живёт_в,String где_живёт,String выращивает,String Кувшинки) {	
-		OWLClass кто_играет_на_Валторна	 = qw.getOwlClass(играет_на_Валторна);
-		
-		OWLClassExpression a = qw.factory.getOWLObjectSomeValuesFrom(qw.getProperty(выращивает), qw.factory.getOWLObjectOneOf(
-				qw.getIndividual(Кувшинки)));
-		OWLClassExpression b = qw.factory.getOWLObjectSomeValuesFrom(qw.getProperty(где_живёт), a);
-		OWLClassExpression c = qw.factory.getOWLObjectSomeValuesFrom(qw.getProperty(живёт_в), b);
-		
-		OWLClassAxiom аксиома_abcN = qw.factory.getOWLEquivalentClassesAxiom(кто_играет_на_Валторна,c);
-		qw.manager.addAxiom(qw.ontology, аксиома_abcN);	
-	}
-	
-public static void Лютики(Owl2Model qw) {	
-		
-		OWLClass выращивает_Лютики	 = qw.getOwlClass("выращивает_Лютики");
-		
-		OWLClassExpression a = qw.factory.getOWLObjectSomeValuesFrom(qw.getProperty("играет_на"), qw.factory.getOWLObjectOneOf(
-				qw.getIndividual("Баян")));
-		OWLClassExpression b = qw.factory.getOWLObjectSomeValuesFrom(qw.getProperty("где_живёт"), a);
-		OWLClassExpression c = qw.factory.getOWLObjectSomeValuesFrom(qw.getProperty("живёт_в"), b);
-		
-		OWLClassAxiom аксиома_abcN = qw.factory.getOWLEquivalentClassesAxiom(выращивает_Лютики,c);
-		qw.manager.addAxiom(qw.ontology, аксиома_abcN);	
-	}
-	//Тот, кто пьёт Вода, тот живёт_в рядом_с где_живёт тот, кто играет_на Валторна.
-	
-public static void Вода(Owl2Model qw, String пьёт_Вода, String живёт_в, String рядом_с, String где_живёт, String играет_на, String Валторна ) {	
-	
-	OWLClass кто_пьёт_Вода	 = qw.getOwlClass(пьёт_Вода);
-	
-	OWLClassExpression a = qw.factory.getOWLObjectSomeValuesFrom(qw.getProperty(играет_на), qw.factory.getOWLObjectOneOf(
-			qw.getIndividual(Валторна)));
-	OWLClassExpression b = qw.factory.getOWLObjectSomeValuesFrom(qw.getProperty(где_живёт), a);
-	OWLClassExpression c = qw.factory.getOWLObjectSomeValuesFrom(qw.getProperty(рядом_с), b);
-	OWLClassExpression d = qw.factory.getOWLObjectSomeValuesFrom(qw.getProperty(живёт_в), c);
-	
-	OWLClassAxiom аксиома_abcN = qw.factory.getOWLEquivalentClassesAxiom(кто_пьёт_Вода,d);
-	qw.manager.addAxiom(qw.ontology, аксиома_abcN);	
-}
-//Тот, кто пьёт Вода, тот живёт_в рядом_с где_живёт тот, кто играет_на Валторна.
+	public static void Валторна(Owl2Model qw, String играет_на_Валторна,
+			String живёт_в, String где_живёт, String выращивает, String Кувшинки) {
+		OWLClass кто_играет_на_Валторна = qw.getOwlClass(играет_на_Валторна);
 
+		OWLClassExpression a = qw.factory.getOWLObjectSomeValuesFrom(
+				qw.getProperty(выращивает),
+				qw.factory.getOWLObjectOneOf(qw.getIndividual(Кувшинки)));
+		OWLClassExpression b = qw.factory.getOWLObjectSomeValuesFrom(
+				qw.getProperty(где_живёт), a);
+		OWLClassExpression c = qw.factory.getOWLObjectSomeValuesFrom(
+				qw.getProperty(живёт_в), b);
+
+		OWLClassAxiom аксиома_abcN = qw.factory.getOWLEquivalentClassesAxiom(
+				кто_играет_на_Валторна, c);
+		qw.manager.addAxiom(qw.ontology, аксиома_abcN);
+	}
+
+	public static void Лютики(Owl2Model qw) {
+
+		OWLClass выращивает_Лютики = qw.getOwlClass("выращивает_Лютики");
+
+		OWLClassExpression a = qw.factory.getOWLObjectSomeValuesFrom(
+				qw.getProperty("играет_на"),
+				qw.factory.getOWLObjectOneOf(qw.getIndividual("Баян")));
+		OWLClassExpression b = qw.factory.getOWLObjectSomeValuesFrom(
+				qw.getProperty("где_живёт"), a);
+		OWLClassExpression c = qw.factory.getOWLObjectSomeValuesFrom(
+				qw.getProperty("живёт_в"), b);
+
+		OWLClassAxiom аксиома_abcN = qw.factory.getOWLEquivalentClassesAxiom(
+				выращивает_Лютики, c);
+		qw.manager.addAxiom(qw.ontology, аксиома_abcN);
+	}
+
+	// Тот, кто пьёт Вода, тот живёт_в рядом_с где_живёт тот, кто играет_на
+	// Валторна.
+
+	public static void Вода(Owl2Model qw, String пьёт_Вода, String живёт_в,
+			String рядом_с, String где_живёт, String играет_на, String Валторна) {
+
+		OWLClass кто_пьёт_Вода = qw.getOwlClass(пьёт_Вода);
+
+		OWLClassExpression a = qw.factory.getOWLObjectSomeValuesFrom(
+				qw.getProperty(играет_на),
+				qw.factory.getOWLObjectOneOf(qw.getIndividual(Валторна)));
+		OWLClassExpression b = qw.factory.getOWLObjectSomeValuesFrom(
+				qw.getProperty(где_живёт), a);
+		OWLClassExpression c = qw.factory.getOWLObjectSomeValuesFrom(
+				qw.getProperty(рядом_с), b);
+		OWLClassExpression d = qw.factory.getOWLObjectSomeValuesFrom(
+				qw.getProperty(живёт_в), c);
+
+		OWLClassAxiom аксиома_abcN = qw.factory.getOWLEquivalentClassesAxiom(
+				кто_пьёт_Вода, d);
+		qw.manager.addAxiom(qw.ontology, аксиома_abcN);
+	}
+	// Тот, кто пьёт Вода, тот живёт_в рядом_с где_живёт тот, кто играет_на
+	// Валторна.
+
+	@SuppressWarnings("unused")
+	public static String srowl2(String s, String sh, String sf) {
+		boolean bb = true;
+		stat.owl_file = "rff?83.owl";
+		Owl2Model qw = new Owl2Model(sh + "/" + stat.owl_file);
+		s = pripare(s);
+		String[] ss = s.split("[.]+");
+		s = "";
+		for (String s2 : ss) {
+			s2 = s2.trim().replaceAll("[ ]+", " ");
+			String[] sss = s2.split("[.]+");
 	
+			// //////////////////////////////////////////////////////
+			//
+			// переделка входного текста под нрорму кря
+			//
+			// //////////////////////////////////////////////////////
+	
+			bb = true;
+			String[] ss1 = s2.split("[ ]");
+			String sd = "";
+	
+			if (s2.toLowerCase().indexOf("тот, кто") != s2.toLowerCase()
+					.lastIndexOf("тот, кто")) {
+				s2 = s2.replace(",", "").replace("Тот", "").replace("тот", "")
+						.replace("кто", "").replaceAll("[ ]+", " ").trim();
+				String[] ss6 = s2.split("[ ]");
+				qqcpcec(qw, ss6[0] + "_" + ss6[1], ss6[2], ss6[3] + "_"
+						+ ss6[4].replace(".", ""));
+				bb = false;
+			} else if (s2.toLowerCase().indexOf("тот, кто") == 0) {
+	
+				s2 = s2.replace(".", "").replace(",", "").replace("Тот", "")
+						.replace("тот", "").replace("кто", "")
+						.replaceAll("[ ]+", " ").trim();
+				String[] ss6 = s2.split("[ ]");
+				if (ss6.length == 3)
+					if (!bim(ss6[1]) && !bim(ss6[2]))
+						qqcpcec(qw, ss6[2], ss6[0], ss6[1]);
+					else if (!bim(ss6[0]) && bim(ss6[2]))
+						stq.четвертый_имеет_фамилию_Васильев(qw, ss6[2],
+								ss6[1], ss6[0]);
+					else
+						qqipiec_ii(qw, ss6[2], ss6[0], ss6[1]);
+	
+				else if (ss1.length > 4) {
+	
+					sd = ss1[2].trim();
+					OWLObjectProperty живут_в = qw.getProperty(sd);
+	
+					sd = ss1[3].replace(",", "").trim();
+					OWLIndividual Красный_дом = qw.getIndividual(sd);
+	
+					sd = ss1[5].trim() + "_" + ss1[6].trim();
+					OWLClass выращивают_Р = qw.getOwlClass(sd);
+	
+					OWLClassExpression живут_в_Красный_дом = qw.factory
+							.getOWLObjectHasValue(живут_в, Красный_дом);
+	
+					OWLClassAxiom кто_выращивают_Розы_живут_в_Красный_дом = qw.factory
+							.getOWLEquivalentClassesAxiom(выращивают_Р,
+									живут_в_Красный_дом);
+					qw.manager.addAxiom(qw.ontology,
+							кто_выращивают_Розы_живут_в_Красный_дом);
+				}
+				bb = false;
+			}
+	
+			if (s2.toLowerCase().indexOf("если") == 0) {
+	
+				String s22 = ss1[2];
+				String s77 = ss1[6];
+				if (s22.equals(s77)) {
+	
+					// ///////////// симметрия
+	
+					bb = true;
+					s2 = ss1[2] + "/сим";
+				}
+	
+				else {
+	
+					// ///////////// инверсия
+	
+					OWLObjectProperty слева = qw.getProperty(s22);
+					OWLObjectProperty справа = qw.getProperty(s77);
+					OWLInverseObjectPropertiesAxiom axiom = qw.factory
+							.getOWLInverseObjectPropertiesAxiom(слева, справа);
+					qw.manager.addAxiom(qw.ontology, axiom);
+	
+				}
+			}
+	
+			if (s2.contains("только")) {
+				s2 = s2.substring(s2.indexOf("только") + 7);
+				s2 = s2.replace("&", ", ");
+	
+				String[] ss5 = s2.split("[,]");
+	
+				Set<OWLIndividual> inds = new HashSet<OWLIndividual>();
+	
+				for (int i = 0; i < ss5.length; i++) {
+					if (bim(ss5[i]))
+						inds.add(qw.getIndividual(ss5[i].trim()));
+				}
+				OWLClassAxiom аксиома = qw.factory
+						.getOWLEquivalentClassesAxiom(qw.getOwlClass(ss1[0]),
+								qw.factory.getOWLObjectOneOf(inds));
+				qw.manager.addAxiom(qw.ontology, аксиома);
+				bb = false;
+	
+			}
+	
+			if (bb)
+				s = s + s2 + ". ";
+		}
+	
+		// stq.iec(qw,"Пончик","играет_на_Баяне");
+		// stq.ipi(qw,"Незнайка","живет_справа_от","Пончик");
+	
+		// /////////////////////////////////
+		//
+		// 2-й проход (обработка нормализованного КРЯ без ограничителей)
+		//
+		// /////////////////////////////////
+	
+		ss = s.split("[.]+");
+		if (ss.length > 1)
+			for (String s3 : ss) {
+	
+				s3 = s3.trim().replaceAll("[ ]+", " ");
+				String[] ss2 = s3.split("[ ]+");
+	
+				// ///////////// 2 //////////////////
+	
+				if (ss2.length == 2) {
+	
+					if (bim(ss2[0]) && ss2[0].indexOf("&") > -1 && !bim(ss2[1]))
+	
+					{
+						String sss3 = ss2[0].replace("&", " ");
+						String[] ss3 = sss3.split("[ ]+");
+	
+						Set<OWLIndividual> inds = new HashSet<OWLIndividual>();
+						for (int i3 = 0; i3 < ss3.length; i3++)
+							inds.add(qw.getIndividual(ss3[i3]));
+	
+						OWLClassAxiom аксиома = qw.factory
+								.getOWLEquivalentClassesAxiom(
+										qw.getOwlClass(ss2[1]),
+										qw.factory.getOWLObjectOneOf(inds));
+						qw.manager.addAxiom(qw.ontology, аксиома);
+	
+						qw.manager.addAxiom(qw.ontology, qw.factory
+								.getOWLDifferentIndividualsAxiom(inds));
+					}
+	
+					else
+	
+					if (!bim(ss2[0]) && bim(ss2[1])) {
+						// qw.hasClass(qw.getIndividual(ss2[0]),qw.getOwlClass(ss2[1]));
+						stq.Незнайка_малыш(qw, ss2[1], ss2[0]);
+					}
+	
+					if (bim(ss2[0]) && !bim(ss2[1])) {
+	
+						stq.Незнайка_малыш(qw, ss2[0], ss2[1]);
+	
+						// Set<OWLIndividual> inds = new
+						// HashSet<OWLIndividual>();
+						// inds.add(qw.getIndividual(ss2[0]));
+						// OWLClassAxiom аксиома = qw.factory
+						// .getOWLEquivalentClassesAxiom(
+						// qw.getOwlClass(ss2[1]),
+						// qw.factory.getOWLObjectOneOf(inds));
+						// qw.manager.addAxiom(qw.ontology, аксиома);
+	
+					}
+	
+					else if (!bim(ss2[0]) && !bim(ss2[1])) {
+						qw.isSubClassOf(qw.getOwlClass(ss2[0]),
+								qw.getOwlClass(ss2[1]));
+					} else if (bim(ss2[0]) && bim(ss2[1])) {
+						qw.manager.applyChange(new AddAxiom(qw.ontology,
+								qw.factory.getOWLSameIndividualAxiom(
+										qw.getIndividual(ss2[0]),
+										qw.getIndividual(ss2[1]))));
+					} else if (!bim(ss2[0]) && bim(ss2[1])) {
+	
+						qw.hasClass(qw.getIndividual(ss2[1]),
+								qw.getOwlClass(ss2[0]));
+					}
+				}
+	
+				else
+	
+				// ///////////// 3 //////////////////
+	
+				if (ss2.length == 3) {
+	
+					if (bim(ss2[0]) && n(ss2[2])) {
+	
+						OWLDataProperty hasAge = qw.getDataProperty(ss2[1]
+								.replace(sfx, ""));
+						String sn = ss2[2].trim();
+						int n = Integer.parseInt(sn);
+						OWLIndividual ind = qw.getIndividual(ss2[0]);
+	
+						qw.assertFact(hasAge, ind, n);
+	
+					} 					
+					else if (bim(ss2[0]) && bim(ss2[2])) {
+						OWLObjectProperty любит = qw.getProperty(ss2[1]
+								.replace(sfx, ""));
+	
+						if (ss2[1].indexOf("/сим") > -1)
+							qw.isSymmetric(любит);
+	
+						qqipiec_ii(qw, ss2[0], ss2[1].replace(sfx, ""), ss2[2]);
+						stq.Незнайка_малыш(qw, ss2[0], ss2[1].replace(sfx, "")
+								+ "_" + ss2[2]);
+	
+						// OWLIndividual малыш = qw.getIndividual(ss2[0]);
+						// OWLIndividual малышка = qw.getIndividual(ss2[2]);
+						// qw.assertFact(любит, малыш, малышка);
+	
+					}
+					else if (!bim(ss2[0]) && !bim(ss2[2])) {
+	
+						OWLObjectProperty любит = qw.getProperty(ss2[1]
+								.replace(sfx, ""));
+	
+						if (ss2[1].indexOf("/сим") > -1)
+							qw.isSymmetric(любит);
+	
+						qw.assertDomainAndRange(любит, qw.getOwlClass(ss2[0]),
+								qw.getOwlClass(ss2[2]));
+					}
+					else if (bim(ss2[0]) && !bim(ss2[2])) {
+						stq.Незнайка_живет_дома(qw, ss2[0], ss2[1], ss2[2]);
+					}
+					else if (!bim(ss2[0]) && bim(ss2[2])) {
+						stq.четвертый_имеет_фамилию_Васильев(qw, ss2[0],
+								ss2[1], ss2[2]);
+					}
+				}
+	
+				else
+	
+				// ///////////// 4 //////////////////
+	
+				if (ss2.length == 4) {
+	
+					if (bim(ss2[0]) && n(ss2[2]) && !bim(ss2[3]))
+	
+					{
+						OWLIndividual Васька = qw.getIndividual(ss2[0]);
+						OWLObjectProperty любит = qw.getProperty(ss2[1]
+								.replace(sfx, ""));
+						if (ss2[1].indexOf("/сим") > -1)
+							qw.isSymmetric(любит);
+						int N = Integer.parseInt(ss2[2]);
+						OWLClassExpression молоко = qw.getOwlClass(ss2[3]);
+						qw.любит_в_точности_N_Сократов(молоко, любит, N, Васька);
+					}
+	
+					else if (!bim(ss2[0]) && n(ss2[2]) && bim(ss2[3]))
+	
+					{
+						OWLClassExpression малыш = qw.getOwlClass(ss2[0]);
+						OWLObjectProperty любит = qw.getProperty(ss2[1]
+								.replace(sfx, ""));
+						if (ss2[1].indexOf("/сим") > -1)
+							qw.isSymmetric(любит);
+						int N = Integer.parseInt(ss2[2]);
+						OWLIndividual Синеглазка = qw.getIndividual(ss2[3]);
+						qw.любит_в_точности_N_Сократов(малыш, любит, N,
+								Синеглазка);
+					}
+	
+					else
+	
+					if (!bim(ss2[0]) && n(ss2[2]) && !bim(ss2[3])) {
+						OWLObjectProperty любит = qw.getProperty(ss2[1]
+								.replace(sfx, ""));
+						if (ss2[1].indexOf("/сим") > -1)
+							qw.isSymmetric(любит);
+						qw.малыш_любит_N_малышек(qw.getOwlClass(ss2[0]), любит,
+								Integer.parseInt(ss2[2]),
+								qw.getOwlClass(ss2[3]));
+					}
+	
+				}
+				// ///////////// 1 слово - ПОСЛЕДНИЙ ШТРИХ //////////////////
+	
+				if (ss2.length == 1) {
+	
+					if (ss2[0].contains("/сим")) {
+						ss2[0] = ss2[0].replace("/сим", "");
+						OWLObjectProperty любит = qw.getProperty(ss2[0]);
+						qw.isSymmetric(любит);
+					}
+				}
+	
+				if (ss2.length == 6) {
+	
+					if (ss2[2].equals("или"))
+	
+					// ************** добавка РЯДОМ_С **************
+	
+					{
+						OWLObjectProperty слева_от = qw.getProperty(ss2[1]);
+						OWLObjectProperty справа_от = qw.getProperty(ss2[3]);
+						OWLObjectProperty рядом = qw.getProperty(ss2[5]);
+						OWLInverseObjectPropertiesAxiom axiom1 = qw.factory
+								.getOWLInverseObjectPropertiesAxiom(слева_от,
+										справа_от);
+						qw.manager.addAxiom(qw.ontology, axiom1);
+	
+						OWLSubObjectPropertyOfAxiom axiom2 = qw.factory
+								.getOWLSubObjectPropertyOfAxiom(слева_от, рядом);
+						qw.manager.addAxiom(qw.ontology, axiom2);
+						OWLSubObjectPropertyOfAxiom axiom3 = qw.factory
+								.getOWLSubObjectPropertyOfAxiom(справа_от,
+										рядом);
+						qw.manager.addAxiom(qw.ontology, axiom3);
+	
+					}
+	
+				}
+	
+				s = s + "";
+			}
+	
+		// Тот, кто играет_на Валторна, тот живёт_в где_живёт тот, кто
+		// выращивает Кувшинки.
+		// Тот, кто выращивает Лютики, тот живёт_в где_живёт тот, кто играет_на
+		// Баян.
+	
+		// Валторна(qw,"играет_на_Валторна","живёт_в", "где_живёт",
+		// "выращивает", "Кувшинки");
+		// Валторна(qw,"выращивает_Лютики","живёт_в", "где_живёт", "играет_на",
+		// "Баян");
+	
+		// Тот, кто пьёт Вода, тот живёт_в рядом_с где_живёт тот, кто играет_на
+		// Валторна.
+		// Вода(qw,"пьёт Вода",
+		// "живёт_в","рядом_с","где_живёт","играет_на","Валторна");
+	
+		stat.sowl = qw.sowl();
+	
+		return "<a href=/owl > OWL </a>";
+	}
+
 }
