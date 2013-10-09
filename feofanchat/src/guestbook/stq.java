@@ -974,6 +974,7 @@ public class stq {
 				s = "Не понял вопрос. См. описание КРЯ";
 			}
 		}
+		s=s.replaceAll("[_]", " ")+".";
 		return s;
 	}
 
@@ -1105,7 +1106,7 @@ public class stq {
 					if (!bim(ss6[1]) && !bim(ss6[2]))
 						{qqcpcec(qw, ss6[2], ss6[0], ss6[1]);bb = false;}
 					else if (!bim(ss6[0]) && bim(ss6[2]))
-						{stq.четвертый_имеет_фамилию_Васильев(qw, ss6[2],
+						{stq.четвертый_любит_Синеглазку(qw, ss6[2],
 								ss6[1], ss6[0]);
 						bb = false;
 						}
@@ -1317,7 +1318,10 @@ public class stq {
 						stq.Незнайка_живет_дома(qw, ss2[0], ss2[1], ss2[2]);
 					}
 					else if (!bim(ss2[0]) && bim(ss2[2])) {
-						stq.четвертый_имеет_фамилию_Васильев(qw, ss2[0],
+
+						stq.четвертый_любит_Синеглазку(qw, ss2[0],
+								ss2[1], ss2[2]);
+						stq.третий_отчество_Иваныч(qw, ss2[0],
 								ss2[1], ss2[2]);
 					}
 				}
@@ -1429,6 +1433,18 @@ public class stq {
 		return "<a href=/owl > OWL </a>";
 	}
 
+	private static void третий_отчество_Иваныч(Owl2Model qw, String третий,
+			String отчество, String Иваныч) {
+		
+		OWLClassAxiom аксиома = qw.factory
+				.getOWLEquivalentClassesAxiom(
+						qw.getOwlClass(отчество +"_"+ Иваныч),						
+						qw.getOwlClass(третий));
+		
+		qw.manager.addAxiom(qw.ontology, аксиома);
+		
+	}
+
 	public static void Незнайка_малыш(Owl2Model qw, String Незнайка,
 			String малыш) {
 		OWLEquivalentClassesAxiom аксиома_о_Незнайке = qw.factory
@@ -1493,7 +1509,7 @@ public class stq {
 
 	}
 
-	public static void четвертый_имеет_фамилию_Васильев(Owl2Model qw,
+	public static void четвертый_любит_Синеглазку(Owl2Model qw,
 			String четвертый, String имеет_фамилию, String Васильев) {
 
 		qw.getIndividual(Васильев);
@@ -1821,7 +1837,7 @@ public class stq {
 					if (!bim(ss6[1]) && !bim(ss6[2]))
 						qqcpcec(qw, ss6[2], ss6[0], ss6[1]);
 					else if (!bim(ss6[0]) && bim(ss6[2]))
-						stq.четвертый_имеет_фамилию_Васильев(qw, ss6[2],
+						stq.четвертый_любит_Синеглазку(qw, ss6[2],
 								ss6[1], ss6[0]);
 					else
 						qqipiec_ii(qw, ss6[2], ss6[0], ss6[1]);
@@ -2023,7 +2039,7 @@ public class stq {
 						stq.Незнайка_живет_дома(qw, ss2[0], ss2[1], ss2[2]);
 					}
 					else if (!bim(ss2[0]) && bim(ss2[2])) {
-						stq.четвертый_имеет_фамилию_Васильев(qw, ss2[0],
+						stq.четвертый_любит_Синеглазку(qw, ss2[0],
 								ss2[1], ss2[2]);
 					}
 				}
