@@ -2150,5 +2150,37 @@ public class stq {
 	
 		return "<a href=/owl > OWL </a>";
 	}
+	
+	public static String кря3(String s){
+		s="";
+		String[] ssss=s.split("[.]");
+		s="";
+		
+		for(String s4:ssss){
+			
+			String[] sss=s4.split("[,]");
+			s4="";
+			for(String s3:sss){
+				
+				String[] ss=s3.split("[ ]");
+				s3="";
+				for(String s2:ss){
+					
+					if(s2.trim().length()>2)
+					{
+						s2=s2.substring(0,3);
+					}		
+					else s2="";
+				s3= s3+" "+s2.trim();
+				}
+				if(s3.length()>2)
+				s4=s4+" "+s3 +",";
+			}
+			if(s4.length()>2)
+			s=s+" "+s4+".";
+			
+			s=s.replace(",.", ".").replaceAll("[ ]+", " ").replace(" .", ".").replace(" ,", ",");
+		}
+		return s;}
 
 }

@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
@@ -37,8 +38,10 @@ public class qq extends HttpServlet implements EntryPoint {
 		String s2=req.getParameter("test");		
 		if(s2!=null)
 		{
-		if(req.getParameter("test").contains("форум"))
-			s=stq.форум(sh, req.getParameter("p2"));
+			if(req.getParameter("test").contains("сбоку"))
+				s=сбоку(sh, req.getParameter("p2"));
+			if(req.getParameter("test").contains("форум"))
+				s=stq.форум(sh, req.getParameter("p2"));
 		if(req.getParameter("test").contains("chain"))
 			s=ййочередь(sh);			
 		if(req.getParameter("test").contains("totkto"))
@@ -417,6 +420,39 @@ public class qq extends HttpServlet implements EntryPoint {
 	qw.manager.addAxiom(qw.ontology, аксиома_abcN);	
 
 	
+		stat.sowl = qw.sowl();	
+		return "<a href=/owl > OWL </a>";
+	}
+	public static String сбоку(String ш,String s) {
+		
+		stat.owl_file = "rff?83.owl";
+		Owl2Model qw = new Owl2Model(ш + "/" + stat.owl_file);
+
+		//s="Незнайка перед тот, кто слева_от тот, кто за тот, кто справа_от Пончик.";
+
+		//s="Незнайка перед A.";
+		//s="A слева_от Б.";
+		//s="Б за Ц.";
+		//s="Ц справа_от Пончик.";
+		
+		
+		int n = s.split("тот, кто").length-1;
+		//if (n==3)
+		
+		OWLClass понятие_о_Незнайке_1 = qw.getOwlClass("кто_Незнайка");
+		OWLClassExpression Ц = qw.factory.getOWLObjectSomeValuesFrom(qw.getProperty("справа_от"), qw.factory.getOWLObjectOneOf(
+				qw.getIndividual("Пончик")));
+		OWLClassExpression Б = qw.factory.getOWLObjectSomeValuesFrom(qw.getProperty("за"), Ц);
+		OWLClassExpression А = qw.factory.getOWLObjectSomeValuesFrom(qw.getProperty("слева_от"), Б);
+		OWLClassExpression Незнайка = qw.factory.getOWLObjectSomeValuesFrom(qw.getProperty("перед"), А);
+		OWLClassAxiom аксиома_кто_Незнайка = qw.factory.getOWLEquivalentClassesAxiom(понятие_о_Незнайке_1, Незнайка);
+		qw.manager.addAxiom(qw.ontology, аксиома_кто_Незнайка);	
+
+		OWLClassExpression понятие_о_Незнайке_2 = qw.factory.getOWLObjectOneOf(qw.getIndividual("Незнайка"));
+		OWLClassAxiom аксиома_о_Незн = qw.factory.getOWLEquivalentClassesAxiom(понятие_о_Незнайке_1, понятие_о_Незнайке_2);
+		qw.manager.addAxiom(qw.ontology, аксиома_о_Незн);	
+
+		
 		stat.sowl = qw.sowl();	
 		return "<a href=/owl > OWL </a>";
 	}
