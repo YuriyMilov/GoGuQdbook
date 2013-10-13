@@ -1088,8 +1088,18 @@ public class stq {
 			String[] ss1 = s2.split("[ ]");
 			String sd = "";
 
-			if (s2.toLowerCase().indexOf("тот, кто") != s2.toLowerCase()
-					.lastIndexOf("тот, кто")) {
+			if (s2.split("тот, кто").length-1 == 3 )
+			{
+				String[] ss7 = s2.split("[ ]");
+				if(!ss7[0].trim().toLowerCase().contains("тот, кто") && 
+						ss7[2].trim().toLowerCase().equals("тот, кто")
+					&& bim(ss7[0]) && bim(ss7[15]))
+				stq.Нтот3ктоП(qw, s2);
+				bb = false;
+			}
+			else 
+				if (s2.toLowerCase().indexOf("тот, кто") != s2.toLowerCase()
+				.lastIndexOf("тот, кто")){
 				s2 = s2.replace(",", "").replace("Тот", "").replace("тот", "")
 						.replace("кто", "").replaceAll("[ ]+", " ").trim();
 				String[] ss6 = s2.split("[ ]");
@@ -2183,4 +2193,32 @@ public class stq {
 		}
 		return s;}
 
+	public static void Нтот3ктоП(Owl2Model qw,String s) {
+		
+		//s="Незнайка перед тот, кто слева_от тот, кто за тот, кто справа_от Пончик.";
+
+		//s="Незнайка перед A.";
+		//s="A слева_от Б.";
+		//s="Б за Ц.";
+		//s="Ц справа_от Пончик.";
+		
+		//int n = s.split("тот, кто").length-1;
+		
+		//кто_Незнайка экв класс 'перед тот, кто слева_от тот, кто за тот, кто справа_от Пончик'
+	OWLClass понятие_о_Незнайке_1 = qw.getOwlClass("кто_Незнайка");
+	OWLClassExpression Ц = qw.factory.getOWLObjectSomeValuesFrom(qw.getProperty("справа_от"), qw.factory.getOWLObjectOneOf(
+			qw.getIndividual("Пончик")));
+	OWLClassExpression Б = qw.factory.getOWLObjectSomeValuesFrom(qw.getProperty("за"), Ц);
+	OWLClassExpression А = qw.factory.getOWLObjectSomeValuesFrom(qw.getProperty("слева_от"), Б);
+	OWLClassExpression Незнайка = qw.factory.getOWLObjectSomeValuesFrom(qw.getProperty("перед"), А);
+	OWLClassAxiom аксиома_кто_Незнайка = qw.factory.getOWLEquivalentClassesAxiom(понятие_о_Незнайке_1, Незнайка);
+	qw.manager.addAxiom(qw.ontology, аксиома_кто_Незнайка);	
+
+	// Незнайка инд + кто_Незнайка экв класс {Незнайка}
+	OWLClassExpression понятие_о_Незнайке_2 = qw.factory.getOWLObjectOneOf(qw.getIndividual("Незнайка"));
+	OWLClassAxiom аксиома_о_Незн = qw.factory.getOWLEquivalentClassesAxiom(понятие_о_Незнайке_1, понятие_о_Незнайке_2);
+	qw.manager.addAxiom(qw.ontology, аксиома_о_Незн);
+	
+	}
+	
 }
