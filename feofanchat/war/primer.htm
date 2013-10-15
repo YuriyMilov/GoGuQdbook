@@ -2,24 +2,7 @@
 <script>function setFocus(){document.getElementById("id").focus();}</script>
 <body bgcolor=#efefef onload=setFocus()>
 
-<br/>
 
-<form name="input" action="/qq" method="post">
-<textarea rows="11" cols="88" name="p2" >
-Незнайка перед тот, кто слева_от тот, кто за тот, кто справа_от Пончик.
-курит тот, кто перед тот, кто слева_от тот, кто за тот, кто справа_от Пончик.
-
-кто курит?
-
-</textarea>
-<br/>
- &nbsp; <input id=id type="submit" value=" кляк ">
- &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-
-<input type="submit" name=test value=" тест сбоку " >
-
-</form>
-<br/>
 
 <br/><form name="input" action="/qq" method="post">
 <textarea rows="11" cols="88" name="p2" >
@@ -29,14 +12,13 @@
 дурак имеет_приятеля_по_имени Пончик.
 тот, кто имеет_приятеля_по_имени Пончик, тот дружит_с Синеглазка.
 
-кто Незнайка?
 
 </textarea>
 <br/>
  &nbsp; <input id=id type="submit" value=" кляк ">
  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
 
-<input type="submit" name=test value="тест форум" >
+<input type="hidden" name=test value="new" >
 
 </form>
 
@@ -49,15 +31,13 @@
 второй фамилия Сидоров. третий отчество Иваныч.
 тот, кто отчество Иваныч, тот фамилия Иванов.
 
-кто Коля?
 
 </textarea>
 <br/>
  &nbsp; <input id=id type="submit" value=" кляк ">
  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
 
-<input type="submit" name=test value="тест форум" >
-
+<input type="hidden" name=test value="new" >
 </form>
 
 <br/><br/><br/>
@@ -68,15 +48,33 @@
 
 Петя первый. Вася за Петя. тот, кто за первый, тот второй.
 второй фамилия Сидоров.
-кого фамилия Сидоров?
- 
+
 </textarea>
 <br/>
 <input id=id type="submit" value=" кляк ">
 </form>
 
 
-<br/><br/><br/>
+<br/>
+
+<br/>
+
+<form name="input" action="/qq" method="post">
+<textarea rows="11" cols="88" name="p2" >
+Незнайка перед тот, кто слева_от тот, кто за тот, кто справа_от Пончик.
+курит тот, кто перед тот, кто слева_от тот, кто за тот, кто справа_от Пончик.
+
+
+</textarea>
+<br/>
+ &nbsp; <input id=id type="submit" value=" кляк ">
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+
+<input type="hidden" name=test value="new" >
+
+</form>
+<br/>
+
 
 
 <form name="input" action="/qq" method="post">
@@ -84,10 +82,10 @@
  Путин нужен Россия. Россия это страна. 
  Тот, кто нужен страна, тот президент. 
  
- Кто президент?
 </textarea>
 <br/>
 <input id=id type="submit" value=" кляк ">
+<input type="hidden" name=test value="new" >
 </form>
 <br/><br/><br/>
 
@@ -96,33 +94,28 @@
  <textarea rows="6" cols="88" name="p2" >
 Торопыжка пьет Молоко. Молоко это напиток. Тот, кто пьет Молоко, тот живет_в первый_дом. первый_дом это Зелёный_дом. малыш живет_в 1 первый_дом. малыш пьет 1 напиток.  
 
-Кто живет_в Зелёный_дом? 
 </textarea>
 <br/>
 <input type="submit" value=" кляк ">
 </form>
-Торопыжка малыш.
+
 <br/>
 <br/><br/>
 
 
-
+<!-- 
 
 <form name="input" action="/qq" method="post">
 
  <textarea rows="5" cols="88" name="p2" >Тот, кто выращивает Розы, тот живет_справа_от тот, кто играет_на Баяне.
 Пончик играет_на Баяне. Незнайка живет_справа_от Пончик. 
-Кто выращивает Розы?
+
 
 </textarea>
-<!-- input type="hidden" name="test" value="totkto" -->
 <br/>
 <input type="submit" value=" кляк ">
-</form>
-
-<br/>
-<!--  
-
+<input type="hidden" name=test value="new" >
+		
 
 <br/><br/>
 
@@ -162,15 +155,34 @@
 </form>
 <br/>
 
- 
--->
+<br/>
+<form name="input" action="/qq" method="post">
+
+ <textarea rows="4" cols="88" name="p2" >
+Васька кот. Свежеемолоко молоко. 
+молоко здесь только Свежеемолоко. кот любит 1 молоко. 
+</textarea>
+<br/>
+<br/>
+<input type="submit" value=" кляк ">
+</form>
+<br/>
+
+<br/>
 
 
+<form name="input" action="/qq" method="post">
 
+ <textarea rows="5" cols="88" name="p2" >
+Незнайка малыш. Кнопочка малышка. малышка здесь только Кнопочка. малыш  любит 1 малышка. 
 
+</textarea>
+<br/>
+<input type="submit" value=" кляк ">
+</form>
 
-
-<br/><br/>
+<br/>
+ <br/>
 
 
 <form name="input" action="/qq" method="post">
@@ -178,50 +190,13 @@
  <textarea rows="6" cols="88" name="p2" >
 Ладушки ладушки. Ладушки были У_бабушки. Ладушки ели Кашку. Ладушки пили Бражку. Кислую-капустку ели На_закуску. 
 
-Где были Ладушки?
 </textarea>
 <br/>
 <input type="submit" value=" кляк ">
 </form>
- Что ели На_закуску?
- Что пили Ладушки?
- Кто ели Кашку?
-
-:-)
-
-<br/><br/><br/>
-
-
-<form name="input" action="/qq" method="post">
-
- <textarea rows="8" cols="88" name="p2" >
-очередь в сказке про репку это только Репка, Дедка, Бабка, Внучка, Жучка, Кошка, Мышка. Дедка за Репка. Бабка за Дедка. Внучка за Бабка. Жучка за Внучка. Кошка за Жучка. Мышка за Кошка.
-
-Если этот за тот, то тот перед этот. 
-
-вопрос(?Что перед Дедка)
-
-</textarea>
-<br/>
-<input type="submit" value=" кляк ">
-</form>
-
-<br/>
-Кто перед Внучка? Кто перед мышка?
-<br/><br/>
-
-
-<form name="input" action="/qq" method="post">
-
- <textarea rows="5" cols="88" name="p2" >
-Незнайка малыш. Кнопочка малышка. малышка здесь только Кнопочка. малыш  любит 1 малышка. Кто любит Кнопочка?
  
 
-</textarea>
 <br/>
-<input type="submit" value=" кляк ">
-</form>
-
 <br/>
 
 
@@ -237,30 +212,66 @@
 <br/>
 <form name="input" action="/qq" method="post">
 
- <textarea rows="5" cols="88" name="p2" >
-малыш  друг 1 малышка. малышка  друг 1 малыш. малыш только Пончик и Незнайка. малышка только Синеглазка и Кнопочка. Пончик друг Синеглазка. Если малыш друг малышка, то малышка  друг малыш.  Кто друг Незнайка?
+ <textarea rows="11" cols="88" name="p2" >
+малыш  друг 1 малышка. малышка  друг 1 малыш. 
+малыш только Пончик и Незнайка. 
+малышка только Синеглазка и Кнопочка.
+Пончик друг Синеглазка. 
+Если малыш друг малышка, то малышка  друг малыш. 
 
 </textarea>
 <br/>
 <input type="submit" value=" кляк ">
 </form>
+
+<br/>
+
+
 <br/>
 <form name="input" action="/qq" method="post">
 
- <textarea rows="4" cols="88" name="p2" >
-Васька кот. Свежеемолоко молоко. молоко здесь только Свежеемолоко. кот любит 1 молоко. Кто любит Свежеемолоко?
+ <textarea rows="11" cols="88" name="p2" >
+малыш  друг 1 малышка. малышка  друг 1 малыш.
+малыш только Пончик и Незнайка. малышка только Синеглазка и Кнопочка. 
+Пончик друг Синеглазка. Если малыш друг малышка, то малышка  друг малыш.
 </textarea>
-<br/>Кто кот? - Васька
 <br/>
 <input type="submit" value=" кляк ">
 </form>
+
+
+-->
+
+
+
+
+
 <br/>
+
+
+<form name="input" action="/qq" method="post">
+
+ <textarea rows="8" cols="88" name="p2" >
+очередь в сказке про репку это только Репка, Дедка, Бабка, Внучка, Жучка, Кошка, Мышка. Дедка за Репка. Бабка за Дедка. Внучка за Бабка. Жучка за Внучка. Кошка за Жучка. Мышка за Кошка.
+
+Если этот за тот, то тот перед этот. 
+
+
+</textarea>
+<br/>
+<input type="submit" value=" кляк ">
+</form>
+
+<br/>
+
+
+
 
 <br/>
 <form name="input" action="/qq" method="post">
 
  <textarea rows="4" cols="88" name="p2" >
-кот любит молоко. Васька кот. Кто любит молоко?
+кот любит молоко. Васька кот. 
 </textarea>
 <br/>
 <br/>
@@ -273,7 +284,6 @@
 
  <textarea rows="4" cols="88" name="p2" >
 кот любит молоко. Васька - кот. 
-вопрос(?Кто ?делает ?Что)
 
 </textarea>
 <br/><input type="submit" value=" кляк ">
@@ -283,7 +293,7 @@
 <form name="input" action="/qq" method="post">
 
  <textarea rows="3" cols="88" name="p2" >
-человек смертен. Сократ - человек. Кто смертен?
+человек - смертен. Сократ - человек.
 
 </textarea>
 <br/>
@@ -296,7 +306,7 @@
 <form name="input" action="/qq" method="post">
 
  <textarea rows="3" cols="88" name="p2" >
-человек - смертен. Сократ это человек. вопрос(?Кто это смертен)
+человек - смертен. Сократ это человек. 
 
 </textarea>
 <br/>
@@ -306,23 +316,13 @@
 <form name="input" action="/qq" method="post">
 
  <textarea rows="3" cols="88" name="p2" >
-человек - смертен. Сократ это человек. вопрос(Сократ это ?Кто)
+человек - смертен. Сократ это человек.
 
 </textarea>
 <br/>
 <input type="submit" value=" кляк ">
 </form>
 
-<br/>
-<form name="input" action="/qq" method="post">
-
- <textarea rows="5" cols="88" name="p2" >
-малыш  друг 1 малышка. малышка  друг 1 малыш. малыш только Пончик и Незнайка. малышка только Синеглазка и Кнопочка. Пончик друг Синеглазка. Если малыш друг малышка, то малышка  друг малыш. вопрос(Незнайка друг ?Кого)
-
-</textarea>
-<br/>
-<input type="submit" value=" кляк ">
-</form>
 
 </td></tr></table>
 

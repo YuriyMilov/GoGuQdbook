@@ -494,13 +494,13 @@ public class stq {
 				s = "Не понял вопрос. См. описание КРЯ";
 			}
 		}
-		//s = s.replaceAll("[_]", " ") + ".";
+		// s = s.replaceAll("[_]", " ") + ".";
 		s = s + ".";
 		return s;
 	}
 
 	public static String sparql(String sh, String s) {
-
+		// String sv1="",sv2="";
 		s = Jsoup.parse(s).text().replaceAll("[ ]+", " ").trim();
 
 		stat.sh = sh;
@@ -575,7 +575,62 @@ public class stq {
 		}
 		s = s.replace("[Root]", "\r\n").replace(" -] ", "");
 		// s = s.substring(0, s.length() - 4);
-		return "\r\n" + s;
+		s = s.replace("[", ")[").replace("]", "](");
+		s = stq.скобки(s);
+		return s;
+	}
+
+	public static String sparql1(String sh, String s) {
+		stat.sh = sh;
+		add_sr(stat.sr, sh);
+
+		s = stat.get_prefix(sh) + "SELECT ?X ?Y ?Z WHERE {?X ?Y ?Z}";
+
+		OntModel mm = ModelFactory
+				.createOntologyModel(PelletReasonerFactory.THE_SPEC);
+
+		mm.read(new StringReader(stat.sowl), "");
+
+		try {
+			Query qq = QueryFactory.create(s);
+			s = "\r\n";
+			ResultSet r = SparqlDLExecutionFactory.create(qq, mm).execSelect();
+			while (r.hasNext()) {
+				String sa = r.next().toString();
+				String sa1 = "", sa2 = "", sap="",sr=stat.sr;
+sr=sr.toLowerCase().replaceAll("тот, кто", "").replaceAll(", тот", "").replace("_", " ").replaceAll("[ ]+", " ");
+				int k = sa.indexOf("#");
+				if (k > 0)
+					sa = sa.substring(k).trim();
+				String[] ssa = sa.split("#");
+
+				if (ssa.length == 3) {
+					sa1 = ssa[1].substring(0, ssa[1].indexOf(">")).trim();
+					sa2 = ssa[2].substring(0, ssa[2].indexOf(">")).trim();
+					if (!sa1.equals(sa2) && !(sa1.startsWith("кто_")) && !(sa2.startsWith("кто_"))) {
+						sa = sa1 + " " + sa2;
+						sap=sa.replace("_", " ");
+						if(!s.toLowerCase().contains(sap.toLowerCase()) && !sr.contains(sap.toLowerCase())&& !s.contains(sap.toLowerCase()))						
+							if(bim(sap.substring(0,1)))
+								s = s + " " + sap + ".\r\n";
+					}
+				}
+				if (ssa.length == 4) {
+					sa = ssa[1].substring(0, ssa[1].indexOf(">")) + " "
+							+ ssa[2].substring(0, ssa[2].indexOf(">")) + " "
+							+ ssa[3].substring(0, ssa[3].indexOf(">"));
+					sap=sa.replace("_", " ");
+					
+					if(!s.toLowerCase().contains(sap.toLowerCase()) && !sr.contains(sap.toLowerCase()))
+						if(bim(sap.substring(0,1)))
+							s = s + " " + sap + ". ";//\r\n
+				}
+			}
+
+		} catch (Exception ee) {
+			s = ee.toString();
+		}
+		return s.replaceAll("[\r\n]", " ");
 	}
 
 	public static boolean n(String str) {
@@ -774,7 +829,7 @@ public class stq {
 		}
 
 		OWLClass понятие_о_Незнайке_1 = qw.getOwlClass("кто_" + sНезнайка);
-		
+
 		OWLClassAxiom аксиома_кто_Незнайка = qw.factory
 				.getOWLEquivalentClassesAxiom(понятие_о_Незнайке_1, ктото);
 		qw.manager.addAxiom(qw.ontology, аксиома_кто_Незнайка);
@@ -840,24 +895,28 @@ public class stq {
 
 		stat.owl_file = "rff?83.owl";
 		Owl2Model qw = new Owl2Model(sh + "/" + stat.owl_file);
-		
+String sa="";
 		s = скобки(s).replace(" - ", " ").replace(" это ", " ");
 		String[] ss = s.replaceAll("[\r\n ]+", " ").split("[.]+");
 		for (String s2 : ss) {
-			s2=s2.trim();
+			s2 = s2.trim();
 			String[] ss1 = s2.split("[ ]+");
+			//if (ss1.length==4 && n(ss1[2])){
+			//	sa=String.valueOf(ss1[2]);
+			//	s = s.replace(s2, ss1[0]+" "+ss1[1] + "/только_"+sa+" "+ss1[3]);
+			//}
 			if (s2.toLowerCase().startsWith("если") && ss1[2].equals(ss1[6]))
 				s = s.replace(ss1[2], ss1[2] + "/сим");
-			if (s2.toLowerCase().startsWith("тот, кто") )
-			{
-				s=s.replace(s2, "qqq-s2-qqq");
-				String s11=s2.substring(8,s2.indexOf(", тот")).trim();
-				String s22=s11.trim().replace(" ", "_");
-				s2 = s22+ " "+ s11+". "+s22 + s2.substring(s2.indexOf(", тот")+5);
-				s=s.replace("qqq-s2-qqq",s2);
+			if (s2.toLowerCase().startsWith("тот, кто")) {
+				s = s.replace(s2, "qqq-s2-qqq");
+				String s11 = s2.substring(8, s2.indexOf(", тот")).trim();
+				String s22 = s11.trim().replace(" ", "_");
+				s2 = s22 + " " + s11 + ". " + s22
+						+ s2.substring(s2.indexOf(", тот") + 5);
+				s = s.replace("qqq-s2-qqq", s2);
 			}
-		} 
-		
+		}
+
 		ss = s.split("[.]+");
 		for (String s2 : ss) {
 			String[] ss1 = s2.trim().split("[ ]+");

@@ -90,26 +90,11 @@ import com.hp.hpl.jena.rdf.model.ModelFactory;
 
 public class stat {
 	public static String sqq7 = "", sh = "http://www.feofan.com";
-	public static String snach = "<html><head><meta charset=\"UTF-8\"><script>function setFocus(){document.getElementById(\"id\").focus();}</script></head><body bgcolor=#efefef onload=setFocus()>";
-	public static String skon = 
-			
-		 	
-			"<form  action=qq method=post>" +
-			"<br><input type=text id=id name=p2 size=120>&nbsp;" +
-			"<input type=\"submit\" value=\"&nbsp;кляк&nbsp;\"></form>" +
-			//"<br/>" +
-			" &nbsp; <a href=/primer.htm><button> примеры </button></a>" +
-			" &nbsp; <a href=qq?p2=мир><button> мир </button></a>" +
-			" &nbsp; <a href=qq><button> очистить </button></a>" +
-			" &nbsp; <a href=zagruzi.htm><button> загрузить </button></a>" +
-			//" &nbsp; <a href=qq><button> добавить </button></a>" +
-			//" &nbsp; <a href=qq><button> сохранить </button></a>" +
+	public static String snach = "<html><head></head><body bgcolor=#efefef>";
+	public static String skon = "<br/><br/>" +
+			" &nbsp; <a href=/Feofanchat.html><button> примеры </button></a>" +
 			" &nbsp; <a href=/forum.htm><button> форум </button></a>" +
-			" &nbsp; <a href=/rubli.htm><button> деньги </button></a>" +
-			" &nbsp; <a href=qq?p2=помощь><button> записки </button></a>"+
-			" &nbsp; <a href=/owl><button> OWL </button></a>" +
-			" &nbsp; <a href=/Feofanchat.html><button> тест </button></a>" +
-			 "<br.>&nbsp;<br>&nbsp;<br>&nbsp;<br><br>&nbsp;<br>&nbsp;<br><br></html>";
+			" &nbsp; <a href=/owl><button> OWL </button></a></html>";
 
 	public static String owl_file = "rff?83.owl";
 	public static String siri = sh + "/"+ owl_file +"#";
