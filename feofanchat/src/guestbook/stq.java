@@ -39,6 +39,7 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
+import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 
 import com.clarkparsia.pellet.sparqldl.jena.SparqlDLExecutionFactory;
 import com.hp.hpl.jena.ontology.OntModel;
@@ -598,8 +599,10 @@ public class stq {
 			ResultSet r = SparqlDLExecutionFactory.create(qq, mm).execSelect();
 			while (r.hasNext()) {
 				String sa = r.next().toString();
-				String sa1 = "", sa2 = "", sap="",sr=stat.sr;
-sr=sr.toLowerCase().replaceAll("тот, кто", "").replaceAll(", тот", "").replace("_", " ").replaceAll("[ ]+", " ");
+				String sa1 = "", sa2 = "", sap = "", sr = stat.sr;
+				sr = sr.toLowerCase().replaceAll("тот, кто", "")
+						.replaceAll(", тот", "").replace("_", " ")
+						.replaceAll("[ ]+", " ");
 				int k = sa.indexOf("#");
 				if (k > 0)
 					sa = sa.substring(k).trim();
@@ -608,11 +611,14 @@ sr=sr.toLowerCase().replaceAll("тот, кто", "").replaceAll(", тот", "").
 				if (ssa.length == 3) {
 					sa1 = ssa[1].substring(0, ssa[1].indexOf(">")).trim();
 					sa2 = ssa[2].substring(0, ssa[2].indexOf(">")).trim();
-					if (!sa1.equals(sa2) && !(sa1.startsWith("кто_")) && !(sa2.startsWith("кто_"))) {
+					if (!sa1.equals(sa2) && !(sa1.startsWith("кто_"))
+							&& !(sa2.startsWith("кто_"))) {
 						sa = sa1 + " " + sa2;
-						sap=sa.replace("_", " ");
-						if(!s.toLowerCase().contains(sap.toLowerCase()) && !sr.contains(sap.toLowerCase())&& !s.contains(sap.toLowerCase()))						
-							if(bim(sap.substring(0,1)))
+						sap = sa.replace("_", " ");
+						if (!s.toLowerCase().contains(sap.toLowerCase())
+								&& !sr.contains(sap.toLowerCase())
+								&& !s.contains(sap.toLowerCase()))
+							if (bim(sap.substring(0, 1)))
 								s = s + " " + sap + ".\r\n";
 					}
 				}
@@ -620,11 +626,12 @@ sr=sr.toLowerCase().replaceAll("тот, кто", "").replaceAll(", тот", "").
 					sa = ssa[1].substring(0, ssa[1].indexOf(">")) + " "
 							+ ssa[2].substring(0, ssa[2].indexOf(">")) + " "
 							+ ssa[3].substring(0, ssa[3].indexOf(">"));
-					sap=sa.replace("_", " ");
-					
-					if(!s.toLowerCase().contains(sap.toLowerCase()) && !sr.contains(sap.toLowerCase()))
-						if(bim(sap.substring(0,1)))
-							s = s + " " + sap + ". ";//\r\n
+					sap = sa.replace("_", " ");
+
+					if (!s.toLowerCase().contains(sap.toLowerCase())
+							&& !sr.contains(sap.toLowerCase()))
+						if (bim(sap.substring(0, 1)))
+							s = s + " " + sap + ". ";// \r\n
 				}
 			}
 
@@ -651,68 +658,88 @@ sr=sr.toLowerCase().replaceAll("тот, кто", "").replaceAll(", тот", "").
 	public static void Y123M(Owl2Model qw, String sНезнайка,
 			ArrayList<String> где, String sПончик) {
 
-		OWLObjectProperty p = null;
+		OWLObjectProperty любит_чтото = null;
 		String s = где.get(где.size() - 1);
-		if (s.endsWith("/сим")) {
-			s = s.replace("/сим", "");
-			p = qw.getProperty(s);
-			qw.isSymmetric(p);
+		if (s.contains("/сим//") || s.contains("/прхдн//")) {
+			if (s.contains("/сим//")) {
+				s = s.replace("/сим//", "");
+				любит_чтото = qw.getProperty(s);
+				qw.isSymmetric(любит_чтото);
+			}
+			if (s.contains("/прхдн//")) {
+				s = s.replace("/прхдн//", "");
+				String sa=s;
+				if (sa.contains("~"))
+					sa=sa.substring(0,s.indexOf("~"));
+					
+				любит_чтото = qw.getProperty(sa);
+				
+				OWLTransitiveObjectPropertyAxiom прхдн_аксиома = qw.factory
+						.getOWLTransitiveObjectPropertyAxiom(любит_чтото);
+				qw.manager.addAxiom(qw.ontology, прхдн_аксиома);
+			}
 		} else
-			p = qw.getProperty(s);
+			любит_чтото = qw.getProperty(s);
 
 		OWLClassExpression ктото = null;
-		
-		if(s.contains("~"))
-		{	
-			String sa=s.substring(s.indexOf("~")+1);
-			if(sa.indexOf("/")>0)
-				sa=sa.substring(0,sa.indexOf("/"));
-			int n=Integer.parseInt(sa);
-			p = qw.getProperty(s.replace("~"+n, ""));
-			ктото = qw.factory
-			.getOWLObjectExactCardinality(n, p, qw.factory.getOWLObjectOneOf(qw.getIndividual(sПончик)));
-		} 
-		else
-			ктото = qw.factory.getOWLObjectSomeValuesFrom(p,
-						qw.factory.getOWLObjectOneOf(qw.getIndividual(sПончик)));
 
-		
+		if (s.contains("~")) {
+			String sa = s.substring(s.indexOf("~") + 1);
+			if (sa.indexOf("/") > 0)
+				sa = sa.substring(0, sa.indexOf("/"));
+			int n = Integer.parseInt(sa);
+			любит_чтото = qw.getProperty(s.replace("~" + n, ""));
+			ктото = qw.factory.getOWLObjectExactCardinality(n, любит_чтото,
+					qw.factory.getOWLObjectOneOf(qw.getIndividual(sПончик)));
+		} else
+			ктото = qw.factory.getOWLObjectSomeValuesFrom(любит_чтото,
+					qw.factory.getOWLObjectOneOf(qw.getIndividual(sПончик)));
 
 		for (int i = где.size() - 2; i > -1; i--) {
 			s = где.get(i);
-			if (s.endsWith("/сим")) {
-				s = s.replace("/сим", "");
-				p = qw.getProperty(s);
-				qw.isSymmetric(p);
+			if (s.contains("/сим//") || s.contains("/прхдн//")) {
+				if (s.contains("/сим//")) {
+					s = s.replace("/сим//", "");
+					любит_чтото = qw.getProperty(s);
+					qw.isSymmetric(любит_чтото);
+				}
+				if (s.contains("/прхдн//")) {
+					s = s.replace("/прхдн//", "");
+					любит_чтото = qw.getProperty(s);
+					OWLTransitiveObjectPropertyAxiom прхдн_аксиома = qw.factory
+							.getOWLTransitiveObjectPropertyAxiom(любит_чтото);
+					qw.manager.addAxiom(qw.ontology, прхдн_аксиома);
+				}
 			} else
-				p = qw.getProperty(s);
+				любит_чтото = qw.getProperty(s);
 
-			if(s.contains("~"))
-			{	
-				String sa=s.substring(s.indexOf("~")+1);
-				if(sa.indexOf("/")>0)
-					sa=sa.substring(0,sa.indexOf("/"));
-				int n=Integer.parseInt(sa);
-				p = qw.getProperty(s.replace("~"+n, ""));
-				ктото = qw.factory
-				.getOWLObjectExactCardinality(n, p, ктото);
-			} 
-			else
-				ктото = qw.factory.getOWLObjectSomeValuesFrom(p, ктото);
-			
+			if (s.contains("~")) {
+				String sa = s.substring(s.indexOf("~") + 1);
+				if (sa.indexOf("/") > 0)
+					sa = sa.substring(0, sa.indexOf("/"));
+				int n = Integer.parseInt(sa);
+				любит_чтото = qw.getProperty(s.replace("~" + n, ""));
+				ктото = qw.factory.getOWLObjectExactCardinality(n, любит_чтото,
+						ктото);
+			} else
+				ктото = qw.factory.getOWLObjectSomeValuesFrom(любит_чтото,
+						ктото);
 		}
-		
-		OWLClass понятие_о_Незнайке_1 = qw.getOwlClass("кто_" + sНезнайка);
+
 		OWLClassAxiom аксиома_кто_Незнайка = qw.factory
-				.getOWLEquivalentClassesAxiom(понятие_о_Незнайке_1, ктото);
+				.getOWLEquivalentClassesAxiom(qw
+						.getOwlClass("кто_" + sНезнайка), qw.factory
+						.getOWLObjectIntersectionOf(qw.factory.getOWLObjectOneOf(qw
+								.getIndividual(sНезнайка)), ктото));
+
 		qw.manager.addAxiom(qw.ontology, аксиома_кто_Незнайка);
 
-		// экв класс {Незнайка}
-		OWLClassExpression понятие_о_Незнайке_2 = qw.factory
-				.getOWLObjectOneOf(qw.getIndividual(sНезнайка));
-		OWLClassAxiom аксиома_о_Незн = qw.factory.getOWLEquivalentClassesAxiom(
-				понятие_о_Незнайке_1, понятие_о_Незнайке_2);
-		qw.manager.addAxiom(qw.ontology, аксиома_о_Незн);
+		OWLClassAxiom аксиома_кто_Незнайка2 = qw.factory
+				.getOWLEquivalentClassesAxiom(qw
+						.getOwlClass("кто_" + sНезнайка), qw.factory.getOWLObjectOneOf(qw
+								.getIndividual(sНезнайка)));
+
+		qw.manager.addAxiom(qw.ontology, аксиома_кто_Незнайка2);
 
 	}
 
@@ -720,53 +747,68 @@ sr=sr.toLowerCase().replaceAll("тот, кто", "").replaceAll(", тот", "").
 			String sчтото) {
 		OWLObjectProperty любит_чтото = null;
 		OWLClassExpression чтото = null;
-		
+
 		String s = где.get(где.size() - 1);
-		if (s.contains("/сим//")) {
-			s = s.replace("/сим//", "");
-			любит_чтото = qw.getProperty(s);
-			qw.isSymmetric(любит_чтото);
+		if (s.contains("/сим//") || s.contains("/прхдн//")) {
+			if (s.contains("/сим//")) {
+				s = s.replace("/сим//", "");
+				любит_чтото = qw.getProperty(s);
+				qw.isSymmetric(любит_чтото);
+			}
+			if (s.contains("/прхдн//")) {
+				s = s.replace("/прхдн//", "");
+				любит_чтото = qw.getProperty(s);
+				OWLTransitiveObjectPropertyAxiom прхдн_аксиома = qw.factory
+						.getOWLTransitiveObjectPropertyAxiom(любит_чтото);
+				qw.manager.addAxiom(qw.ontology, прхдн_аксиома);
+			}
 		} else
 			любит_чтото = qw.getProperty(s);
-		
-		if(s.contains("~"))
-		{	
-			String sa=s.substring(s.indexOf("~")+1);
-			if(sa.indexOf("/")>0)
-				sa=sa.substring(0,sa.indexOf("/"));
-			int n=Integer.parseInt(sa);
-			любит_чтото = qw.getProperty(s.replace("~"+n, ""));
-			чтото= qw.factory
-			.getOWLObjectExactCardinality(n, любит_чтото, qw.getOwlClass(sчтото));
-		}
-		else
+
+		if (s.contains("~")) {
+			String sa = s.substring(s.indexOf("~") + 1);
+			if (sa.indexOf("/") > 0)
+				sa = sa.substring(0, sa.indexOf("/"));
+			int n = Integer.parseInt(sa);
+			любит_чтото = qw.getProperty(s.replace("~" + n, ""));
+			чтото = qw.factory.getOWLObjectExactCardinality(n, любит_чтото,
+					qw.getOwlClass(sчтото));
+		} else
 			чтото = qw.factory.getOWLObjectSomeValuesFrom(любит_чтото,
-				qw.getOwlClass(sчтото));
+					qw.getOwlClass(sчтото));
 
 		for (int i = где.size() - 2; i > -1; i--) {
 			s = где.get(i);
-			if (s.contains("/сим//")) {
-				любит_чтото = qw.getProperty(s.replace("/сим//", ""));
-				qw.isSymmetric(любит_чтото);
+			if (s.contains("/сим//") || s.contains("/прхдн//")) {
+				if (s.contains("/сим//")) {
+					s = s.replace("/сим//", "");
+					любит_чтото = qw.getProperty(s);
+					qw.isSymmetric(любит_чтото);
+				}
+				if (s.contains("/прхдн//")) {
+					s = s.replace("/прхдн//", "");
+					любит_чтото = qw.getProperty(s);
+					OWLTransitiveObjectPropertyAxiom прхдн_аксиома = qw.factory
+							.getOWLTransitiveObjectPropertyAxiom(любит_чтото);
+					qw.manager.addAxiom(qw.ontology, прхдн_аксиома);
+				}
 			} else
 				любит_чтото = qw.getProperty(s);
 
-			if(s.contains("~"))
-			{	
-				String sa=s.substring(s.indexOf("~")+1);
-				if(sa.indexOf("/")>0)
-					sa=sa.substring(0,sa.indexOf("/"));
-				int n=Integer.parseInt(sa);
-				любит_чтото = qw.getProperty(s.replace("~"+n, ""));
+			if (s.contains("~")) {
+				String sa = s.substring(s.indexOf("~") + 1);
+				if (sa.indexOf("/") > 0)
+					sa = sa.substring(0, sa.indexOf("/"));
+				int n = Integer.parseInt(sa);
+				любит_чтото = qw.getProperty(s.replace("~" + n, ""));
 				чтото = qw.factory.getOWLObjectExactCardinality(n, любит_чтото,
 						чтото);
 			} else
 				чтото = qw.factory.getOWLObjectSomeValuesFrom(любит_чтото,
 						чтото);
-			
+
 		}
 
-		
 		OWLClassAxiom аксиома_про_чтото = qw.factory
 				.getOWLEquivalentClassesAxiom(qw.getOwlClass(syyy), чтото);
 		qw.manager.addAxiom(qw.ontology, аксиома_про_чтото);
@@ -825,60 +867,74 @@ sr=sr.toLowerCase().replaceAll("тот, кто", "").replaceAll(", тот", "").
 		}
 	}
 
-	public static void y123M(Owl2Model qw, String syyy,
-			ArrayList<String> где, String sПончик) {
+	public static void y123M(Owl2Model qw, String syyy, ArrayList<String> где,
+			String sПончик) {
 
 		OWLObjectProperty любит_чтото = null;
 		OWLClassExpression чтото = null;
-		
+
 		String s = где.get(где.size() - 1);
-		if (s.contains("/сим//")) {
-			s = s.replace("/сим//", "");
-			любит_чтото = qw.getProperty(s);
-			qw.isSymmetric(любит_чтото);
+		if (s.contains("/сим//") || s.contains("/прхдн//")) {
+			if (s.contains("/сим//")) {
+				s = s.replace("/сим//", "");
+				любит_чтото = qw.getProperty(s);
+				qw.isSymmetric(любит_чтото);
+			}
+			if (s.contains("/прхдн//")) {
+				s = s.replace("/прхдн//", "");
+				любит_чтото = qw.getProperty(s);
+				OWLTransitiveObjectPropertyAxiom прхдн_аксиома = qw.factory
+						.getOWLTransitiveObjectPropertyAxiom(любит_чтото);
+				qw.manager.addAxiom(qw.ontology, прхдн_аксиома);
+			}
 		} else
 			любит_чтото = qw.getProperty(s);
-		
-		
-		if(s.contains("~"))
-		{	
-			String sa=s.substring(s.indexOf("~")+1);
-			if(sa.indexOf("/")>0)
-				sa=sa.substring(0,sa.indexOf("/"));
-			int n=Integer.parseInt(sa);
-			любит_чтото = qw.getProperty(s.replace("~"+n, ""));
-			чтото = qw.factory
-			.getOWLObjectExactCardinality(n, любит_чтото, qw.factory.getOWLObjectOneOf(qw.getIndividual(sПончик)));
-		}
-		else
+
+		if (s.contains("~")) {
+			String sa = s.substring(s.indexOf("~") + 1);
+			if (sa.indexOf("/") > 0)
+				sa = sa.substring(0, sa.indexOf("/"));
+			int n = Integer.parseInt(sa);
+			любит_чтото = qw.getProperty(s.replace("~" + n, ""));
+			чтото = qw.factory.getOWLObjectExactCardinality(n, любит_чтото,
+					qw.factory.getOWLObjectOneOf(qw.getIndividual(sПончик)));
+		} else
 			чтото = qw.factory.getOWLObjectSomeValuesFrom(любит_чтото,
 					qw.factory.getOWLObjectOneOf(qw.getIndividual(sПончик)));
 
-	
 		for (int i = где.size() - 2; i > -1; i--) {
 			s = где.get(i);
-			if (s.contains("/сим//")) {
-				любит_чтото = qw.getProperty(s.replace("/сим//", ""));
-				qw.isSymmetric(любит_чтото);
+			if (s.contains("/сим//") || s.contains("/прхдн//")) {
+				if (s.contains("/сим//")) {
+					s = s.replace("/сим//", "");
+					любит_чтото = qw.getProperty(s);
+					qw.isSymmetric(любит_чтото);
+				}
+				if (s.contains("/прхдн//")) {
+					s = s.replace("/прхдн//", "");
+					любит_чтото = qw.getProperty(s);
+					OWLTransitiveObjectPropertyAxiom прхдн_аксиома = qw.factory
+							.getOWLTransitiveObjectPropertyAxiom(любит_чтото);
+					qw.manager.addAxiom(qw.ontology, прхдн_аксиома);
+				}
 			} else
 				любит_чтото = qw.getProperty(s);
 
 			if (s.contains("~")) {
-				String sa=s.substring(s.indexOf("~")+1);
-				if(sa.indexOf("/")>0)
-					sa=sa.substring(0,sa.indexOf("/"));
+				String sa = s.substring(s.indexOf("~") + 1);
+				if (sa.indexOf("/") > 0)
+					sa = sa.substring(0, sa.indexOf("/"));
 
-				int n=Integer.parseInt(sa);
-				любит_чтото = qw.getProperty(s.replace("~"+n, ""));
+				int n = Integer.parseInt(sa);
+				любит_чтото = qw.getProperty(s.replace("~" + n, ""));
 				чтото = qw.factory.getOWLObjectExactCardinality(n, любит_чтото,
 						чтото);
 			} else
 				чтото = qw.factory.getOWLObjectSomeValuesFrom(любит_чтото,
 						чтото);
-			
+
 		}
 
-		
 		OWLClassAxiom аксиома_про_чтото = qw.factory
 				.getOWLEquivalentClassesAxiom(qw.getOwlClass(syyy), чтото);
 		qw.manager.addAxiom(qw.ontology, аксиома_про_чтото);
@@ -887,54 +943,66 @@ sr=sr.toLowerCase().replaceAll("тот, кто", "").replaceAll(", тот", "").
 	public static void Y123m(Owl2Model qw, String sНезнайка,
 			ArrayList<String> где, String sктото) {
 
-		OWLObjectProperty p = null;
+		OWLObjectProperty любит_чтото = null;
 		String s = где.get(где.size() - 1);
-		if (s.endsWith("/сим")) {
-			s = s.replace("/сим", "");
-			p = qw.getProperty(s);
-			qw.isSymmetric(p);
+		if (s.contains("/сим//") || s.contains("/прхдн//")) {
+			if (s.contains("/сим//")) {
+				s = s.replace("/сим//", "");
+				любит_чтото = qw.getProperty(s);
+				qw.isSymmetric(любит_чтото);
+			}
+			if (s.contains("/прхдн//")) {
+				s = s.replace("/прхдн//", "");
+				любит_чтото = qw.getProperty(s);
+				OWLTransitiveObjectPropertyAxiom прхдн_аксиома = qw.factory
+						.getOWLTransitiveObjectPropertyAxiom(любит_чтото);
+				qw.manager.addAxiom(qw.ontology, прхдн_аксиома);
+			}
 		} else
-			p = qw.getProperty(s);
+			любит_чтото = qw.getProperty(s);
 
-		
-	OWLClassExpression ктото = null;
-		
-		if(s.contains("~"))
-		{	
-			String sa=s.substring(s.indexOf("~")+1);
-			if(sa.indexOf("/")>0)
-				sa=sa.substring(0,sa.indexOf("/"));
-			int n=Integer.parseInt(sa);
-			p = qw.getProperty(s.replace("~"+n, ""));
-			ктото = qw.factory
-			.getOWLObjectExactCardinality(n, p, qw.getOwlClass(sктото));
-		} 
-		else	
-			ктото = qw.factory.getOWLObjectSomeValuesFrom(p,
-				qw.getOwlClass(sктото));
-		
-		
+		OWLClassExpression ктото = null;
+
+		if (s.contains("~")) {
+			String sa = s.substring(s.indexOf("~") + 1);
+			if (sa.indexOf("/") > 0)
+				sa = sa.substring(0, sa.indexOf("/"));
+			int n = Integer.parseInt(sa);
+			любит_чтото = qw.getProperty(s.replace("~" + n, ""));
+			ктото = qw.factory.getOWLObjectExactCardinality(n, любит_чтото,
+					qw.getOwlClass(sктото));
+		} else
+			ктото = qw.factory.getOWLObjectSomeValuesFrom(любит_чтото,
+					qw.getOwlClass(sктото));
 
 		for (int i = где.size() - 2; i > -1; i--) {
 			s = где.get(i);
-			if (s.endsWith("/сим")) {
-				s = s.replace("/сим", "");
-				p = qw.getProperty(s);
-				qw.isSymmetric(p);
+			if (s.contains("/сим//") || s.contains("/прхдн//")) {
+				if (s.contains("/сим//")) {
+					s = s.replace("/сим//", "");
+					любит_чтото = qw.getProperty(s);
+					qw.isSymmetric(любит_чтото);
+				}
+				if (s.contains("/прхдн//")) {
+					s = s.replace("/прхдн//", "");
+					любит_чтото = qw.getProperty(s);
+					OWLTransitiveObjectPropertyAxiom прхдн_аксиома = qw.factory
+							.getOWLTransitiveObjectPropertyAxiom(любит_чтото);
+					qw.manager.addAxiom(qw.ontology, прхдн_аксиома);
+				}
 			} else
-				p = qw.getProperty(s);
-			if(s.contains("~"))
-			{	
-				String sa=s.substring(s.indexOf("~")+1);
-				if(sa.indexOf("/")>0)
-					sa=sa.substring(0,sa.indexOf("/"));
-				int n=Integer.parseInt(sa);
-				p = qw.getProperty(s.replace("~"+n, ""));
-				ктото = qw.factory
-				.getOWLObjectExactCardinality(n, p, qw.getOwlClass(sктото));
-			} 
-			else	
-				ктото = qw.factory.getOWLObjectSomeValuesFrom(p, ктото);	
+				любит_чтото = qw.getProperty(s);
+			if (s.contains("~")) {
+				String sa = s.substring(s.indexOf("~") + 1);
+				if (sa.indexOf("/") > 0)
+					sa = sa.substring(0, sa.indexOf("/"));
+				int n = Integer.parseInt(sa);
+				любит_чтото = qw.getProperty(s.replace("~" + n, ""));
+				ктото = qw.factory.getOWLObjectExactCardinality(n, любит_чтото,
+						qw.getOwlClass(sктото));
+			} else
+				ктото = qw.factory.getOWLObjectSomeValuesFrom(любит_чтото,
+						ктото);
 		}
 
 		OWLClass понятие_о_Незнайке_1 = qw.getOwlClass("кто_" + sНезнайка);
@@ -957,8 +1025,7 @@ sr=sr.toLowerCase().replaceAll("тот, кто", "").replaceAll(", тот", "").
 		s = s.replaceAll("тот, кто", "");
 		s = s.trim().replaceAll("[. ]+", " ");
 		s = s.trim().replace(" в точности ", "~");
-	
-		
+
 		String[] zz8 = s.split(" ");
 		int n = zz8.length - 1;
 		if (n == 0)
@@ -1007,18 +1074,32 @@ sr=sr.toLowerCase().replaceAll("тот, кто", "").replaceAll(", тот", "").
 		stat.owl_file = "rff?83.owl";
 		Owl2Model qw = new Owl2Model(sh + "/" + stat.owl_file);
 
-		s = скобки(s).replace(" - ", " ").replace(" это ", " ").trim();
-		String[] ss = s.replaceAll("[\r\n ]+", " ").split("[.]+");
+		s = s.replace(" - ", " ").replace(" это ", " ")
+				.replaceAll("[\r\n]+", "").trim();
+		String[] ss = s.replaceAll("[ ]+", " ").split("[.]+");
 		for (String s2 : ss) {
 			s2 = s2.trim();
 			String[] ss1 = s2.split("[ ]+");
 
-			if (ss1.length==7)
-				if (s2.toLowerCase().startsWith("если") && ss1[2].equals(ss1[6]))
-				s = ss1[2] + "/сим//";
-			if (ss1.length==5)
-						if (ss1[2].equals("только") && n(ss1[3]))
-				s = s.replace(s2, ss1[0]+" "+ ss1[1] + "~1~~ "+ss1[4]);
+			// ЕСЛИ
+
+			if (s2.toLowerCase().startsWith("если")) {
+				s = s.replace(s2 + ".", "");
+				if (ss1.length == 7) {
+					if (ss1[2].equals(ss1[6]))
+						s = s.replace(ss1[2], ss1[2] + "/сим//");
+				}
+				if (ss1.length == 12) {
+					if (ss1[2].equals(ss1[6]) && ss1[2].equals(ss1[10])
+							&& ss1[4].equals("и"))
+						s = s.replace(ss1[2], ss1[2] + "/прхдн//");
+				}
+			}
+
+			// if (ss1.length == 5)
+			// if (ss1[2].equals("в точности") && n(ss1[3]))
+			// s = s.replace(s2, ss1[0] + " " + ss1[1] + "~1 " + ss1[4]);
+
 			if (s2.toLowerCase().startsWith("тот, кто")) {
 				s = s.replace(s2, "qqq-s2-qqq");
 				String s11 = s2.substring(8, s2.indexOf(", тот")).trim();
