@@ -1,4 +1,0 @@
-<br/>Так будет правильно? 
-<input type="submit" name="yesno" value="да">
-<input type="submit" name="yesno" value="нет">
- 
