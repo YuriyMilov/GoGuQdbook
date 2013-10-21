@@ -1,6 +1,0 @@
-<br/><a href="/wo">Home</a> 
-<br/><a href="/nship">New Shipper</a> 
-<br/><a href="/ncons">New Consignee</a> 
-<br/><a href="/nword">New Web Order</a> 
-
-<br/><br/><br/><a href="/u">u Test</a> 

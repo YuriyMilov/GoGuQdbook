@@ -1,2 +1,0 @@
-<br/>
-<br/><a href="/">UFOS Web Edition</a> | <a href="/logout">Logout</a>
