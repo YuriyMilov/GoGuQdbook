@@ -1,0 +1,3 @@
+# Module ufosapi
+# RPC service class, partial path of RPC policy file
+uu.client.GreetingService, D68F69E9940FFA560373F0B1A56DC97A.gwt.rpc

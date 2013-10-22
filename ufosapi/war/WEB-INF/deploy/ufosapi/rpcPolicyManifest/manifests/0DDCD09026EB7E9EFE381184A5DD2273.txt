@@ -1,0 +1,2 @@
+serviceClass: uu.client.GreetingService
+path: D68F69E9940FFA560373F0B1A56DC97A.gwt.rpc
