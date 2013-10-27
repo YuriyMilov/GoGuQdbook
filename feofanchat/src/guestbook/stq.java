@@ -2,7 +2,10 @@ package guestbook;
 
 import java.io.StringReader;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Properties;
+import java.util.Set;
+
 import javax.mail.Message;
 import javax.mail.Session;
 import javax.mail.Transport;
@@ -11,6 +14,7 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeUtility;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import org.jsoup.Jsoup;
 import org.mindswap.pellet.jena.PelletReasonerFactory;
 import org.semanticweb.owlapi.model.AddAxiom;
@@ -600,9 +604,9 @@ public class stq {
 			while (r.hasNext()) {
 				String sa = r.next().toString();
 				String sa1 = "", sa2 = "", sap = "", sr = stat.sr;
-				sr = sr.toLowerCase().replaceAll("тот, кто", "")
-						.replaceAll(", тот", "").replace("_", " ")
-						.replaceAll("[ ]+", " ");
+				//sr = sr.toLowerCase().replaceAll("тот, кто", "")
+				//		.replaceAll(", тот", "").replace(" ", "-").replace("_", " ")
+				//		.replaceAll("[-]+", " ");
 				int k = sa.indexOf("#");
 				if (k > 0)
 					sa = sa.substring(k).trim();
@@ -614,18 +618,21 @@ public class stq {
 					if (!sa1.equals(sa2) && !(sa1.startsWith("кто_"))
 							&& !(sa2.startsWith("кто_"))) {
 						sa = sa1 + " " + sa2;
-						sap = sa.replace("_", " ");
+						sap = sa.replace(" ", " - ");
+						sap = sap.replace("_", " ");
 						if (!s.toLowerCase().contains(sap.toLowerCase())
 								&& !sr.contains(sap.toLowerCase())
 								&& !s.contains(sap.toLowerCase()))
 							if (bim(sap.substring(0, 1)))
-								s = s + " " + sap + ".\r\n";
+								//s = s + " " + sap + ".\r\n";
+								;//TODO
 					}
 				}
 				if (ssa.length == 4) {
 					sa = ssa[1].substring(0, ssa[1].indexOf(">")) + " "
 							+ ssa[2].substring(0, ssa[2].indexOf(">")) + " "
 							+ ssa[3].substring(0, ssa[3].indexOf(">"));
+					
 					sap = sa.replace("_", " ");
 
 					if (!s.toLowerCase().contains(sap.toLowerCase())
@@ -1109,6 +1116,26 @@ public class stq {
 				s2 = s22 + " " + s11 + ". " + s22
 						+ s2.substring(s2.indexOf(", тот") + 5);
 				s = s.replace("qqq-s2-qqq", s2);
+			}
+			
+			if (ss1[1].toLowerCase().contains("только"))
+			{
+				s = s.replace(s2, "qqq-s2-qqq");
+				
+				int n=ss1.length;
+				
+				ArrayList<OWLIndividual> inds = new ArrayList<OWLIndividual>();
+				for (int i = 2; i < n; i++) {
+					inds.add(qw.getIndividual(ss1[i].replace(",", "")));
+				}
+				
+				Set<OWLIndividual> set_of_inds= new HashSet<OWLIndividual>();
+				set_of_inds.addAll(inds);
+				
+				OWLEquivalentClassesAxiom axioma = qw.factory.getOWLEquivalentClassesAxiom(qw.getOwlClass(ss1[0]), 
+						qw.factory.getOWLObjectOneOf(set_of_inds));
+				qw.manager.addAxiom(qw.ontology, axioma);
+				s = s.replace("qqq-s2-qqq.", "").trim();
 			}
 		}
 
