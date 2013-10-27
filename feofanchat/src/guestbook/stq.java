@@ -1089,9 +1089,11 @@ public class stq {
 					if (ss1[2].equals(ss1[6]))
 						s = s.replace(ss1[2], ss1[2] + "/сим//");
 				}
-				if (ss1.length == 12) {
-					if (ss1[2].equals(ss1[6]) && ss1[2].equals(ss1[10])
-							&& ss1[4].equals("и"))
+				int iii=ss1.length;
+				if (ss1.length == 13) {
+					String s0=ss1[0].trim(),s1=ss1[1].trim(),s22=ss1[2].trim(),s3=ss1[3].trim(),s4=ss1[4].trim(),s5=ss1[5].trim(),s6=ss1[6].trim(),s7=ss1[7].trim(),s8=ss1[8].trim(),s9=ss1[9].trim(),s10=ss1[10].trim(),s11=ss1[11].trim(),s12=ss1[12].trim();
+					s22=s0+" "+ s4+" "+ s8+" "+ s9;
+					if (s22.toLowerCase().contains("если а то всегда") && s1.contains(s10) && s3.contains(s5) && s7.contains(s12))
 						s = s.replace(ss1[2], ss1[2] + "/прхдн//");
 				}
 			}
