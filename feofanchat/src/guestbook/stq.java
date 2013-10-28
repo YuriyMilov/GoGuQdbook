@@ -634,9 +634,14 @@ public class stq {
 							+ ssa[3].substring(0, ssa[3].indexOf(">"));
 					
 					sap = sa.replace("_", " ");
-
-					if (!s.toLowerCase().contains(sap.toLowerCase())
-							&& !sr.contains(sap.toLowerCase()))
+					String s42=sr.replace("_", " ").toLowerCase();
+					
+					String s43=sap.toLowerCase();
+					
+					s43=s43.replaceAll("/"+""+".*"+"//", "");
+					boolean bb=!s42.contains(s43);
+					
+					if (!s.toLowerCase().contains(sap.toLowerCase()) && bb)
 						if (bim(sap.substring(0, 1)))
 							s = s + " " + sap + ". ";// \r\n
 				}
@@ -1092,10 +1097,10 @@ public class stq {
 
 			if (s2.toLowerCase().startsWith("если")) {
 				s = s.replace(s2 + ".", "");
-				if (ss1.length == 7) {
-					if (ss1[2].equals(ss1[6]))
-						s = s.replace(ss1[2], ss1[2] + "/сим//");
-				}
+				//if (ss1.length == 7) {
+				//	if (ss1[2].equals(ss1[6]))
+				//		s = s.replace(ss1[2], ss1[2] + "/сим//");
+				//}
 				int iii=ss1.length;
 				if (ss1.length == 13) {
 					String s0=ss1[0].trim(),s1=ss1[1].trim(),s22=ss1[2].trim(),s3=ss1[3].trim(),s4=ss1[4].trim(),s5=ss1[5].trim(),s6=ss1[6].trim(),s7=ss1[7].trim(),s8=ss1[8].trim(),s9=ss1[9].trim(),s10=ss1[10].trim(),s11=ss1[11].trim(),s12=ss1[12].trim();
@@ -1103,6 +1108,24 @@ public class stq {
 					if (s22.toLowerCase().contains("если а то всегда") && s1.contains(s10) && s3.contains(s5) && s7.contains(s12))
 						s = s.replace(ss1[2], ss1[2] + "/прхдн//");
 				}
+				
+				
+				if (ss1.length == 9) {
+					String s0=ss1[0].trim(),s1=ss1[1].trim(),s22=ss1[2].trim(),s3=ss1[3].trim(),s4=ss1[4].trim(),s5=ss1[5].trim(),s6=ss1[6].trim(),s7=ss1[7].trim(),s8=ss1[8].trim();
+					String s33=s0+" "+ s4+" "+ s5;
+					if (s33.toLowerCase().contains("если то всегда") && !s22.contains(s7))
+						s = s.replace(ss1[2], ss1[2] + "/инверс//");
+				}
+				
+				if (ss1.length == 9) {
+					String s0=ss1[0].trim(),s1=ss1[1].trim(),s22=ss1[2].trim(),s3=ss1[3].trim(),s4=ss1[4].trim(),s5=ss1[5].trim(),s6=ss1[6].trim(),s7=ss1[7].trim(),s8=ss1[8].trim();
+					String s33=s0+" "+ s4+" "+ s5;
+					if (s33.toLowerCase().contains("если то всегда") && s22.contains(s7))
+						s = s.replace(ss1[2], ss1[2] + "/сим//");
+				}
+
+				
+				
 			}
 
 			// if (ss1.length == 5)
