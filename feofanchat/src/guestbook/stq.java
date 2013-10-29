@@ -618,14 +618,26 @@ public class stq {
 					if (!sa1.equals(sa2) && !(sa1.startsWith("кто_"))
 							&& !(sa2.startsWith("кто_"))) {
 						sa = sa1 + " " + sa2;
-						sap = sa.replace(" ", " - ");
+						sap=sa;
+						sap = sap.replace(" ", " - ");
 						sap = sap.replace("_", " ");
-						if (!s.toLowerCase().contains(sap.toLowerCase())
-								&& !sr.contains(sap.toLowerCase())
-								&& !s.contains(sap.toLowerCase()))
+						
+						
+						String s42=sr.replace("_", " ").toLowerCase();	
+						String s43=sap.replace(" - "," ").toLowerCase();
+						
+						s43=s43.replaceAll("/"+""+".*"+"//", "");
+						
+						boolean bb1=!(s.toLowerCase()).contains(s43);
+						boolean bb2=!s42.contains(s43);
+						
+						if (bb1 && bb2)
 							if (bim(sap.substring(0, 1)))
-								//s = s + " " + sap + ".\r\n";
-								;//TODO
+							{			
+								sap = sap.replace("_", " ");
+								s = s + " " + sap + ".\r\n";
+							}
+						//TODO
 					}
 				}
 				if (ssa.length == 4) {
@@ -636,12 +648,13 @@ public class stq {
 					sap = sa.replace("_", " ");
 					String s42=sr.replace("_", " ").toLowerCase();
 					
-					String s43=sap.toLowerCase();
-					
+					String s43=sap.toLowerCase();					
 					s43=s43.replaceAll("/"+""+".*"+"//", "");
-					boolean bb=!s42.contains(s43);
 					
-					if (!s.toLowerCase().contains(sap.toLowerCase()) && bb)
+					boolean bb1=!s.toLowerCase().contains(s43);
+					boolean bb2=!s42.contains(s43);
+					
+					if (bb1 && bb2)
 						if (bim(sap.substring(0, 1)))
 							s = s + " " + sap + ". ";// \r\n
 				}

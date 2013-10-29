@@ -93,7 +93,7 @@ public class stat {
 	public static String snach = "<html><head></head><body bgcolor=#efefef>";
 	public static String skon = "<br/><br/>" +
 			" &nbsp; <a href=/Feofanchat.html><button> примеры </button></a>" +
-			" &nbsp; <a href=/forum.htm><button> форум </button></a>" +
+			//" &nbsp; <a href=/forum.htm><button> форум </button></a>" +
 			" &nbsp; <a href=/owl><button> OWL </button></a></html>";
 
 	public static String owl_file = "rff?83.owl";
