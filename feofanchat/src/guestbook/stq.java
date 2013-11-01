@@ -577,9 +577,6 @@ public class stq {
 	
 		add_sr(stat.sr, sh);
 
-		// TODO
-		//if (sh.length() > -2)
-	
 
 		s = stat.get_prefix(sh) + "SELECT ?X ?Y ?Z WHERE {?X ?Y ?Z}";
 
@@ -955,7 +952,9 @@ public class stq {
 
 	@SuppressWarnings("unused")
 	public static String srowl(String s, String sh, String sf) {
-
+		
+		s=s.replace("того, кто", "тот, кто").replace("того, который", "тот, кто").replace("том, который", "тот, кто").replace("тем, который", "тот, кто").replace("тот, который", "тот, кто").replace("тот, что", "тот, кто").replace("тем, кто", "тот, кто").replace("тем, что", "тот, кто");
+				
 		stat.owl_file = "rff?83.owl";
 		Owl2Model qw = new Owl2Model(sh + "/" + stat.owl_file);
 		s = s.replace(" - ", " ").replace(" это ", " ")
@@ -1090,6 +1089,8 @@ public class stq {
 	@SuppressWarnings("unused")
 	public static String рыба(String s, String sh) {
 		
+		s=s.replace("того, кто", "тот, кто").replace("того, который", "тот, кто").replace("том, который", "тот, кто").replace("тем, который", "тот, кто").replace("тот, который", "тот, кто").replace("тот, что", "тот, кто").replace("тем, кто", "тот, кто").replace("тем, что", "тот, кто");
+		
 		int j =s.lastIndexOf(".")+1;
 		int k =s.indexOf("?");
 		String sv="";
@@ -1097,6 +1098,7 @@ public class stq {
 		{
 			sv=s.substring(j,k).replaceAll("[\r\n]+", "").replace("кто", "").trim();
 		sv="qq:"+sv.replace(" ", " qq:"); 
+		s=s.substring(0,j).trim();
 		}
 		
 		
@@ -1225,7 +1227,14 @@ public class stq {
 		stat.sowl = qw.sowl();
 		
 		
-		//////////////////////
+//////////////////////
+		//TODO
+		
+		//if(s.length()>-1)
+		//	return "ok";
+		
+//////////////////////
+		
 		
 		s = stat.get_prefix(sh) + "SELECT ?X WHERE {?X "+sv+"}";
 
@@ -1248,6 +1257,6 @@ public class stq {
 		} catch (Exception ee) {
 			s = ee.toString();
 		}
-		return s;
+		return s; 
 	}
 }
