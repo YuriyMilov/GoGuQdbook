@@ -47,9 +47,15 @@ public class qq extends HttpServlet implements EntryPoint {
 			s = stq.форум(sh, req.getParameter("p2"));
 		if (s2.contains("new")) {
 			stat.sr = s;
+			if (s.indexOf("?") > 0)
+				s= stq.рыба(s,sh);
+			else
 			s = stq.sparql1(sh, s);
 		} else {
 			stat.sr = stat.sr + s;
+			if (s.indexOf("?") > 0)
+				s= stq.рыба(s,sh);
+			else
 			s = stq.sparql1(sh, s);
 		}
 

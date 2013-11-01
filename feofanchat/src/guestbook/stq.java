@@ -574,12 +574,12 @@ public class stq {
 
 	public static String sparql1(String sh, String s) {
 		stat.sh = sh;
-
+	
 		add_sr(stat.sr, sh);
 
 		// TODO
 		//if (sh.length() > -2)
-		//	return "ok";
+	
 
 		s = stat.get_prefix(sh) + "SELECT ?X ?Y ?Z WHERE {?X ?Y ?Z}";
 
@@ -624,7 +624,7 @@ public class stq {
 						if (bb1 && bb2)
 							if (bim(sap.substring(0, 1))) {
 								sap = sap.replace("_", " ");
-								s = s + " " + sap + ".\r\n";
+							//	s = s + " " + sap + ".\r\n";
 							}
 						}
 				}
@@ -955,6 +955,7 @@ public class stq {
 
 	@SuppressWarnings("unused")
 	public static String srowl(String s, String sh, String sf) {
+
 		stat.owl_file = "rff?83.owl";
 		Owl2Model qw = new Owl2Model(sh + "/" + stat.owl_file);
 		s = s.replace(" - ", " ").replace(" это ", " ")
@@ -1078,6 +1079,175 @@ public class stq {
 		qw.manager.addAxiom(qw.ontology, axioma22222);
 
 		stat.sowl = qw.sowl();
-		return "<a href=/owl > OWL </a>";
+		s="<a href=/owl > OWL </a>";
+		
+		return s;
+		
+	}
+
+
+
+	@SuppressWarnings("unused")
+	public static String рыба(String s, String sh) {
+		
+		int j =s.lastIndexOf(".")+1;
+		int k =s.indexOf("?");
+		String sv="";
+		if(j > 0 && k > j)
+		{
+			sv=s.substring(j,k).replaceAll("[\r\n]+", "").replace("кто", "").trim();
+		sv="qq:"+sv.replace(" ", " qq:"); 
+		}
+		
+		
+		stat.owl_file = "rff?83.owl";
+		Owl2Model qw = new Owl2Model(sh + "/" + stat.owl_file);
+		s = s.replace(" - ", " ").replace(" это ", " ")
+				.replaceAll("[\r\n]+", "");
+		s = s.replaceAll("[ ]+", " ").trim();
+		boolean b_is_first = true;
+
+		while (b_is_first || s.toLowerCase().contains("если")) {
+
+			String[] ss = s.replaceAll("[ ]+", " ").split("[.]+");
+			for (String s2 : ss) {
+				s2 = s2.trim();
+				String[] ss1 = s2.split("[ ]+");
+				if (s2.toLowerCase().contains("если")) {
+					s = s.replace(s2 + ".", "");
+					int iii = ss1.length;
+					if (ss1.length == 13) {
+						String s0 = ss1[0].trim(), s1 = ss1[1].trim(), s22 = ss1[2]
+								.trim(), s3 = ss1[3].trim(), s4 = ss1[4].trim(), s5 = ss1[5]
+								.trim(), s7 = ss1[7].trim(), s8 = ss1[8].trim(), s9 = ss1[9]
+								.trim(), s10 = ss1[10].trim(), s12 = ss1[12]
+								.trim();
+						s22 = s0 + " " + s4 + " " + s8 + " " + s9;
+						if (s22.toLowerCase().contains("если а то всегда")
+								&& s1.contains(s10) && s3.contains(s5)
+								&& s7.contains(s12))
+							s = s.replace(ss1[2] + " ", ss1[2] + "/прхдн//"
+									+ " ");
+					}
+					if (ss1.length == 9) {
+						String s0 = ss1[0].trim(), s22 = ss1[2].trim(), s4 = ss1[4]
+								.trim(), s5 = ss1[5].trim(), s7 = ss1[7].trim();
+						String s33 = s0 + " " + s4 + " " + s5;
+						if (s33.toLowerCase().contains("если то всегда")
+								&& s22.contains(s7))
+							s = s.replace(ss1[2] + " ", ss1[2] + "/сим//" + " ");
+
+						if (s33.toLowerCase().contains("если то всегда")
+								&& !s22.contains(s7)) {
+							s = s.replace(s22 + " ", s22 + "/инверс_" + s7
+									+ "//" + " ");
+							s = s.replace(s7 + " ", s7 + "/инверс_" + s22
+									+ "//" + " ");
+						}
+					}
+
+					if (ss1.length == 14) {
+						String s33 = ss1[0] + " " + ss1[4] + " " + ss1[5] + " "
+								+ ss1[6] + " " + ss1[9] + " " + ss1[10] + " "
+								+ ss1[12] + " " + ss1[13];
+						if (s33.toLowerCase().contains(
+								"если то всегда каждый только один и наоборот")
+								&& ss1[2].contains(ss1[8])) {
+							s = s.replace(ss1[2] + " ", ss1[2]
+									+ "/функц_и_наоборот//" + " ");
+						}
+					}
+				}
+				if (s2.toLowerCase().startsWith("тот, кто")) {
+					s = s.replace(s2, "qqq-s2-qqq");
+					String s11 = s2.substring(8, s2.indexOf(", тот")).trim();
+					String s22 = s11.trim().replace(" ", "_");
+					s2 = s22 + " " + s11 + ". " + s22
+							+ s2.substring(s2.indexOf(", тот") + 5);
+					s = s.replace("qqq-s2-qqq", s2);
+				}
+
+				if (ss1[1].toLowerCase().contains("только")) {
+					s = s.replace(s2, "qqq-s2-qqq");
+
+					int n = ss1.length;
+
+					ArrayList<OWLIndividual> inds = new ArrayList<OWLIndividual>();
+					for (int i = 2; i < n; i++) {
+						inds.add(qw.getIndividual(ss1[i].replace(",", "")));
+					}
+
+					Set<OWLIndividual> set_of_inds = new HashSet<OWLIndividual>();
+					set_of_inds.addAll(inds);
+
+					OWLEquivalentClassesAxiom axioma = qw.factory
+							.getOWLEquivalentClassesAxiom(
+									qw.getOwlClass(ss1[0]),
+									qw.factory.getOWLObjectOneOf(set_of_inds));
+					qw.manager.addAxiom(qw.ontology, axioma);
+					s = s.replace("qqq-s2-qqq.", "").trim();
+				}
+			}
+			b_is_first = false;
+		}
+
+		// //////////////////
+
+		String[] ss = s.replaceAll("[ ]+", " ").split("[.]+");
+
+		for (String s2 : ss) {
+
+			String[] ss1 = s2.trim().split("[ ]+");
+			String sпервое = ss1[0];
+			String sпоследнее = ss1[ss1.length - 1];
+			if (stq.bim(sпервое) && stq.bim(sпоследнее))
+				stq.YM123(qw, s2);
+			else if (!stq.bim(sпервое) && !stq.bim(sпоследнее))
+				stq.ym123(qw, s2);
+			else if (!stq.bim(sпервое) && stq.bim(sпоследнее))
+				stq.yM123(qw, s2);
+			else if (stq.bim(sпервое) && !stq.bim(sпоследнее))
+				stq.Ym123(qw, s2);
+		}
+
+		ss = s.replace(".", " ").split("[ ]+");
+		Set<OWLIndividual> set_of_inds3 = new HashSet<OWLIndividual>();
+		for (String s3 : ss) {
+			boolean bb3 = bim(s3) && !n(s3);
+			if (bb3)
+				set_of_inds3.add(qw.getIndividual(s3));
+		}
+
+		OWLDifferentIndividualsAxiom axioma22222 = qw.factory
+				.getOWLDifferentIndividualsAxiom(set_of_inds3);
+		qw.manager.addAxiom(qw.ontology, axioma22222);
+
+		stat.sowl = qw.sowl();
+		
+		
+		//////////////////////
+		
+		s = stat.get_prefix(sh) + "SELECT ?X WHERE {?X "+sv+"}";
+
+		OntModel mm = ModelFactory
+				.createOntologyModel(PelletReasonerFactory.THE_SPEC);
+
+		mm.read(new StringReader(stat.sowl), "");
+
+		try {
+			Query qq = QueryFactory.create(s);
+		
+			ResultSet r = SparqlDLExecutionFactory.create(qq, mm).execSelect();
+			
+				s = r.next().toString();
+				j =s.indexOf("#");
+				k =s.indexOf(">");
+				if(j>0 && k>j)
+				s=s.substring(j+1,k);
+
+		} catch (Exception ee) {
+			s = ee.toString();
+		}
+		return s;
 	}
 }
