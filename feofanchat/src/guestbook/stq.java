@@ -1097,7 +1097,7 @@ public class stq {
 		if(j > 0 && k > j)
 		{
 			sv=s.substring(j,k).replaceAll("[\r\n]+", "").replace("кто", "").trim();
-		sv="qq:"+sv.replace(" ", " qq:"); 
+	
 		s=s.substring(0,j).trim();
 		}
 		
@@ -1234,16 +1234,21 @@ public class stq {
 		//	return "ok";
 		
 //////////////////////
-		
-		
-		s = stat.get_prefix(sh) + "SELECT ?X WHERE {?X "+sv+"}";
-
+	
 		OntModel mm = ModelFactory
 				.createOntologyModel(PelletReasonerFactory.THE_SPEC);
+		
+		try{
+			
+		
+		if(sv.indexOf(" ")>0){
+		sv="qq:"+sv.replace(" ", " qq:"); 		
+		s = stat.get_prefix(sh) + "SELECT ?X WHERE {?X "+sv+"}";
+		
 
 		mm.read(new StringReader(stat.sowl), "");
 
-		try {
+		
 			Query qq = QueryFactory.create(s);
 		
 			ResultSet r = SparqlDLExecutionFactory.create(qq, mm).execSelect();
@@ -1253,10 +1258,39 @@ public class stq {
 				k =s.indexOf(">");
 				if(j>0 && k>j)
 				s=s.substring(j+1,k);
-
-		} catch (Exception ee) {
-			s = ee.toString();
 		}
+		else
+		{
+			String[] ssss = {
+					"SELECT ?кто  WHERE {qq:" + sv + " rdf:type ?кто}",
+					"SELECT ?кто  WHERE {?кто rdf:type qq:" + sv + "}" };
+			String s3="";
+			
+			for (String str : ssss) {
+				s = stat.get_prefix(sh) + str;
+				mm.read(new StringReader(stat.sowl), "");
+				Query qq = QueryFactory.create(s);
+				ResultSet r = SparqlDLExecutionFactory.create(qq, mm).execSelect();
+					while (r.hasNext()) {
+						s = r.next().toString();
+						j =s.indexOf("#");
+						k =s.indexOf(">");
+						if(j>0 && k>j)
+						s=s.substring(j,k);
+						boolean bb = s.contains("кто_");
+						if (!bb)
+						if (!s3.contains(s) && s.contains("#"))							
+							s3 = s3 + s+", ";
+					}
+		
+			}
+			s = s3.replace("#", " ").trim();
+			int i=s.length();
+			if(i>0)
+				s=s.substring(0,i-1);
+			}
+		}
+		catch (Exception e){s=e.toString();}
 		return s; 
 	}
 }
