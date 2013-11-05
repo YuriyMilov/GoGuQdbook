@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.jsoup.Jsoup;
 import org.mindswap.pellet.jena.PelletReasonerFactory;
+import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
@@ -26,6 +27,8 @@ import org.semanticweb.owlapi.model.OWLFunctionalObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLInverseFunctionalObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLInverseObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLObjectExactCardinality;
+import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 
@@ -832,9 +835,10 @@ public class stq {
 			} else if (s.contains("/функц_и_наоборот//")) {
 				s = s.replace("/функц_и_наоборот//", "");
 				String sa = s;
+			
 				if (sa.contains("~"))
 					sa = sa.substring(0, s.indexOf("~"));
-
+		
 				любит_чтото = qw.getProperty(sa);
 
 				OWLFunctionalObjectPropertyAxiom функц_аксиома = qw.factory
@@ -849,6 +853,8 @@ public class stq {
 
 		} else
 			любит_чтото = qw.getProperty(s);
+
+	
 
 		return любит_чтото;
 	}
@@ -875,16 +881,52 @@ public class stq {
 
 	public static void Y123m(Owl2Model qw, String sНезнайка,
 			ArrayList<String> где, String sктото) {
-
 		String s = где.get(где.size() - 1);
-		OWLObjectProperty любит_чтото = add_prop(qw,s);
-		OWLClassExpression ктото = qw.factory.getOWLObjectSomeValuesFrom(
+		String sn="", sa="";
+		sa=s;sn=s;
+		int nn=0;
+		OWLObjectProperty любит_чтото =null;
+		OWLClassExpression ктото = null;
+		if (!s.contains("~"))
+		{	
+		любит_чтото = add_prop(qw,s);
+		ктото = qw.factory.getOWLObjectSomeValuesFrom(
 				любит_чтото, qw.getOwlClass(sктото));
+		}
+		//TODO
+		//TODO
+		else
+		{
+			sn=s.substring(s.indexOf("~")+1);
+			if (sn.contains("/"))
+				sn=s.substring(0,s.indexOf("/"));
+			sa=s.substring(0,s.indexOf("~"));
+			nn=Integer.parseInt(sn);
+			любит_чтото = add_prop(qw,sa);
+			ктото = qw.factory
+					.getOWLObjectExactCardinality(nn, любит_чтото,  qw.getOwlClass(sктото));
 
+			}
+		
 		for (int i = где.size() - 2; i > -1; i--) {
 			s = где.get(i);
 			любит_чтото = add_prop(qw,s);
-			ктото = qw.factory.getOWLObjectSomeValuesFrom(любит_чтото, ктото);
+
+			if (!s.contains("~"))
+				ктото = qw.factory.getOWLObjectSomeValuesFrom(любит_чтото, ктото);
+
+			//TODO
+			
+			else
+			{
+				sn=s.substring(s.indexOf("~")+1);
+				if (sn.contains("/"))
+					sn=s.substring(0,s.indexOf("/"));
+				
+				nn=Integer.parseInt(sn);
+				ктото = qw.factory
+						.getOWLObjectExactCardinality(nn, любит_чтото, ктото);
+			}
 		}
 
 		OWLClass понятие_о_Незнайке_1 = qw.getOwlClass("кто_" + sНезнайка);
