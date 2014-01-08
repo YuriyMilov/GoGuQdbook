@@ -25,7 +25,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.mail.internet.*;
 import javax.mail.util.ByteArrayDataSource;
 
-public class mh extends HttpServlet {
+public class mh3 extends HttpServlet {
 
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
@@ -44,7 +44,7 @@ public class mh extends HttpServlet {
 			sbody = spre
 					//+ "<br><br>"
 					+ get_html(", "+stxt.substring(stxt.indexOf("Orders")),
-							rfu_utf(sh + "/2.htm"));
+							rfu_utf(sh + "/3.htm"));
 			send_admin("UFOS Daily Activity - GET method", sbody, stxt);
 			
 		} catch (Exception e) {
@@ -77,19 +77,8 @@ public class mh extends HttpServlet {
 		
 		
 		try {
-			String spre = stxt.substring(0, stxt.indexOf("Orders"));
-			spre=spre.replace("\r\n", "<br>");
-			
-			sbody = spre + get_html(", "+stxt.substring(stxt.indexOf("Orders")),
-							rfu_utf(sh + "/2.htm"));
-			//send_admin("UFOS Daily Activity - POST method", sbody, stxt);
-			
-			//if (s4.equals("admins"))
-			//	send_admin(subject, sbody, stxt);
-			//else
-				send_mail(sadr, subject+" ..", sbody, stxt);
 
-			send_admin(subject, sbody, stxt);
+			send_admin3(subject, stxt);
 			
 		} catch (Exception e) {
 				s = e.toString();
@@ -321,6 +310,34 @@ public class mh extends HttpServlet {
 
 	}
 
+	
+	private void send_admin3(String subject, String body)
+			throws Exception {
+		
+		body="<b>UFOS</b> <i>Target Report</i>";
+		
+		Properties props = new Properties();
+		Session session = Session.getDefaultInstance(props, null);
+		Message msg = new MimeMessage(session);
+		// msg.setFrom(new InternetAddress("ymilov@gmail.com", "UFOS Daily Activity"));
+		
+		msg.setFrom(new InternetAddress("myufos99@gmail.com","UFOS Target Report"));
+		msg.addRecipient(Message.RecipientType.TO, new InternetAddress("admins"));
+		msg.setSubject(subject);
+		
+		//msg.setText(body);	
+	
+		MimeBodyPart textPart = new MimeBodyPart();
+		textPart.setContent(body, "text/html");
+		Multipart mp = new MimeMultipart();
+		mp.addBodyPart(textPart);
+		msg.setContent(mp);
+		
+		Transport.send(msg);
+
+	}
+	
+	
 	@SuppressWarnings("unused")
 	private static void sm(byte[] data, String ff, String mimeType,
 			String from_a, String from_n, String to_a, String to_n,
