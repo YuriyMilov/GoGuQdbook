@@ -65,8 +65,8 @@ try {
 			} catch (Exception e) {
 				s = e.toString();
 			}
-			send_mail("qdone@rogers.com", "rate	" + new Date().toString(),
-					s+" \r\n"+s2);
+			//send_mail("qdone@rogers.com", "rate	" + new Date().toString(),
+			//		s+" \r\n"+s2);
 
 		PrintWriter out = resp.getWriter();
 		
