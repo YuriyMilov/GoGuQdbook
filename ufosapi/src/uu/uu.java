@@ -21,7 +21,7 @@ public class uu extends HttpServlet {
 		resp.setCharacterEncoding("UTF8");
 resp.sendRedirect("http://99.240.96.205/api/ws.asmx");
 	}
-
+ 
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
 		doPost(req, resp);

@@ -7,6 +7,28 @@
 
   <!-- Servlets -->
   <servlet>
+    <servlet-name>mh</servlet-name>
+    <servlet-class>uu.mh</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>mh</servlet-name>
+    <url-pattern>/mh</url-pattern>
+  </servlet-mapping>
+  
+   <servlet>
+    <servlet-name>od</servlet-name>
+    <servlet-class>uu.od</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>od</servlet-name>
+    <url-pattern>/od</url-pattern>
+  </servlet-mapping>
+  
+  
+  
+    <servlet>
     <servlet-name>uu</servlet-name>
     <servlet-class>uu.uu</servlet-class>
   </servlet>
@@ -15,6 +37,8 @@
     <servlet-name>uu</servlet-name>
     <url-pattern>/uu</url-pattern>
   </servlet-mapping>
+  
+  
   
   <!-- Default page to serve -->
   <welcome-file-list>
