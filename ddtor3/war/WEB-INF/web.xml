@@ -4,6 +4,17 @@
   
     
    <servlet>
+    <servlet-name>qq</servlet-name>
+    <servlet-class>dd.qq</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>qq</servlet-name>
+    <url-pattern>/qq</url-pattern>
+  </servlet-mapping>
+
+    
+   <servlet>
     <servlet-name>ddp</servlet-name>
     <servlet-class>dd.ddp</servlet-class>
   </servlet>
