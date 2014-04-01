@@ -42,7 +42,7 @@
   
   <!-- Default page to serve -->
   <welcome-file-list>
-    <welcome-file>uu</welcome-file>
+    <welcome-file>map.htm</welcome-file>
   </welcome-file-list>
 
 </web-app>
