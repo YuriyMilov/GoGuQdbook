@@ -14,6 +14,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Properties;
 import java.util.TimeZone;
+
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
 import javax.mail.*;
@@ -29,15 +30,22 @@ public class od extends HttpServlet {
 
         public void doGet(HttpServletRequest req, HttpServletResponse resp)
                         throws IOException {
-                String s1 = "111";
+        	   String sh = req.getScheme() + "://" + req.getServerName() + ":"
+                       + req.getServerPort() + req.getContextPath();
+
+       String s = "111";
+       
+               
                 		try {
-                	s1=rfu_utf("http://maps.googleapis.com/maps/api/directions/xml?origin=LHR,uk&destination=hounslow,uk&waypoints=optimize:true|twickenham,uk|harlington,uk&sensor=false");                        
+                	s = rfu_utf(sh + "/map2.htm"); 
+                	s = s.replace("One destination per line", "toronto, on\r\nvaughan, on\r\najax, on\r\nguelf, on\r\nbrantford, on\r\noakville, on\r\nmilton, on\r\nbrampton, on\r\nhamilton, on\r\nmississauga, on\r\n");
+                	
                 } catch (Exception e) {
-                        s1 = e.toString();
+                        s = e.toString();
                 }
                 PrintWriter out = resp.getWriter();
-                resp.setContentType("text/xml");
-                out.write(s1);
+                resp.setContentType("text/html");
+                out.write(s);
                 out.flush();
                 out.close();
         }
