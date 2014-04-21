@@ -76,7 +76,7 @@ public class qq extends HttpServlet {
 		else
 			s= stkl.rfu_utf(sh+"/edit.html");
 			
-			s=stkl.posti(sh+"/w2f","w2f_null_query", " Query String - null");
+			//s=stkl.posti(sh+"/w2f","w2f_null_query", " Query String - null");
 			//s = stkl.rff(s);
 		
 		

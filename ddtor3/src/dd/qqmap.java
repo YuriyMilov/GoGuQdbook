@@ -43,7 +43,7 @@ public class qqmap extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
 		String sh = req.getScheme() + "://" + req.getServerName() + ":"	+ req.getServerPort() + req.getContextPath();
-
+ 
 	
 		String s= stkl.rfu_utf(sh+"/edit2.html");	
 		s=s.replace("<!-- qq2 -->", stkl.blob_r("2.txt"));	
