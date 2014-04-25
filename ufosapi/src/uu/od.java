@@ -33,13 +33,16 @@ public class od extends HttpServlet {
         	   String sh = req.getScheme() + "://" + req.getServerName() + ":"
                        + req.getServerPort() + req.getContextPath();
 
-       String s = "111";
+       String s = "111",s2=req.getQueryString();
        
                
                 		try {
                 	s = rfu_utf(sh + "/map2.htm"); 
-                	s = s.replace("One destination per line", "toronto, on\r\nvaughan, on\r\najax, on\r\nguelf, on\r\nbrantford, on\r\noakville, on\r\nmilton, on\r\nbrampton, on\r\nhamilton, on\r\nmississauga, on\r\n");
-                	
+                	if(s2!=null)
+                           	s = s.replace("One destination per line", s2.replace("+", " ").replace("&", "\r\n"));
+                	else
+                		s = s.replace("One destination per line", "toronto, on\r\nvaughan, on\r\najax, on\r\nguelf, on\r\nbrantford, on\r\noakville, on\r\nmilton, on\r\nbrampton, on\r\nhamilton, on\r\nmississauga, on\r\n");
+                                   	
                 } catch (Exception e) {
                         s = e.toString();
                 }
