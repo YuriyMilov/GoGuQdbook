@@ -120,14 +120,22 @@ jQuery(function() {
   <div id="accordion" style='width: 300pt'>
   <h3><a href="#" class='accHeader'>Destinations</a></h3>
   <div>
-    <form name="address" onSubmit="clickedAddAddress(); return false;">
-    Add Location by Address: 
+  
+    <div id="bulkLoader"></div>
+    
+     <form name="address" onSubmit="clickedAddAddress(); return false;">
+    or add location by address or (lat,lng): 
     <table><tr><td><input name="addressStr" type="text"></td>
     <td><input type="button" value="Add!" onClick="clickedAddAddress()"></tr>
     </table>
-    </form> or <a href="#" onClick="toggle('bulkLoader'); document.listOfLocations.inputList.focus(); document.listOfLocations.inputList.select(); return false;">
-    Bulk add by address or (lat, lng)</a>.
-    <div id="bulkLoader"></div>
+    </form>
+    
+    
+  <input id="button1" class="calcButton" type="button" value="Calculate Fastest Roundtrip" onClick="directions(0, document.forms['travelOpts'].walking.checked, document.forms['travelOpts'].bicycling.checked, document.forms['travelOpts'].avoidHighways.checked, document.forms['travelOpts'].avoidTolls.checked)">
+  <input id="button2" class="calcButton" type="button" value="Calculate Fastest A-Z Trip" onClick="directions(1, document.forms['travelOpts'].walking.checked, document.forms['travelOpts'].bicycling.checked, document.forms['travelOpts'].avoidHighways.checked, document.forms['travelOpts'].avoidTolls.checked)">
+  <input id='button3' class="calcButton" type='button' value='Start Over Again' onClick='startOver()'>
+    
+    
   </div>
 
   <h3><a href="#" class='accHeader'>Route Options</a></h3>
@@ -206,13 +214,6 @@ jQuery(function() {
   
   </div>
 
-  <input id="button1" class="calcButton" type="button" value="Calculate Fastest Roundtrip" onClick="directions(0, document.forms['travelOpts'].walking.checked, document.forms['travelOpts'].bicycling.checked, document.forms['travelOpts'].avoidHighways.checked, document.forms['travelOpts'].avoidTolls.checked)">
-  <input id="button2" class="calcButton" type="button" value="Calculate Fastest A-Z Trip" onClick="directions(1, document.forms['travelOpts'].walking.checked, document.forms['travelOpts'].bicycling.checked, document.forms['travelOpts'].avoidHighways.checked, document.forms['travelOpts'].avoidTolls.checked)">
-  <input id='button3' class="calcButton" type='button' value='Start Over Again' onClick='startOver()'>
-
-
-
-
 </div>
 
 
@@ -226,12 +227,13 @@ jQuery(function() {
   </td>
 </tr>
 </table>
-
+ 
 <!-- Hidden stuff -->
 <div id="bulkLoader_hidden" style="visibility: hidden;">
   <form name="listOfLocations" onSubmit="clickedAddList(); return false;">
-  <textarea name="inputList" rows="10" cols="70">One destination per line</textarea><br>
-  <input type="button" value="Add list of locations" onClick="clickedAddList()">
+  <input type="button" value="Add list of locations" onClick="clickedAddList()"><br><br>
+  <textarea name="inputList" rows="10" cols="70">One destination per line</textarea>
+  
 </form></div>
 <div id="exportData_hidden" style="visibility: hidden;"></div>
 <div id="exportLabelData_hidden" style="visibility: hidden;"></div>
