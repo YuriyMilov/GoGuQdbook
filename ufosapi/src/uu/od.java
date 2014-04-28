@@ -39,10 +39,12 @@ public class od extends HttpServlet {
                 		try {
                 	s = rfu_utf(sh + "/map2.htm"); 
                 	if(s2!=null)
-                           	s = s.replace("One destination per line", s2.replace("+", " ").replace("&", "\r\n"));
+                           	s = s.replace("One destination per line", s2.replace("%20", " ").replace("&", "\r\n"));
                 	else
                 		s = s.replace("One destination per line", "toronto, on\r\nvaughan, on\r\najax, on\r\nguelf, on\r\nbrantford, on\r\noakville, on\r\nmilton, on\r\nbrampton, on\r\nhamilton, on\r\nmississauga, on\r\n");
                                    	
+                	
+                	
                 } catch (Exception e) {
                         s = e.toString();
                 }
