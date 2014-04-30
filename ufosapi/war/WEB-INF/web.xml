@@ -51,9 +51,13 @@
   
   
   
-  <!-- Default page to serve -->
+  <!-- Default page to serve
+  
+  od
+  
+   -->
   <welcome-file-list>
-    <welcome-file>od</welcome-file>
+    <welcome-file>map2.htm</welcome-file>
   </welcome-file-list>
 
 </web-app>
