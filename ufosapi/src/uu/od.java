@@ -43,7 +43,7 @@ public class od extends HttpServlet {
                 	else
                 		s = s.replace("One destination per line", "toronto, on\r\nvaughan, on\r\najax, on\r\nguelf, on\r\nbrantford, on\r\noakville, on\r\nmilton, on\r\nbrampton, on\r\nhamilton, on\r\nmississauga, on\r\n");
                                    	
-                	
+                	s=sh + "/map2.htm *** "+s;
                 	
                 } catch (Exception e) {
                         s = e.toString();
