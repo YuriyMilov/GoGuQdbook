@@ -4,6 +4,37 @@
   
     
    <servlet>
+    <servlet-name>mail</servlet-name>
+    <servlet-class>dd.mail</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>mail</servlet-name>
+    <url-pattern>/mail</url-pattern>
+  </servlet-mapping>
+    
+   <servlet>
+    <servlet-name>TestServlet</servlet-name>
+    <servlet-class>dd.TestServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>TestServlet</servlet-name>
+    <url-pattern>/TestServlet</url-pattern>
+  </servlet-mapping>
+  
+   <servlet>
+    <servlet-name>qqmap</servlet-name>
+    <servlet-class>dd.qqmap</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>qqmap</servlet-name>
+    <url-pattern>/qqmap</url-pattern>
+  </servlet-mapping>
+
+  
+   <servlet>
     <servlet-name>qq</servlet-name>
     <servlet-class>dd.qq</servlet-class>
   </servlet>
@@ -13,7 +44,7 @@
     <url-pattern>/qq</url-pattern>
   </servlet-mapping>
 
-    
+  
    <servlet>
     <servlet-name>ddp</servlet-name>
     <servlet-class>dd.ddp</servlet-class>
@@ -112,7 +143,7 @@
     <url-pattern>/bre2</url-pattern>
   </servlet-mapping>
   
-      <servlet>
+   <servlet>
     <servlet-name>owl</servlet-name>
     <servlet-class>dd.owl</servlet-class>
   </servlet>
