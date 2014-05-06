@@ -28,9 +28,9 @@
   function init() {
   	if (google.loader.ClientLocation != null) {
 		latLng = new google.maps.LatLng(google.loader.ClientLocation.latitude, google.loader.ClientLocation.longitude);
-		loadAtStart(google.loader.ClientLocation.latitude, google.loader.ClientLocation.longitude, 8);
+		loadAtStart(google.loader.ClientLocation.latitude, google.loader.ClientLocation.longitude, 4);
 	} else {
-		loadAtStart(37.4419, -122.1419, 8);
+		loadAtStart(40,-89, 4);
 	}
 }
 
