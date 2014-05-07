@@ -258,7 +258,7 @@ public class stkl {
 		Message msg = new MimeMessage(session);
 
 		try {
-			msg.setFrom(new InternetAddress("admin@ddtor.com", "admin@ddtor.com"));
+			msg.setFrom(new InternetAddress("ddtor M", "admin@ddtor.com"));
 
 			msg.addRecipient(Message.RecipientType.TO, new InternetAddress(
 					"admins"));
