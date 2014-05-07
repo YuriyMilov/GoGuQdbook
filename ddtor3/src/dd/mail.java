@@ -53,11 +53,11 @@ public class mail extends HttpServlet {
 		String sh = req.getScheme() + "://" + req.getServerName() + ":"	+ req.getServerPort() + req.getContextPath();
 
 	
-		String s= "111111111111111";
+		String s= "ddtor dd.mail test 222222222222222\r\n3333333";
 		//stkl.rfu_utf(sh+"/edit.html");	
 		//stkl.blob_r("1.txt");	
 		//send_admin("subj",s,s);
-		stkl.sm2a("ddtor admin mailing test ", s+" 222222222222222\r\n3333333");
+		stkl.sm2a("ddtor admin mailing test ", s);
 	
 		resp.setCharacterEncoding("UTF8"); 
 		resp.setContentType("text/html");
