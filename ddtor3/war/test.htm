@@ -6,13 +6,13 @@
     function start() { 
         var eventSource = new EventSource("TestServlet");         
         eventSource.onmessage = function(event) {         
-            document.getElementById('foo').innerHTML = document.getElementById('foo').innerHTML + " яя<br/>фф "+event.data;         
+            document.getElementById('foo').innerHTML = event.data;         
         };         
     }
     </script>
 </head>
 <body onload="start()">
-    Time: <span id="foo"></span>     
+    <span id="foo"></span>     
     </body>
 </html>
 
