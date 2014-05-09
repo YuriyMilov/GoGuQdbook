@@ -101,7 +101,34 @@ jQuery(function() {
 </head>
 
 <body onLoad="onBodyLoad()"><!-- ;toggle('bulkLoader'); document.listOfLocations.inputList.focus(); document.listOfLocations.inputList.select();directions(1, document.forms['travelOpts'].walking.checked, document.forms['travelOpts'].bicycling.checked, document.forms['travelOpts'].avoidHighways.checked, document.forms['travelOpts'].avoidTolls.checked)"> -->
-<h2>UFOS API route planner with multiple destinations</h2>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- ufosapi -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-2500695075596096"
+     data-ad-slot="3956167769"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+
+	<script>
+		(function(i, s, o, g, r, a, m) {
+			i['GoogleAnalyticsObject'] = r;
+			i[r] = i[r] || function() {
+				(i[r].q = i[r].q || []).push(arguments)
+			}, i[r].l = 1 * new Date();
+			a = s.createElement(o), m = s.getElementsByTagName(o)[0];
+			a.async = 1;
+			a.src = g;
+			m.parentNode.insertBefore(a, m)
+		})(window, document, 'script',
+				'//www.google-analytics.com/analytics.js', 'ga');
+
+		ga('create', 'UA-50731413-1', 'feofan.com');
+		ga('send', 'pageview');
+	</script>
+<h2><a href=ufosapi.dll></>UFOS API</a> route planner with multiple destinations</h2>
 
 <div id="fb-root"></div>
 <script>(function(d, s, id) {
@@ -231,7 +258,7 @@ jQuery(function() {
 <!-- Hidden stuff -->
 <div id="bulkLoader_hidden" style="visibility: hidden;">
   <form name="listOfLocations" onSubmit="clickedAddList(); return false;">
-  <input type="button" value="Add list of locations" onClick="clickedAddList()"><br><br>
+  <input type="button" value="Add list of the next locations" onClick="clickedAddList()"><br><br>
   <textarea name="inputList" rows="10" cols="70">One destination per line</textarea>
   
 </form></div>
