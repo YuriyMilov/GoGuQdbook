@@ -61,7 +61,7 @@ import com.google.appengine.api.files.FileServiceFactory;
 import com.google.appengine.api.files.FileWriteChannel;
 
 public class stkl {
-
+	public static String sts="";
 	
 	public static String rfu_utf(String s) {
 		try {
