@@ -3,16 +3,17 @@
 <meta charset="utf-8">
 <head> 
     <script type="text/javascript">
-    function start() { 
-        var eventSource = new EventSource("TestServlet");         
-        eventSource.onmessage = function(event) {         
-            document.getElementById('foo').innerHTML = event.data;         
-        };         
-    }
+
+    function js1() {     
+ 	   var event1 = new EventSource("js1");
+         event1.onmessage = function(event1) {         
+             document.getElementById('foo').innerHTML = event1.data;
+          };     
+     }   
+    
     </script>
 </head>
-<body onload="start()">
-    <span id="foo"></span>     
+<body onload="js1();">
+    <span id="foo">qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq</span>     
     </body>
 </html>
-
