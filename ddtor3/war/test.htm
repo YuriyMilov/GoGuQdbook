@@ -1,19 +1,51 @@
 <!DOCTYPE HTML>
 <html>
 <meta charset="utf-8">
-<head> 
-    <script type="text/javascript">
+<head>
+<style>
+a:link {
+	color: #99CCFF;
+}
 
-    function js1() {     
- 	   var event1 = new EventSource("js1");
-         event1.onmessage = function(event1) {         
-             document.getElementById('foo').innerHTML = event1.data;
-          };     
-     }   
-    
-    </script>
+a:visited {
+	color: #99CCFF;
+}
+
+a:hover {
+	color: #FF00FF;
+}
+
+a:active {
+	color: #99CCFF;
+}
+
+body {
+	color: #E6E6E6;
+}
+</style>
+
+<script type="text/javascript">
+	function js1() {
+		var event1 = new EventSource("js1");
+		event1.onmessage = function(event1) {
+			var s = document.getElementById('foo').innerHTML + event1.data;
+			if (s.length < 5000)
+				document.getElementById('foo').innerHTML = s;
+			else {
+				s = event1.data;
+				document.getElementById('foo').innerHTML = s;
+			}
+		};
+	}
+</script>
 </head>
 <body onload="js1();">
-    <span id="foo">qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq</span>     
-    </body>
+
+	<table style="background: url(uz2.jpg) no-repeat 0 0;">
+		<tr height=700 valign=top>
+			<td width=720  valign=top><span id="foo">qqqqqqqq </span></td>
+		</tr>
+	</table>
+
+</body>
 </html>
