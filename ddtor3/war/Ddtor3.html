@@ -1,7 +1,29 @@
 <html>
 <meta charset="utf-8">
-<head></head>
-<body bgcolor="#eeeeee">
+<head>
+<style>
+a:link {	color: #99CCFF;}
+a:visited {	color: #99CCFF;}
+a:hover {	color: #FF00FF;}
+a:active {	color: #99CCFF;}
+body {	color: #E6E6E6;}
+</style>
+<script type="text/javascript">
+	function js1() {
+		var event1 = new EventSource("js1");
+		event1.onmessage = function(event1) {
+			var s = document.getElementById('foo').innerHTML + event1.data;
+			if (s.length < 5000)
+				document.getElementById('foo').innerHTML = s;
+			else {
+				s = event1.data;
+				document.getElementById('foo').innerHTML = s;
+			}
+		};
+	}
+</script>
+</head>
+<body bgcolor="#eeeeee" onload="js1();">
 
 	<script>
 		(function(i, s, o, g, r, a, m) {
@@ -21,63 +43,109 @@
 	</script>
 	<table>
 		<tr valign=top align=left>
+
 			<td valign=top align=left>
+			<table>
+					<tr align=left>
+						<td><a href="http://player.rutv.ru/iframe/live/id/2961"
+							target=_new><b><font color=blue>Россия</font> <font
+									color=red>1</font></b></a> &nbsp; <a
+							href="http://player.rutv.ru/iframe/live/id/3465?time_play=0"
+							target=_new><b><font color=blue>Россия</font> <font
+									color=red>2</font></b></a> &nbsp; <a
+							href="http://player.rutv.ru/index/iframe/cast_id/21"
+							target="_new"><b><font color=blue>Россия</font> <font
+									color=red>24</font></b></a> &nbsp; <a
+							href="http://lifenews.ru/watch-live" target="_new"><b><font
+									color=red>Life News</font></b></a> <br /> <iframe
+								src="http://player.rutv.ru/index/iframe/cast_id/21" width="350"
+								height="180"></iframe></td>
+						<td valign=top><br /> <script async
+								src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+							<!-- top2 --> <ins class="adsbygoogle"
+								style="display: inline-block; width: 350px; height: 180px"
+								data-ad-client="ca-pub-2500695075596096"
+								data-ad-slot="2333160565"></ins> <script>
+									(adsbygoogle = window.adsbygoogle || [])
+											.push({});
+								</script></td>
 
-				<table width=440>
-					<tr width=440>
-						<td width=440>
-							<center>
-								<b> <font size=5 color=red>АГОНЬ</font> <font size=5
-									color=grey>У</font> <font size=5 color=gray>КРАЯ</font></b> <br />
-								<i><b>Агония</b> (от др.-греч. ἀγωνία — борьба) — последняя
-									стадия умирания, которая связана с активизацией компенсаторных
-									механизмов, направленных на борьбу с угасанием жизненных сил
-									организма. В большинстве случаев агония предшествует
-									наступлению смерти. </i> <br />________________________________________________________<br />
-								<br />
+					</tr>
 
-							</center>
+				</table>
+				
+			<table><!-- style="background: url(uz2.jpg) no-repeat 0 0;" -->
+					<tr height=700 valign=top>
+						<td width=720 valign=top><span id="foo"> <iframe height="1200"
+								width="720"
+								src="http://rusvesna.su/news"
+								scrolling="auto" frameborder="0"
+								style="border: 0px none transparent;"> </iframe></span></td>
+					</tr>
+				</table>
+			</td>
+
+			<td>&nbsp;</td>
+			
+			
+			
+						<td valign=top align=left>
+
+				<table>
+					<tr>
+						<td width=440 style="text-align: center;"><b> <font
+								size=5 color=red>АГОНЬ</font> <font size=5 color=grey>У</font> <font
+								size=5 color=gray>КРАЯ</font></b> <br /> <i><font color=black><b>Агония</b>
+									(от др.-греч. ἀγωνία — борьба) — последняя стадия умирания,
+									которая связана с активизацией компенсаторных механизмов,
+									направленных на борьбу с угасанием жизненных сил организма. В
+									большинстве случаев агония предшествует наступлению смерти. </font></i> <br />
 						</td>
 					</tr>
 				</table>
-				<table>
+
+				<table width=100%>
 					<tr>
-						<td>zello "Самооборона" <br /> <iframe height="100"
-								width="220"
-								src="http://www.ustream.tv/embed/4434849?v=3&amp;wmode=direct"
-								scrolling="no" frameborder="0"
-								style="border: 0px none transparent;"> </iframe></td>
-
-						<td>zello "Донецк" <br /> <object height="100" width="220">
-								<param name="movie" value="http://www.youtube.com/v/7S3Pw7fYlZo" />
-								<param name="wmode" value="transparent" />
-								<embed src="http://www.youtube.com/v/7S3Pw7fYlZo"
-									type="application/x-shockwave-flash" wmode="transparent"
-									height="100" width=220 " />
-							</object></td>
-
-					</tr>
-
-					<tr>
-						<td><a
-							href="https://www.youtube.com/watch?v=NFJBHHk4eRQ&feature=player_embedded"
-							height="185" width="220" target="_new">retrans Anti-EU<br />
-								<img src=Anti-EU.jpg height="185" width="220"></a></td>
-
-						<td>домашние языки<br /> <a href="uz.htm" target="_new"><img
-								src="uz.jpg" height="185" width="220"> </a>
+						<td align=center><iframe allowtransparency="true"
+								frameborder="0" scrolling="no" id="chat_embed"
+								src="http://goodgame.ru/chat/lerss" height="444" width="444"></iframe>
 						</td>
+					</tr>
+				</table>
+
+				<table style="background-color: grey">
+
+
+					<tr>
+						<td><a href="http://www.youtube.com/v/ga2L2TTphBE target="_new">RTД
+								на русском языке</a> <br /> <iframe height="185" width="220"
+								src="http://www.youtube.com/v/ga2L2TTphBE" scrolling="no"
+								frameborder="0" style="border: 0px none transparent;">
+							</iframe></td>
+
+						<td><a href="uz.htm" target="_new">домашние языки<br />
+								<img src="uz.jpg" height="185" width="220">
+						</a></td>
 					</tr>
 
 
 					<tr align=left>
 
 
-						<td><a href="http://www.youtube.com/v/ga2L2TTphBE target="_new">RTД
-								на русском языке</a> <br /> <iframe height="185" width="220"
-								src="http://www.youtube.com/v/ga2L2TTphBE" scrolling="no"
-								frameborder="0" style="border: 0px none transparent;">
-							</iframe></td>
+						<td><a href="http://www.justin.tv/kukatverskoy">стрим
+								KukaTverskoy</a> <br /> <object
+								type="application/x-shockwave-flash"
+								data="http://www.justin.tv/swflibs/JustinPlayer.swf?channel=kukatverskoy"
+								id="live_embed_player_flash" height="185" width="220"
+								bgcolor="#000000">
+								<param name="allowFullScreen" value="true" />
+								<param name="allowScriptAccess" value="always" />
+								<param name="allowNetworking" value="all" />
+								<param name="movie"
+									value="http://www.justin.tv/swflibs/JustinPlayer.swf" />
+								<param name="flashvars"
+									value="hostname=www.justin.tv&channel=kukatverskoy&auto_play=false&start_volume=25" />
+							</object></td>
 
 
 						<td><a href="http://www.ustream.tv/channel/newsfront3"
@@ -93,12 +161,11 @@
 
 					<tr align=left>
 						<td><a href="http://www.ustream.tv/channel/newsfront"
-							target="_new">newsfront</a> <br /> <iframe height="185"
-								width="220"
-								src="http://www.ustream.tv/embed/17862762?v=3&amp;wmode=direct"
+							target="_new">newsfront</a> <br /> <iframe width="220"
+								height="185"
+								src="http://www.ustream.tv/embed/18018365?v=3&amp;wmode=direct"
 								scrolling="no" frameborder="0"
-								style="border: 0px none transparent;"> </iframe></td>
-
+								style="border: 0px none transparent;"> </iframe>
 						<td><a href="http://www.ustream.tv/channel/newsfront1"
 							target="_new">newsfront1</a> <br /> <iframe height="185"
 								width="220"
@@ -118,144 +185,23 @@
 						<td><a href="http://www.ustream.tv/channel/newsfront4"
 							target="_new">newsfront4</a> <br /> <iframe height="185"
 								width="220"
-								src="http://www.ustream.tv/embed/17862887?v=3&amp;wmode=direct"
+								src="http://www.ustream.tv/embed/18018298?v=3&amp;wmode=direct"
 								scrolling="no" frameborder="0"
 								style="border: 0px none transparent;"> </iframe></td>
 
 					</tr>
-
-
-
-
-
-				
-
-					<!-- 
-					<tr align=left>
-
-						<td><a href="http://www.ustream.tv/channel/donbass-stream"
-							target="_new">donbass-stream</a> <br /> <iframe height="185"
-								width=220
-								" src="http://www.ustream.tv/embed/17747676?v=3&amp;wmode=direct"
-								scrolling="no" frameborder="0"
-								style="border: 0px none transparent;"> </iframe></td>
-
-						<td><a href="http://www.ustream.tv/channel/lugastrim"
-							target="_new">lugastrim</a> <br /> <iframe height="185"
-								width=220
-								" src="http://www.ustream.tv/embed/17472923?v=3&amp;wmode=direct"
-								scrolling="no" frameborder="0"
-								style="border: 0px none transparent;"> </iframe></td>
-					</tr>
-					
-						<tr align=left>
-						<td>русский марш <br /> <object height="185" width=220">
-								<param name="movie" value="http://www.youtube.com/v/FJxmjx3roYw" />
-								<param name="wmode" value="transparent" />
-								<embed src="http://www.youtube.com/v/FJxmjx3roYw"
-									type="application/x-shockwave-flash" wmode="transparent"
-									height="185" width="220" />
-							</object></td>
-
-
-						<td><a href="http://www.youtube.com/v/KS9Zj8QXKVA"
-							target="_new">песни Одессы</a> <br /> <iframe height="185"
-								width="220" src="http://www.youtube.com/v/KS9Zj8QXKVA"
-								scrolling="no" frameborder="0"
-								style="border: 0px none transparent;"> </iframe></td>
-						</td>
-
-
-
-					</tr>
-					
- -->
-					<!-- <iframe width="455" height="477" src="qq" scrolling="no" frameborder="0" style="border: 0px none transparent;">    </iframe> -->
 
 
 				</table>
 			</td>
 
-			<td>&nbsp;</td>
-
-			<td valign=top align=center><iframe width="728" height="700"
-					src="http://rusvesna.su/news" scrolling="yes" frameborder="0"
-					style="border: 0px none transparent;"> </iframe>
-				<table>
-					<tr align=left>
-						<td><a href="http://player.rutv.ru/iframe/live/id/2961"
-							target=_new><b><font color=blue>Россия</font> <font
-									color=red>1</font></b></a> &nbsp; <a
-							href="http://player.rutv.ru/iframe/live/id/3465?time_play=0"
-							target=_new><b><font color=blue>Россия</font> <font
-									color=red>2</font></b></a> &nbsp; <a
-							href="http://player.rutv.ru/index/iframe/cast_id/21"
-							target="_new"><b><font color=blue>Россия</font> <font
-									color=red>24</font></b></a> &nbsp; <a
-							href="http://lifenews.ru/watch-live" target="_new"><b><font
-									color=red>Life News</font></b></a> <br /> <iframe
-								src="http://player.rutv.ru/index/iframe/cast_id/21" width="350"
-								height="180"></iframe></td>
-						<td valign=top>
-						<br />
-							
-							<script async
-								src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-							<!-- top2 --> <ins class="adsbygoogle"
-								style="display: inline-block; width: 350px; height: 100px"
-								data-ad-client="ca-pub-2500695075596096"
-								data-ad-slot="2333160565"></ins> <script>
-									(adsbygoogle = window.adsbygoogle || [])
-											.push({});
-								</script>
-								
-								<object height="80" width=350">
-								<param name="movie" value="http://www.youtube.com/v/FJxmjx3roYw" />
-								<param name="wmode" value="transparent" />
-								<embed src="http://www.youtube.com/v/FJxmjx3roYw"
-									type="application/x-shockwave-flash" wmode="transparent"
-									height="80" width="350" />
-							</object>
-								</td>
-						<!-- 
-<a href="http://www.justin.tv/kukatverskoy">KukaTverskoy</a>
-							<br /> <object type="application/x-shockwave-flash"
-								data="http://www.justin.tv/swflibs/JustinPlayer.swf?channel=kukatverskoy"
-								id="live_embed_player_flash" height="180" width="350"
-								bgcolor="#000000">
-								<param name="allowFullScreen" value="true" />
-								<param name="allowScriptAccess" value="always" />
-								<param name="allowNetworking" value="all" />
-								<param name="movie"
-									value="http://www.justin.tv/swflibs/JustinPlayer.swf" />
-								<param name="flashvars"
-									value="hostname=www.justin.tv&channel=kukatverskoy&auto_play=false&start_volume=25" />
-							</object>
- -->
-					</tr>
-
-
-
-					<tr>
-						<td><iframe allowtransparency="true" frameborder="0"
-								scrolling="no" id="chat_embed"
-								src="http://goodgame.ru/chat/lerss" height="380" width="350"></iframe></td>
-						<td><iframe allowtransparency="true" frameborder="0"
-								scrolling="no" id="chat_embed"
-								src="http://goodgame.ru/chat/demon_dobra" height="380"
-								width="350"></iframe></td>
-					</tr>
-				</table> <!-- <a href=http://rusnod.ru/theme3348.html target="_new">мы протестуем<img src=2.jpg height="150" width=220"></a> -->
-
-			</td>
 		</tr>
 	</table>
 
-	<center>
-		<br /> Контакт: <a href=mailto:kuka@quicklydone.com>kuka@quicklydone.com</a>,
-		тел. 1-647-765-4386 <br /> 2014 Фонд концептуальных технологий <a
-			href=http://feofan.com>http://feofan.com</a>
-	</center>
+	<div align=center>
+		<font color=black>2014</font> <a href=http://feofan.com><font
+			color=grey>feofan.com</font></a>
+	</div>
 
 </body>
 </html>
