@@ -53,12 +53,10 @@ public class mail extends HttpServlet {
 		String sh = req.getScheme() + "://" + req.getServerName() + ":"	+ req.getServerPort() + req.getContextPath();
 
 	
-		String s= "ddtor dd.mail test 222222222222222\r\n3333333";
-		//stkl.rfu_utf(sh+"/edit.html");	
-		//stkl.blob_r("1.txt");	
-		//send_admin("subj",s,s);
-		stkl.sm2a("ddtor admin mailing test ", s);
-	
+		String s= new Date().toString();
+		stkl.sm2a("test "+s, s);
+		//send_admin("send_admin", s);
+		
 		resp.setCharacterEncoding("UTF8"); 
 		resp.setContentType("text/html");
 		
@@ -110,7 +108,7 @@ public class mail extends HttpServlet {
 		out.close();
 	}
 	
-	private void send_admin(String subject, String body, String txt)
+	private void send_admin(String subject, String body)
 			 {
 		Properties props = new Properties();
 		Session session = Session.getDefaultInstance(props, null);
@@ -126,15 +124,8 @@ public class mail extends HttpServlet {
 		msg.addRecipient(Message.RecipientType.TO,
 				new InternetAddress("admins"));
 		msg.setSubject(subject);
-		// msg.setText(body);
-
-		// msg.setText("<b>UFOS</b> <i>Daily Activity Report</i> attached");
-		
-		body= "The test on admins: " + body;
-		
-		
 		msg.setText(body);
-
+/*
 		Multipart mp = new MimeMultipart();
 
 		MimeBodyPart textPart = new MimeBodyPart();
@@ -165,6 +156,7 @@ public class mail extends HttpServlet {
 		mp.addBodyPart(attachment);
 
 		msg.setContent(mp);
+*/
 		// msg.setSubject(String.format(subj));
 
 		// Transport.send(msg);

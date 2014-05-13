@@ -62,7 +62,10 @@ import com.google.appengine.api.files.FileWriteChannel;
 
 public class stkl {
 	public static String sts="";
-	
+	public static int nrt=0;
+	public static ArrayList<String>  ar_rt = new ArrayList<String>();
+	public static ArrayList<String>  ar_tass = new ArrayList<String>();
+    
 	public static String rfu_utf(String s) {
 		try {
 			URL url = new URL(s);
@@ -258,8 +261,8 @@ public class stkl {
 		Message msg = new MimeMessage(session);
 
 		try {
-			msg.setFrom(new InternetAddress("ddtor M", "admin@ddtor.com"));
-
+			msg.setFrom(new InternetAddress("admin@ddtor.com", "ddtor M"));
+			//msg.setFrom(new InternetAddress("ymilov@gmail.com", "ddtor admin"));
 			msg.addRecipient(Message.RecipientType.TO, new InternetAddress(
 					"admins"));
 			msg.setSubject(subject);
