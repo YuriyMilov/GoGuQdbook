@@ -31,7 +31,8 @@ public class m2b1 extends HttpServlet {
 		//for (FeedMessage message : feed.getMessages()) {
 		//body=message.getDescription();
 		//}
-		FeedMessage message = feed.getMessages().get((int)Math.random()*20+1);
+		int i=((int)(Math.random()*20))+1;
+		FeedMessage message = feed.getMessages().get(i);
 		body=message.getDescription();
 		body=body.replace(" <a href=\"", " ").replace("\">Читать далее</a>", "\r\n\r\n.");
 		subj=message.getTitle();

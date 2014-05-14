@@ -25,15 +25,17 @@ public class m2b2 extends HttpServlet {
 			throws IOException {
 		//String sh = req.getScheme() + "://" + req.getServerName() + ":"	+ req.getServerPort() + req.getContextPath();
 		try{			
-		String s = "http://yugovostok-ua.su/rss.xml",subj="", body="";	
+		String s = "http://itar-tass.com/rss/v2.xml",subj="", body="";	
 		RSSFeedParser parser = new RSSFeedParser(s);
 		Feed feed = parser.readFeed();	
 		//for (FeedMessage message : feed.getMessages()) {
 		//body=message.getDescription();
 		//}
-		FeedMessage message = feed.getMessages().get((int)Math.random()*20+1);
-		body=message.getDescription();
-		body=body.replace(" <a href=\"", " ").replace("\">Читать далее</a>", "\r\n\r\n.");
+		int i=((int)(Math.random()*20))+1;
+		FeedMessage message = feed.getMessages().get(i);
+
+		body=message.getDescription() + " "+ message.getLink() +"\r\n\r\n.";
+		//body=body.replace(" <a href=\"", " ").replace("\">Читать далее</a>", "\r\n\r\n.");
 		subj=message.getTitle();
 		s=subj+ ": "+ body;
 		subj = MimeUtility.encodeText(subj, "utf8", null);
