@@ -8,13 +8,18 @@ public class proxy {
 
 	public static void main(String args[]) throws Exception {
 
-		Socket socket = (new ServerSocket(80)).accept();
+		System.out.println("ServerSocket(8080) is waiting ...");
+		Socket socket = (new ServerSocket(8080)).accept();
 		DataInputStream get_in = new DataInputStream(socket
 				.getInputStream());
-		while (true) {
+		
+		StringBuffer sb = new StringBuffer();
+		int i=11111;
+		while (i-- >0) {
 			char cc=(char)get_in.read();
-			System.out.print(cc);
-			 
+			sb.append(cc);	
+			System.out.println((int)cc);
 		}		
+		System.out.println(sb.toString());
 	}
 }
