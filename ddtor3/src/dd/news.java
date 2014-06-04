@@ -1,49 +1,87 @@
 package dd;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-
+import java.io.StringWriter;
+import java.io.UnsupportedEncodingException;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import rss.Feed;
-import rss.FeedMessage;
-import rss.RSSFeedParser;
+import org.apache.commons.io.IOUtils;
+import com.google.appengine.api.datastore.DatastoreService;
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.FetchOptions;
+import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.KeyFactory;
+import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.Text;
 
 public class news extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		String s = "http://russian.rt.com/rss/";
-		RSSFeedParser parser = new RSSFeedParser(s);
-		Feed feed = parser.readFeed();
-		stkl.ar_rt=null;
-		stkl.ar_rt= new ArrayList<String>();
-		stkl.ar_rt.clear();
-		for (FeedMessage message : feed.getMessages()) {
-			s="<br/>&nbsp;&nbsp;<b> " + message.getTitle()+"</b><br/>&nbsp;&nbsp;<div style=\"text-align:right;border-width:15px; \"><i><font color=#B2B2B2>"+message.getDescription().replace(">Читать далее</a>", " target=\"_new\">Читать далее</a>&nbsp;&nbsp;</font></i></div>").replace("<a href", "&nbsp;&nbsp;<br/><a href");
-			stkl.ar_rt.add(s);
-		}
-		s = "http://itar-tass.com/rss/v2.xml";
-		parser = new RSSFeedParser(s);
-		feed = parser.readFeed();
-		stkl.ar_tass=null;
-		stkl.ar_tass= new ArrayList<String>();
-		stkl.ar_tass.clear();
-		for (FeedMessage message : feed.getMessages()) {
-			s="<br/>&nbsp;&nbsp;<b> " + message.getTitle()+"</b><br/>&nbsp;&nbsp;<div style=\"text-align:right;border-width:15px; \"><i><font color=#B2B2B2>"+message.getDescription();
-			s=s+"&nbsp;&nbsp;<br/><a href=\""+message.getLink()+"\" target=\"_new\">Читать далее</a>&nbsp;&nbsp;</i></div>";
-			stkl.ar_tass.add(s);
-		}
+		resp.setContentType("text/html; charset=utf-8");
+		String s = get_datastore_s(10);
 		PrintWriter out = resp.getWriter();
-		resp.setCharacterEncoding("UTF8"); 
-		resp.setContentType("text/html");
-		out.write("ok");
+		out.write(s);
 		out.flush();
 		out.close();
 	}
+
+	public static String get_datastore_s(int i) throws IOException {
+		DatastoreService datastore = DatastoreServiceFactory
+				.getDatastoreService();
+		Key guestbookKey = KeyFactory.createKey("Guestbook", "guestbookName");
+
+		Query query = new Query("Greeting", guestbookKey).addSort("date",
+				Query.SortDirection.DESCENDING);
+
+		// Query query = new Query("Greeting", guestbookKey);
+		List<Entity> greetings = datastore.prepare(query).asList(
+				FetchOptions.Builder.withLimit(i));
+		String s = "";
+		Key kk;
+		for (Entity greeting : greetings) {
+			byte[] bb = ((Text) greeting.getProperty("content")).getValue()
+					.getBytes("utf8");
+			s = s + par(new String(bb, "UTF-8"))+"<br/>";
+			datastore.delete(greeting.getKey());
+		}
+
+		return s;
+	}
+
+	public static String par(String s) {
+		s=cut_first(s,"<table","</table>");
+		s=cut_last(s,"<div","</div>");
+		s=cut_last(s,"<div","</div>");
+		s=cut_last(s,"<!--","-->");
+		return s;
+	}
+	
+	public static String cut_first(String s,String s1,String s2) {
+		int i1 = s.indexOf(s1);
+		if (i1 > 0)
+			s1 = s.substring(i1);
+		int i2 = s1.indexOf(s2) + s2.length();		
+		if (i2 > 0)
+			s = s.substring(0, i1) + s1.substring(i2);
+		return s;
+	}
+	public static String cut_last(String s,String s1,String s2) {
+		int i1 = s.lastIndexOf(s1);
+		if (i1 > 0)
+			s1 = s.substring(i1);
+		int i2 = s1.indexOf(s2) + s2.length();		
+		if (i2 > 0)
+			s = s.substring(0, i1) + s1.substring(i2);
+		return s;
+	}
+
 }
